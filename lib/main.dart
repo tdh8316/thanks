@@ -32,7 +32,7 @@ class SplashState extends State<Splash> {
   }
 
   startTime() async {
-    return Timer(Duration(seconds: 3), navigationPage);
+    return Timer(Duration(milliseconds: 2500), navigationPage);
   }
 
   void navigationPage() {
