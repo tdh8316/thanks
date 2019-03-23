@@ -1,6 +1,6 @@
 # thanks
 
-A new Flutter project.
+All that Thanks
 
 ## Getting Started
 

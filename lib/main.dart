@@ -12,9 +12,6 @@ class App extends StatelessWidget {
       title: "All that Thanks",
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "나눔바른펜"),
       home: Splash(),
-      routes: <String, WidgetBuilder>{
-        "HomeTab": (BuildContext context) => HomeTab(),
-      },
     );
   }
 }
@@ -28,15 +25,15 @@ class SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    startTime();
+    splash();
   }
 
-  startTime() async {
-    return Timer(Duration(milliseconds: 2500), navigationPage);
-  }
+  Future<Timer> splash() async =>
+      Timer(Duration(milliseconds: 2500), navigationPage);
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed("HomeTab");
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => HomeTab()));
   }
 
   @override
@@ -65,7 +62,7 @@ class SplashState extends State<Splash> {
           ),
           Center(
             child: Text(
-              "Made with 💕 by 2019-DreamHigh",
+              "Made with 💕 by 2019 DreamHigh",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
