@@ -1,4 +1,3 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +8,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
-  static int _index = 0;
-
   @override
   void initState() {
     super.initState();
@@ -20,29 +17,6 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
   void dispose() {
     super.dispose();
   }
-
-  tabController(index) {
-    _index = index;
-  }
-
-  BottomNavyBar navigationBar() => BottomNavyBar(
-        currentIndex: _index,
-        onItemSelected: (index) => setState(() => tabController(index)),
-        items: [
-          BottomNavyBarItem(
-            icon: Icon(Icons.apps),
-            title: Text("Home"),
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.event_note),
-            title: Text("Writing"),
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.book),
-            title: Text("Entries"),
-          ),
-        ],
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +48,6 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
       body: SafeArea(
         child: dateWidget,
       ),
-      bottomNavigationBar: navigationBar(),
     );
   }
 }

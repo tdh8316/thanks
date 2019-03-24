@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/screens/tabs/home_tab.dart';
+import 'package:thanks/screens/app.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _SplashState extends State<Splash> {
 
   void navigationPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeTab()));
+        context, MaterialPageRoute(builder: (context) => App()));
   }
 
   @override

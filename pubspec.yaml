@@ -54,11 +54,11 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  
+
   fonts:
-    - family: 나눔바른펜
-      fonts:
-        - asset: fonts/nanumbarunpen.ttf
+  - family: 나눔바른펜
+    fonts:
+    - asset: fonts/nanumbarunpen.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
