@@ -20,8 +20,8 @@ class _EntriesTabState extends State<EntriesTab>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: Center(child: Text("ENTRIES", style: TextStyle(fontSize: 64))),
       ),
     );

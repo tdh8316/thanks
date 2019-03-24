@@ -44,8 +44,11 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
         ),
       ],
     );
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Center(child: Text("Thanks")),
+      ),
+      child: SafeArea(
         child: dateWidget,
       ),
     );

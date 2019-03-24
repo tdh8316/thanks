@@ -20,8 +20,8 @@ class _WritingTabState extends State<WritingTab>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: Center(child: Text("WRITING", style: TextStyle(fontSize: 64))),
       ),
     );

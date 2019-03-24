@@ -27,7 +27,7 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
 
   tabController(index) {
     _index = index;
-    _controller.animateTo(_index);
+    _controller.animateTo(_index, curve: Curves.easeOut);
   }
 
   BottomNavyBar navigationBar() => BottomNavyBar(
