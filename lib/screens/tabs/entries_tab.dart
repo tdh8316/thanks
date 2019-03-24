@@ -22,7 +22,7 @@ class _EntriesTabState extends State<EntriesTab>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(child: Text("WRITING", style: TextStyle(fontSize: 64))),
+        child: Center(child: Text("ENTRIES", style: TextStyle(fontSize: 64))),
       ),
     );
   }
