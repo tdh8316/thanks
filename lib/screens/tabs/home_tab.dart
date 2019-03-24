@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/i18n/i18n.dart';
 
@@ -45,6 +46,15 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
         ),
       ],
     );
+
+    List<double> data = [3, 2, 4, 3, 1, 2, 4];
+
+    Sparkline graph = Sparkline(
+      data: data,
+    );
+
+    var graphWidget = Container(child: graph);
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Center(child: Text("All that Thanks")),
@@ -55,7 +65,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           children: <Widget>[
             dateWidget,
             Padding(padding: EdgeInsets.all(64)),
-            // graphWidget,
+            graphWidget,
           ],
         ),
       ),
