@@ -1,8 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:thanks/i18n/i18n.dart' ;
 import 'package:thanks/screens/app.dart';
+
+Future<Null> i18nLoader(BuildContext context) async {
+  trDict = json.decode(
+    await loadJsonAsString(Localizations.localeOf(context).toString()),
+  );
+}
 
 class Splash extends StatefulWidget {
   @override
@@ -26,6 +34,7 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    i18nLoader(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:thanks/i18n/i18n.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
         Container(
           margin: EdgeInsets.only(top: 32, left: 56),
           child: Text(
-            "${DateFormat("EEEE").format(nowTime)}",
+            "${tr(DateFormat("EEEE").format(nowTime))}",
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
@@ -46,10 +47,17 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
     );
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Center(child: Text("Thanks")),
+        middle: Center(child: Text("All that Thanks")),
       ),
       child: SafeArea(
-        child: dateWidget,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            dateWidget,
+            Padding(padding: EdgeInsets.all(64)),
+            // graphWidget,
+          ],
+        ),
       ),
     );
   }
