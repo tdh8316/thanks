@@ -28,7 +28,7 @@ class _SplashState extends State<Splash> {
         Duration(milliseconds: 2500),
         () {
           Navigator.of(context).pushReplacement(
-            CupertinoPageRoute(
+            MaterialPageRoute(
               builder: (context) => App(),
             ),
           );
