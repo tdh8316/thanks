@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/i18n/i18n.dart' ;
+import 'package:thanks/i18n/i18n.dart';
 import 'package:thanks/screens/app.dart';
 
 Future<Null> i18nLoader(BuildContext context) async {
@@ -21,15 +21,20 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    splash();
-  }
 
-  Future<Timer> splash() async =>
-      Timer(Duration(milliseconds: 2500), navigationPage);
-
-  void navigationPage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => App()));
+    // Await 2500 milliseconds and navigate to App
+    () async {
+      Timer(
+        Duration(milliseconds: 2500),
+        () {
+          Navigator.of(context).pushReplacement(
+            CupertinoPageRoute(
+              builder: (context) => App(),
+            ),
+          );
+        },
+      );
+    }();
   }
 
   @override

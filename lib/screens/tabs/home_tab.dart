@@ -65,7 +65,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           children: <Widget>[
             dateWidget,
             Padding(padding: EdgeInsets.all(64)),
-            graphWidget,
+            // graphWidget,
           ],
         ),
       ),
