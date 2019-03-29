@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:thanks/loader.dart';
+import 'package:thanks/core/loader.dart';
 
 void main() => runApp(App());
 

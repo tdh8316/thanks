@@ -1,3 +1,8 @@
+/*
+Application root
+ - Generate tab widgets
+ */
+
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

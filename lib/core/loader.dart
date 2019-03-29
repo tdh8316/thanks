@@ -1,3 +1,9 @@
+/*
+Application core loader
+ - Initialize i18n
+ - TODO: Load Thanks Diaries
+ */
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -6,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:thanks/i18n/i18n.dart';
 import 'package:thanks/screens/app.dart';
 
-Future<Null> i18nLoader(BuildContext context) async {
+Future<Null> initI18n(BuildContext context) async {
   trDict = json.decode(
     await loadJsonAsString(Localizations.localeOf(context).toString()),
   );
@@ -35,11 +41,12 @@ class _SplashState extends State<Splash> {
         },
       );
     }();
+
+    initI18n(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    i18nLoader(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
@@ -52,6 +59,8 @@ class _SplashState extends State<Splash> {
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
+
+                // Foreground gradient of the text.
                 foreground: Paint()
                   ..shader = LinearGradient(
                     end: Alignment.topRight,
