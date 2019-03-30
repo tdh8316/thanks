@@ -22,7 +22,18 @@ class _WritingTabState extends State<WritingTab>
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       child: SafeArea(
-        child: Center(child: Text("WRITING", style: TextStyle(fontSize: 64))),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                CupertinoButton(
+                  child: Icon(Icons.mood),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

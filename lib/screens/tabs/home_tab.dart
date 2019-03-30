@@ -62,9 +62,6 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
     var graphWidget = Container(child: graph);
 
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Center(child: Text("All that Thanks")),
-      ),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
