@@ -13,7 +13,7 @@ import 'package:thanks/i18n/i18n.dart' show trHashMap, loadJsonAsString;
 import 'package:thanks/screens/app.dart' show App;
 
 Future<Null> initI18n(BuildContext context) async {
-  trHashMap = json.decode(
+  trHashMap ??= json.decode(
     await loadJsonAsString(Localizations.localeOf(context).toString()),
   );
 }
@@ -41,12 +41,11 @@ class _SplashState extends State<Splash> {
         },
       );
     }();
-
-    initI18n(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    initI18n(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
