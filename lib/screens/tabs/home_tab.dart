@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/i18n/i18n.dart' show tr;
+import 'package:thanks/widgets/calendar/calendar.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -61,6 +62,13 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
 
     var graphWidget = Container(child: graph);
 
+    var calendarWidget = Calendar(
+      onDateSelected: (DateTime time) {
+        print(time);
+      },
+      isExpandable: false,
+    );
+
     return CupertinoPageScaffold(
       child: SafeArea(
         child: Column(
@@ -69,6 +77,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
             dateWidget,
             Padding(padding: EdgeInsets.all(64)),
             // graphWidget,
+            // calendarWidget,
           ],
         ),
       ),
