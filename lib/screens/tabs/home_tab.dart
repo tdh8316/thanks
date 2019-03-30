@@ -1,8 +1,14 @@
+/*
+Tab widget - Home
+ - Date widget
+ - TODO: Graph widget
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:intl/intl.dart';
-import 'package:thanks/i18n/i18n.dart';
+import 'package:thanks/i18n/i18n.dart' show tr;
 
 class HomeTab extends StatefulWidget {
   @override

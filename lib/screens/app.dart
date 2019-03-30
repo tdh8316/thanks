@@ -6,9 +6,9 @@ Application root
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/screens/tabs/entries_tab.dart';
-import 'package:thanks/screens/tabs/home_tab.dart';
-import 'package:thanks/screens/tabs/writing_tab.dart';
+import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
+import 'package:thanks/screens/tabs/home_tab.dart' show HomeTab;
+import 'package:thanks/screens/tabs/writing_tab.dart' show WritingTab;
 
 class App extends StatefulWidget {
   @override

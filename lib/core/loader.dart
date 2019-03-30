@@ -9,11 +9,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/i18n/i18n.dart';
-import 'package:thanks/screens/app.dart';
+import 'package:thanks/i18n/i18n.dart' show trHashMap, loadJsonAsString;
+import 'package:thanks/screens/app.dart' show App;
 
 Future<Null> initI18n(BuildContext context) async {
-  trDict = json.decode(
+  trHashMap = json.decode(
     await loadJsonAsString(Localizations.localeOf(context).toString()),
   );
 }
