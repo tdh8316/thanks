@@ -27,6 +27,8 @@ dependencies:
   intl: ^0.15.7
   bottom_navy_bar: ^4.0.0
   flutter_sparkline: ^0.1.0
+  path_provider: ^0.5.0+1
+  encrypt: ^2.0.0
   date_utils:
   tuple:
 

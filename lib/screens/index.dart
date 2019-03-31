@@ -10,12 +10,12 @@ import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
 import 'package:thanks/screens/tabs/home_tab.dart' show HomeTab;
 import 'package:thanks/screens/tabs/writing_tab.dart' show WritingTab;
 
-class App extends StatefulWidget {
+class Index extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _AppState();
+  State<StatefulWidget> createState() => _IndexState();
 }
 
-class _AppState extends State<App> with SingleTickerProviderStateMixin {
+class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   static int _index = 0;
   TabController _controller;
 

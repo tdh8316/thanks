@@ -11,7 +11,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/i18n/i18n.dart' show trHashMap, loadJsonAsString;
-import 'package:thanks/screens/app.dart' show App;
+import 'package:thanks/screens/index.dart' show Index;
 
 enum DotType { square, circle, diamond, icon }
 
@@ -206,7 +206,7 @@ class _SplashState extends State<Splash> {
         () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => App(),
+              builder: (context) => Index(),
             ),
           );
         },
