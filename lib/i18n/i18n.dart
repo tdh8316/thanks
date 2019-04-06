@@ -14,7 +14,6 @@ Future<String> loadJsonAsString(String language) async {
 
 Map<String, dynamic> trHashMap;
 
-// Return the translated if it is in the map && map != null or the original if it is not.
 String tr(String key) => (trHashMap != null)
     ? (trHashMap.containsKey(key) ? trHashMap[key] : key)
     : (key);
