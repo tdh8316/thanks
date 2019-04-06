@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
-Future<String> get _localPath async =>
-    await getApplicationDocumentsDirectory().then((_) => _.path);
+Future<String> get _localPath async => await getApplicationDocumentsDirectory()
+    .then((documentsDir) => documentsDir.path);
 
 Future<File> writeFile(String fileName, String str, {encrypt}) async {
   // TODO: Encryption
