@@ -4,6 +4,7 @@ Application root
  */
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
@@ -45,13 +46,22 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
             title: Text("Home"),
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.event_note),
+            icon: Icon(Icons.add),
             title: Text("Writing"),
           ),
           BottomNavyBarItem(
-            icon: Icon(Icons.book),
+            icon: Icon(Icons.event_note),
             title: Text("Entries"),
           ),
+        ],
+      );
+
+  FancyBottomNavigation animatedNavigationBar() => FancyBottomNavigation(
+        onTabChangedListener: (index) => setState(() => tabController(index)),
+        tabs: <TabData>[
+          TabData(iconData: Icons.home, title: "Home"),
+          TabData(iconData: Icons.add, title: "Writing"),
+          TabData(iconData: Icons.event_note, title: "Entries"),
         ],
       );
 
@@ -66,7 +76,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
           EntriesTab(),
         ],
       ),
-      bottomNavigationBar: navigationBar(),
+      bottomNavigationBar: animatedNavigationBar(),
     );
   }
 }
