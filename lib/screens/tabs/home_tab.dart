@@ -6,11 +6,8 @@ Tab widget - Home
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:intl/intl.dart';
-import 'package:thanks/core/db/graph_provider.dart';
 import 'package:thanks/i18n/i18n.dart' show tr;
-import 'package:thanks/widgets/calendar/calendar.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -55,7 +52,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
       ],
     );
 
-    List<double> data = graphProvider() as List<double>;
+    /*List<double> data = graphProvider() as List<double>;
 
     Sparkline graph = Sparkline(
       data: data,
@@ -68,7 +65,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
         print(time);
       },
       isExpandable: false,
-    );
+    );*/
 
     return CupertinoPageScaffold(
       child: SafeArea(
