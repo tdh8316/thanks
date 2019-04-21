@@ -87,10 +87,9 @@ class _GoogleLoaderState extends State<GoogleLoader>
           new Transform.translate(
             offset: Offset(
               0.0,
-              -30 *
-                  (animation_1.value <= 0.50
-                      ? animation_1.value
-                      : 1.0 - animation_1.value),
+              -30 * animation_1.value <= 0.50
+                  ? animation_1.value
+                  : 1.0 - animation_1.value,
             ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
@@ -105,10 +104,9 @@ class _GoogleLoaderState extends State<GoogleLoader>
           Transform.translate(
             offset: Offset(
               0.0,
-              -30 *
-                  (animation_2.value <= 0.50
-                      ? animation_2.value
-                      : 1.0 - animation_2.value),
+              -30 * animation_2.value <= 0.50
+                  ? animation_2.value
+                  : 1.0 - animation_2.value,
             ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
@@ -123,10 +121,9 @@ class _GoogleLoaderState extends State<GoogleLoader>
           Transform.translate(
             offset: Offset(
               0.0,
-              -30 *
-                  (animation_3.value <= 0.50
-                      ? animation_3.value
-                      : 1.0 - animation_3.value),
+              -30 * animation_3.value <= 0.50
+                  ? animation_3.value
+                  : 1.0 - animation_3.value,
             ),
             child: new Padding(
               padding: const EdgeInsets.only(right: 8.0),
@@ -173,10 +170,11 @@ class Dot extends StatelessWidget {
                 width: radius,
                 height: radius,
                 decoration: BoxDecoration(
-                    color: color,
-                    shape: type == DotType.circle
-                        ? BoxShape.circle
-                        : BoxShape.rectangle),
+                  color: color,
+                  shape: type == DotType.circle
+                      ? BoxShape.circle
+                      : BoxShape.rectangle,
+                ),
               ),
             ),
     );
