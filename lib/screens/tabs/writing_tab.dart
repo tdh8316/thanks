@@ -20,20 +20,18 @@ class _WritingTabState extends State<WritingTab>
 
   @override
   Widget build(BuildContext context) {
+    var editor = Column(
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+          ),
+        ),
+      ],
+    );
     return CupertinoPageScaffold(
       child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                CupertinoButton(
-                  child: Icon(Icons.mood),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ],
-        ),
+        child: editor,
       ),
     );
   }
