@@ -25,14 +25,12 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   @override
-  void initState() {
-    super.initState();
-
+  Widget build(BuildContext context) {
     // Await 2500 milliseconds and navigate to App
-    () async {
+        () async {
       Timer(
         Duration(milliseconds: 2500),
-        () {
+            () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => Index(),
@@ -41,11 +39,11 @@ class _SplashState extends State<Splash> {
         },
       );
     }();
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    initI18n(context);
+        () async {
+      initI18n(context);
+    }();
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
