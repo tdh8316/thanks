@@ -27,10 +27,10 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     // Await 2500 milliseconds and navigate to App
-        () async {
+    () async {
       Timer(
         Duration(milliseconds: 2500),
-            () {
+        () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => Index(),
@@ -40,7 +40,7 @@ class _SplashState extends State<Splash> {
       );
     }();
 
-        () async {
+    () async {
       initI18n(context);
     }();
 
