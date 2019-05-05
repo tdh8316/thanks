@@ -13,6 +13,7 @@ import 'package:thanks/i18n/i18n.dart' show trHashMap, loadJsonAsString;
 import 'package:thanks/screens/index.dart' show Index;
 
 Future<Null> initI18n(BuildContext context) async {
+  // Assign translations to hash-map if the hash-map is null
   trHashMap ??= json.decode(
     await loadJsonAsString(Localizations.localeOf(context).toString()),
   );

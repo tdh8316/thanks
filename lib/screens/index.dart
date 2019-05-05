@@ -3,7 +3,6 @@ Application root
  - Generate tab widgets
  */
 
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,25 +35,6 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     _index = index;
     _controller.animateTo(_index, curve: Curves.easeOut);
   }
-
-  BottomNavyBar navigationBar() => BottomNavyBar(
-        currentIndex: _index,
-        onItemSelected: (index) => setState(() => tabController(index)),
-        items: [
-          BottomNavyBarItem(
-            icon: Icon(Icons.apps),
-            title: Text("Home"),
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.add),
-            title: Text("Writing"),
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.event_note),
-            title: Text("Entries"),
-          ),
-        ],
-      );
 
   FancyBottomNavigation animatedNavigationBar() => FancyBottomNavigation(
         onTabChangedListener: (index) => setState(() => tabController(index)),
