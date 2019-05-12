@@ -1,18 +1,17 @@
-/*
-Tab widget - Home
- - Date widget
- */
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:thanks/i18n/i18n.dart' show tr;
+import 'package:zefyr/zefyr.dart';
 
 class StatisticTab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _StatisticTabState();
 }
 
-class _StatisticTabState extends State<StatisticTab> with SingleTickerProviderStateMixin {
+class _StatisticTabState extends State<StatisticTab>
+    with SingleTickerProviderStateMixin {
+  final ZefyrController _controller = ZefyrController(NotusDocument());
+  final FocusNode _focusNode = new FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -23,41 +22,38 @@ class _StatisticTabState extends State<StatisticTab> with SingleTickerProviderSt
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    DateTime nowTime = DateTime.now();
-    var dateWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 32, left: 56),
-          child: Text(
-            "${tr(DateFormat("EEEE").format(nowTime))}",
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 2, left: 64),
-          child: Text(
-            "${DateFormat("d").format(nowTime)} ${DateFormat("MMM").format(nowTime)}",
-            style: TextStyle(
-              fontSize: 26,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
+  Widget buildEditor() {
+    final theme = new ZefyrThemeData(
+      toolbarTheme: ZefyrToolbarTheme.fallback(context).copyWith(
+        color: Colors.grey.shade800,
+        toggleColor: Colors.grey.shade900,
+        iconColor: Colors.white,
+        disabledIconColor: Colors.grey.shade500,
+      ),
     );
 
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          dateWidget,
-          Padding(padding: EdgeInsets.all(64)),
-          // graphWidget,
-        ],
+    return ZefyrTheme(
+      data: theme,
+      child: ZefyrField(
+        height: 200.0,
+        decoration: InputDecoration(labelText: 'Description'),
+        controller: _controller,
+        focusNode: _focusNode,
+        autofocus: true,
+        physics: ClampingScrollPhysics(),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: true,
+      body: ZefyrScaffold(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: buildEditor(),
+        ),
       ),
     );
   }
