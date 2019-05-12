@@ -2,7 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zefyr/zefyr.dart';
 
+enum MoodType { happy, okay, sad }
+
 class WritingTab extends StatefulWidget {
+  final MoodType mood;
+
+  const WritingTab({Key key, this.mood}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _WritingTabState();
 }
@@ -45,14 +51,17 @@ class _WritingTabState extends State<WritingTab>
     );
   }
 
+  //TODO: Need refactoring
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: true,
-      body: ZefyrScaffold(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: buildEditor(),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomPadding: true,
+        body: ZefyrScaffold(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: buildEditor(),
+          ),
         ),
       ),
     );

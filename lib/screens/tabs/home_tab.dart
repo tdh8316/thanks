@@ -7,6 +7,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/i18n/i18n.dart' show tr;
+import 'package:thanks/screens/editor.dart';
+import 'package:thanks/widgets/card/card.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -54,7 +56,10 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
 
     //TODO: Add separators
     var moodWidget = GridView.count(
+      childAspectRatio: 1.5,
       crossAxisCount: 3,
+      physics: BouncingScrollPhysics(),
+      shrinkWrap: true,
       children: <Widget>[
         MaterialButton(
           child: Column(
@@ -67,7 +72,9 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
               Text("Happy"),
             ],
           ),
-          onPressed: null,
+          onPressed: () {
+            pageTransition(context, WritingTab(mood: MoodType.happy));
+          },
         ),
         MaterialButton(
           child: Column(
@@ -80,7 +87,9 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
               Text("Okay"),
             ],
           ),
-          onPressed: null,
+          onPressed: () {
+            pageTransition(context, WritingTab(mood: MoodType.okay));
+          },
         ),
         MaterialButton(
           child: Column(
@@ -93,12 +102,14 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
               Text("Sad"),
             ],
           ),
-          onPressed: null,
+          onPressed: () {
+            pageTransition(context, WritingTab(mood: MoodType.sad));
+          },
         ),
       ],
     );
 
-    return SafeArea(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -151,15 +162,34 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                 text: ["HOW ARE YOU FEELING?"],
                 textStyle: TextStyle(fontSize: 20),
                 isRepeatingAnimation: false,
+                duration: Duration(milliseconds: 2500),
               ),
             ],
           ),
-          Container(height: 8),
-          Expanded(
-            child: moodWidget,
+          Container(height: 16),
+          moodWidget,
+          PaidCard(
+            time: "Made with 💕 by 2019 DreamHigh",
+            date: '키스의 고유 조건은 입술끼리 만나야 하고\n특별한 기술은 필요치 않다.',
+            name: 'Powered by flutter',
+            typeOfService: "Lorem ipsum dolor sit amet, "
+                "consectetur adipiscing elit, sed do eiusmod tempor incididunt "
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+                "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea "
+                "commodo consequat. Duis aute irure dolor in reprehenderit in "
+                "voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+                "Excepteur sint occaecat cupidatat non proident, sunt in culpa "
+                "qui officia deserunt mollit anim id est laborum.",
+            noOfProducts: '귀찮은 일이 뒤따르지 않는 즐거움을 누리는 것을 선택한 사람, '
+                '혹은 아무런 즐거움도 생기지 않는 고통을 회피하는 사람을 누가 탓할 수 있겠는가?',
+            duration: 'Font by NAVER',
           ),
         ],
       ),
     );
+  }
+
+  pageTransition(BuildContext context, Widget page) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 }

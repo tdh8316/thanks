@@ -21,7 +21,7 @@ class _ProfileTabState extends State<ProfileTab>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(child: Text("ENTRIES", style: TextStyle(fontSize: 64))),
+      child: Center(child: Text("Profile", style: TextStyle(fontSize: 64))),
     );
   }
 }
