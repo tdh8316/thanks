@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EntriesTab extends StatefulWidget {
+class CalendarTab extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _EntriesTabState();
+  State<StatefulWidget> createState() => _CalendarTabState();
 }
 
-class _EntriesTabState extends State<EntriesTab>
+class _CalendarTabState extends State<CalendarTab>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -21,7 +21,7 @@ class _EntriesTabState extends State<EntriesTab>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(child: Text("Entries", style: TextStyle(fontSize: 64))),
+      child: Center(child: Text("Calendar", style: TextStyle(fontSize: 64))),
     );
   }
 }

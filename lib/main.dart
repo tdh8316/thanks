@@ -17,8 +17,14 @@ class App extends StatelessWidget {
         const Locale("en", "US"),
         const Locale("ko", "KR"),
       ],
+      // See issue: https://github.com/flutter/flutter/issues/13452
+      locale: Locale("en", "US"),
       title: "All that Thanks",
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "나눔바른펜"),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        fontFamily: "나눔바른펜",
+        platform: TargetPlatform.android,
+      ),
 
       // Display the splash screen
       home: Splash(),

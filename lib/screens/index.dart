@@ -3,12 +3,12 @@ Application root
  - Generate tab widgets
  */
 
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:thanks/screens/tabs/calendar_tab.dart' show CalendarTab;
 import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
-import 'package:thanks/screens/tabs/home_tab.dart' show HomeTab;
-import 'package:thanks/screens/tabs/writing_tab.dart' show WritingTab;
+import 'package:thanks/screens/tabs/profile_tab.dart';
+import 'package:thanks/screens/tabs/statistic_tab.dart' show StatisticTab;
 
 class Index extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 3, vsync: this);
+    _controller = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -36,27 +36,45 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     _controller.animateTo(_index, curve: Curves.easeOut);
   }
 
-  FancyBottomNavigation animatedNavigationBar() => FancyBottomNavigation(
-        onTabChangedListener: (index) => setState(() => tabController(index)),
-        tabs: <TabData>[
-          TabData(iconData: Icons.home, title: "Home"),
-          TabData(iconData: Icons.add, title: "Writing"),
-          TabData(iconData: Icons.event_note, title: "Entries"),
-        ],
-      );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
         controller: _controller,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
-          HomeTab(),
-          WritingTab(),
           EntriesTab(),
+          CalendarTab(),
+          StatisticTab(),
+          ProfileTab(),
         ],
       ),
-      bottomNavigationBar: animatedNavigationBar(),
+      bottomNavigationBar: FlipBoxBar(
+        selectedIndex: _index,
+        items: [
+          FlipBarItem(
+              icon: Icon(Icons.chrome_reader_mode, color: Colors.white),
+              text: Text("Entries"),
+              frontColor: Colors.purple,
+              backColor: Colors.purpleAccent),
+          FlipBarItem(
+              icon: Icon(Icons.calendar_today, color: Colors.white),
+              text: Text("Calendar"),
+              frontColor: Colors.blue,
+              backColor: Colors.blueAccent),
+          FlipBarItem(
+              icon: Icon(Icons.pie_chart_outlined, color: Colors.white),
+              text: Text("statistic"),
+              frontColor: Colors.deepOrange,
+              backColor: Colors.deepOrangeAccent),
+          FlipBarItem(
+              icon: Icon(Icons.tag_faces, color: Colors.white),
+              text: Text("Profile"),
+              frontColor: Colors.pink,
+              backColor: Colors.pinkAccent),
+        ],
+        onIndexChanged: (index) => setState(() => tabController(index)),
+      ),
     );
   }
 }

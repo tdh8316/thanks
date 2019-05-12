@@ -1,20 +1,18 @@
 /*
 Tab widget - Home
  - Date widget
- - TODO: Graph widget
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/i18n/i18n.dart' show tr;
 
-class HomeTab extends StatefulWidget {
+class StatisticTab extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomeTabState();
+  State<StatefulWidget> createState() => _StatisticTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
+class _StatisticTabState extends State<StatisticTab> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -52,32 +50,14 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
       ],
     );
 
-    /*List<double> data = graphProvider() as List<double>;
-
-    Sparkline graph = Sparkline(
-      data: data,
-    );
-
-    var graphWidget = Container(child: graph);
-
-    var calendarWidget = Calendar(
-      onDateSelected: (DateTime time) {
-        print(time);
-      },
-      isExpandable: false,
-    );*/
-
-    return CupertinoPageScaffold(
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            dateWidget,
-            Padding(padding: EdgeInsets.all(64)),
-            // graphWidget,
-            // calendarWidget,
-          ],
-        ),
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          dateWidget,
+          Padding(padding: EdgeInsets.all(64)),
+          // graphWidget,
+        ],
       ),
     );
   }

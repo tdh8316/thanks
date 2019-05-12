@@ -7,7 +7,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/i18n/i18n.dart' show trHashMap, loadJsonAsString;
 import 'package:thanks/screens/index.dart' show Index;
