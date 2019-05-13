@@ -18,7 +18,12 @@ class App extends StatelessWidget {
         const Locale("ko", "KR"),
       ],
       // See issue: https://github.com/flutter/flutter/issues/13452
-      locale: Locale("en", "US"),
+      // locale: Locale("en", "US"),
+      /*
+      Fix #2 by modifying package: zefyr
+       - Pull request: https://github.com/memspace/zefyr/pull/106
+       - Fork: https://github.com/tdh8316/zefyr/tree/fix-cupertino-i18n
+     */
       title: "All that Thanks",
       theme: ThemeData(
         primarySwatch: Colors.blue,

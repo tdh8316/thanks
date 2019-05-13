@@ -114,7 +114,6 @@ class PaidCard extends StatelessWidget {
                         ),
                         Row(
                           children: <Widget>[
-
                             SizedBox(
                               width: 5.0,
                             ),
