@@ -28,7 +28,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: "나눔바른펜",
-        platform: TargetPlatform.android,
+        // platform: TargetPlatform.android,
       ),
 
       // Display the splash screen
