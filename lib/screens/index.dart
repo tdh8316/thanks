@@ -6,18 +6,18 @@ Application root
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/screens/tabs/calendar_tab.dart' show CalendarTab;
 import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
 import 'package:thanks/screens/tabs/home_tab.dart';
 import 'package:thanks/screens/tabs/profile_tab.dart';
 import 'package:thanks/screens/tabs/statistic_tab.dart' show StatisticTab;
+import 'package:thanks/screens/tabs/writing_tab.dart' show WritingTab;
 
 class Index extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _IndexState();
+  State<StatefulWidget> createState() => IndexState();
 }
 
-class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
+class IndexState extends State<Index> with SingleTickerProviderStateMixin {
   static int _index = 0;
   TabController _controller;
 
@@ -33,7 +33,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  tabController(index) {
+  setIndex(int index) {
     _index = index;
     _controller.animateTo(_index, curve: Curves.easeOut);
   }
@@ -44,7 +44,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
       navBarHeight: 75.0,
       animationDuration: Duration(milliseconds: 1500),
       selectedIndex: _index,
-      onIndexChanged: (index) => setState(() => tabController(index)),
+      onIndexChanged: (index) => setState(() => setIndex(index)),
       items: [
         FlipBarItem(
           icon: Icon(Icons.home, color: Colors.black87),
@@ -54,7 +54,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
         ),
         FlipBarItem(
           icon: Icon(Icons.calendar_today, color: Colors.black87),
-          text: Text("Calendar", style: TextStyle(color: Colors.black)),
+          text: Text("Writing", style: TextStyle(color: Colors.black)),
           frontColor: Colors.white,
           backColor: Colors.indigoAccent[100],
         ),
@@ -79,6 +79,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
       ],
     );
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         // TODO: Change to an icon
@@ -94,8 +95,8 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
         controller: _controller,
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
-          HomeTab(),
-          CalendarTab(),
+          HomeTab(indexState: this),
+          WritingTab(),
           StatisticTab(),
           EntriesTab(),
           ProfileTab(),

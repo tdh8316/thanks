@@ -2,32 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zefyr/zefyr.dart';
 
-enum MoodType { happy, okay, sad }
-
 class WritingTab extends StatefulWidget {
-  final MoodType mood;
-
-  const WritingTab({Key key, this.mood}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _WritingTabState();
 }
 
 class _WritingTabState extends State<WritingTab>
     with SingleTickerProviderStateMixin {
-  ZefyrController _controller;
+  int _thxCount = 1;
+  ZefyrController _controller = ZefyrController(NotusDocument());
   final FocusNode _focusNode = new FocusNode();
 
   @override
   void initState() {
     super.initState();
-    final _doc = NotusDocument();
-    _doc.insert(
-        0,
-        "What to Be Thankful For Today...\n"
-        "Hopefully, you are now inspired to write a list of what "
-        "you are grateful for each day and that it will add to your positivity.");
-    _controller = ZefyrController(_doc);
   }
 
   @override
@@ -53,23 +41,45 @@ class _WritingTabState extends State<WritingTab>
         controller: _controller,
         focusNode: _focusNode,
         autofocus: true,
-        physics: ClampingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
       ),
     );
   }
 
-  //TODO: Need refactoring
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: true,
-        body: ZefyrScaffold(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: buildEditor(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 16, left: 8),
+            child: Text(
+              "What are you thankful for today?",
+              style: TextStyle(fontSize: 18),
+            ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.only(top: 16, left: 16),
+            child: SizedBox(
+              width: 250,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: "$_thxCount.",
+                ),
+              ),
+            ),
+          ),
+          Text("TODO"),
+          Expanded(
+            child: ZefyrScaffold(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: buildEditor(),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

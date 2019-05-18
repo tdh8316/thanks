@@ -167,7 +167,7 @@ class PaidCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Do nothing...'.toUpperCase(),
+                      'Dreamhigh',
                       style: boldGreenLargeTextStyle,
                     ),
                     Icon(

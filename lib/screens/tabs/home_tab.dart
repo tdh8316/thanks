@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/i18n/i18n.dart' show tr;
 import 'package:thanks/screens/editor.dart';
+import 'package:thanks/screens/index.dart';
 import 'package:thanks/widgets/card/card.dart';
 
 class HomeTab extends StatefulWidget {
+  final IndexState indexState;
+
+  const HomeTab({Key key, this.indexState}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _HomeTabState();
 }
@@ -126,14 +131,17 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                     padding: EdgeInsets.all(12),
                     color: Color.fromRGBO(149, 107, 201, 100),
                     child: Text(
-                      tr("심심한 버튼"),
+                      tr("Button"),
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.indexState
+                          .setState(() => widget.indexState.setIndex(1));
+                    },
                   ),
                 ],
               ),
@@ -180,8 +188,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                 "voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa "
                 "qui officia deserunt mollit anim id est laborum.",
-            noOfProducts: '귀찮은 일이 뒤따르지 않는 즐거움을 누리는 것을 선택한 사람, '
-                '혹은 아무런 즐거움도 생기지 않는 고통을 회피하는 사람을 누가 탓할 수 있겠는가?',
+            noOfProducts: '아이폰 앱은 곧 나와요',
             duration: 'Font by NAVER',
           ),
         ],

@@ -26,7 +26,7 @@ class App extends StatelessWidget {
      */
       title: "All that Thanks",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightBlue,
         fontFamily: "나눔바른펜",
         // platform: TargetPlatform.android,
       ),
