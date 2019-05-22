@@ -3,14 +3,10 @@ Application root
  - Generate tab widgets
  */
 
-import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/screens/tabs/entries_tab.dart' show EntriesTab;
-import 'package:thanks/screens/tabs/home_tab.dart';
-import 'package:thanks/screens/tabs/profile_tab.dart';
-import 'package:thanks/screens/tabs/statistic_tab.dart' show StatisticTab;
-import 'package:thanks/screens/tabs/writing_tab.dart' show WritingTab;
+import 'package:intl/intl.dart';
+import 'package:thanks/i18n/i18n.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -40,41 +36,28 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var flipBoxBar = FlipBoxBar(
-      navBarHeight: 75.0,
-      animationDuration: Duration(milliseconds: 1500),
-      selectedIndex: _index,
-      onIndexChanged: (index) => setState(() => setIndex(index)),
-      items: [
-        FlipBarItem(
-          icon: Icon(Icons.home, color: Colors.black87),
-          text: Text("Home", style: TextStyle(color: Colors.black)),
-          frontColor: Colors.white,
-          backColor: Colors.deepPurpleAccent[100],
+    DateTime nowTime = DateTime.now();
+    final dateWidget = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 32, left: 32),
+          child: Text(
+            "${tr(DateFormat("EEEE").format(nowTime))}",
+            style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
+          ),
         ),
-        FlipBarItem(
-          icon: Icon(Icons.calendar_today, color: Colors.black87),
-          text: Text("Writing", style: TextStyle(color: Colors.black)),
-          frontColor: Colors.white,
-          backColor: Colors.indigoAccent[100],
-        ),
-        FlipBarItem(
-          icon: Icon(Icons.pie_chart_outlined, color: Colors.black87),
-          text: Text("statistic", style: TextStyle(color: Colors.black)),
-          frontColor: Colors.white,
-          backColor: Colors.blueAccent[100],
-        ),
-        FlipBarItem(
-          icon: Icon(Icons.chrome_reader_mode, color: Colors.black87),
-          text: Text("Entries", style: TextStyle(color: Colors.black)),
-          frontColor: Colors.white,
-          backColor: Colors.greenAccent[100],
-        ),
-        FlipBarItem(
-          icon: Icon(Icons.tag_faces, color: Colors.black),
-          text: Text("Profile", style: TextStyle(color: Colors.black87)),
-          frontColor: Colors.white,
-          backColor: Colors.orangeAccent[100],
+        Container(
+          margin: EdgeInsets.only(top: 2, left: 64),
+          child: Text(
+            "${DateFormat("d").format(nowTime)} ${DateFormat("MMM").format(nowTime)}",
+            style: TextStyle(
+              fontSize: 26,
+              color: Colors.black54,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ],
     );
@@ -91,20 +74,37 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
         ),
         elevation: 0,
       ),
-      body: TabBarView(
-        controller: _controller,
-        physics: NeverScrollableScrollPhysics(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          HomeTab(indexState: this),
-          WritingTab(),
-          StatisticTab(),
-          EntriesTab(),
-          ProfileTab(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              dateWidget,
+              Spacer(),
+              Column(
+                children: <Widget>[
+                  Container(height: 30),
+                  RaisedButton(
+                    padding: EdgeInsets.all(12),
+                    color: Color.fromRGBO(149, 107, 201, 100),
+                    child: Text(
+                      tr("Button"),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              Container(width: 32),
+            ],
+          ),
         ],
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 75.0,
-        child: flipBoxBar,
       ),
     );
   }
