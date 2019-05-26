@@ -1,19 +1,28 @@
-# thanks
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/tdh8316/thanks.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Ftdh8316%2Fthanks)
+# Overview
+thanks is a cross-platform application built with
+[![Flutter logo][]][flutter.dev]
+![GitHub top language](https://img.shields.io/github/languages/top/tdh8316/thanks.svg)
 
-All that Thanks
+# All that Thanks
+What are you thankful for today?
 
-## Getting Started
+It’s important to take time out and remember all of the things to
+be thankful for that many of us take for granted.
 
-This project is a starting point for a Flutter application.
+Write thanks diary and get closer to Le Bonheur!
 
-A few resources to get you started if this is your first Flutter project:
+# Disclaimer
+`thanks` is in a development phase and cannot use normally.
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+The first official stable release will be available in October 2019!
+it will be available on both Android and iOS.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+# Contributing
+Contributions are more than welcome!
 
-# Thanks to
-[Flutter calendar](https://github.com/apptreesoftware/flutter_calendar)
+This project is developing with the latest flutter and Android Studio on Windows.
+
+
+[Flutter logo]: https://flutter.dev/assets/flutter-lockup-4cb0ee072ab312e59784d9fbf4fb7ad42688a7fdaea1270ccf6bbf4f34b7e03f.svg
+[flutter.dev]: https://flutter.dev
