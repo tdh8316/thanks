@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       // See issue: https://github.com/flutter/flutter/issues/13452
       // locale: Locale("en", "US"),
       /*
-      Fix #2 by modifying package: zefyr
+      Fix #2 by fixing following package: https://github.com/memspace/zefyr
        - Pull request: https://github.com/memspace/zefyr/pull/106
        - Fork: https://github.com/tdh8316/zefyr/tree/fix-cupertino-i18n
      */
@@ -28,7 +28,6 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
         fontFamily: "나눔바른펜",
-        // platform: TargetPlatform.android,
       ),
 
       // Display the splash screen

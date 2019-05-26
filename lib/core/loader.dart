@@ -56,15 +56,6 @@ class _SplashState extends State<Splash> {
               textStyle: TextStyle(
                 fontSize: 45,
                 fontWeight: FontWeight.bold,
-
-                // Foreground gradient of the text.
-                foreground: Paint()
-                  ..shader = LinearGradient(
-                    end: Alignment.topRight,
-                    colors: <Color>[Colors.amber[400], Color(0xff8921aa)],
-                  ).createShader(
-                    Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                  ),
               ),
               colors: [
                 Colors.purple,
