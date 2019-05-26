@@ -1,8 +1,9 @@
-# [![Flutter logo][]][flutter.dev]
+# [![Flutter logo][]][flutter.dev] ![GitHub top language](https://img.shields.io/github/languages/top/tdh8316/thanks.svg)
+
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/tdh8316/thanks.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Ftdh8316%2Fthanks)
+![flutter](https://img.shields.io/badge/flutter-%3E%3D1.0-jade.svg)
 
 # All that Thanks
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/tdh8316/thanks.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Ftdh8316%2Fthanks)
-![GitHub top language](https://img.shields.io/github/languages/top/tdh8316/thanks.svg)
 
 `Thanks` is a elegant cross-platform diary application built with flutter.
 
