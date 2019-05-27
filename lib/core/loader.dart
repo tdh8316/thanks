@@ -1,8 +1,3 @@
-/*
-Application core loader
- - Initialize i18n
- */
-
 import 'dart:async';
 import 'dart:convert';
 
