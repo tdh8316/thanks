@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:thanks/i18n/i18n.dart';
+import 'package:thanks/core/i18n.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -44,11 +44,11 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 2, left: 64),
+          margin: EdgeInsets.only(top: 4, left: 64),
           child: Text(
             "${DateFormat("d").format(nowTime)} ${DateFormat("MMM").format(nowTime)}",
             style: TextStyle(
-              fontSize: 26,
+              fontSize: 28,
               color: Colors.black54,
               fontWeight: FontWeight.w500,
             ),
