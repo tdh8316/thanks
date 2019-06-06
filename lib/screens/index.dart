@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/core/i18n.dart';
+import 'package:thanks/widgets/bar_chart.dart';
+import 'package:thanks/widgets/line_chart_gradient.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -99,6 +101,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
               Container(width: 32),
             ],
           ),
+          BarChartSample1().build(context),
         ],
       ),
     );
