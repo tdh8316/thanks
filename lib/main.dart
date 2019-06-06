@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:thanks/core/loader.dart';
+import 'package:thanks/screens/splash.dart';
 
 void main() => runApp(App());
 
@@ -20,15 +20,14 @@ class App extends StatelessWidget {
       // See issue: https://github.com/flutter/flutter/issues/13452
       // locale: Locale("en", "US"),
       /*
-      Fix #2 by modifying package: zefyr
+      Fix #2 by fixing following package: https://github.com/memspace/zefyr
        - Pull request: https://github.com/memspace/zefyr/pull/106
        - Fork: https://github.com/tdh8316/zefyr/tree/fix-cupertino-i18n
      */
       title: "All that Thanks",
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
-        fontFamily: "나눔바른펜",
-        // platform: TargetPlatform.android,
+        fontFamily: "나눔스퀘어라운드",
       ),
 
       // Display the splash screen
