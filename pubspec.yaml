@@ -62,9 +62,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
 
   fonts:
-    - family: 나눔스퀘어라운드
+    - family: 나눔바른펜
       fonts:
-        - asset: fonts/NanumSquareRoundR.ttf
+        - asset: fonts/nanumbarunpen.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

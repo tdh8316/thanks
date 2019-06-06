@@ -27,7 +27,7 @@ class App extends StatelessWidget {
       title: "All that Thanks",
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
-        fontFamily: "나눔스퀘어라운드",
+        fontFamily: "나눔바른펜",
       ),
 
       // Display the splash screen
