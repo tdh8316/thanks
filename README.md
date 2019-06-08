@@ -5,15 +5,15 @@
 
 # All that Thanks
 
-`Thanks` is an elegant cross-platform diary application built with flutter.
+Elegant cross-platform diary application built with flutter.
 
 [Flutter logo]: https://flutter.dev/assets/flutter-lockup-4cb0ee072ab312e59784d9fbf4fb7ad42688a7fdaea1270ccf6bbf4f34b7e03f.svg
 [flutter.dev]: https://flutter.dev
 
 # Disclaimer
-This project is in a development phase and cannot use normally.
+This project is under development.
 
-The first official stable release will be available in October 2019!
+The first official release will be released in October 2019.
 it will be available on both Android and iOS.
 
 ## Overview
