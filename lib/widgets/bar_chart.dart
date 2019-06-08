@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BarChartSample1 {
-
   final Color barColor = Colors.pink[100];
   final Color barBackgroundColor = Color(0xff72d8bf);
   final double width = 22;
@@ -23,7 +22,10 @@ class BarChartSample1 {
               Text(
                 "Lorem ipsum",
                 style: TextStyle(
-                    color: Colors.purple[400], fontSize: 24, fontWeight: FontWeight.bold),
+                  color: Colors.purple[400],
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(
                 height: 4,
@@ -31,7 +33,10 @@ class BarChartSample1 {
               Text(
                 "Lorem ipsum dolor sit amet",
                 style: TextStyle(
-                    color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold),
+                  color: Colors.white70,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(
                 height: 32,
@@ -46,7 +51,11 @@ class BarChartSample1 {
                           showHorizontalTitles: true,
                           showVerticalTitles: false,
                           horizontalTitlesTextStyle: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14, fontFamily: "나눔바른펜"),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: "나눔바른펜",
+                          ),
                           horizontalTitleMargin: 32,
                           getHorizontalTitles: (double value) {
                             switch (value.toInt()) {
@@ -107,5 +116,4 @@ class BarChartSample1 {
       ),
     ]);
   }
-
 }
