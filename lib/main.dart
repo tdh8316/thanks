@@ -28,6 +28,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
         fontFamily: "나눔바른펜",
+        // fontFamily: "Varela",
       ),
 
       // Display the splash screen
