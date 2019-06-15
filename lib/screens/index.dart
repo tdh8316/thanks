@@ -71,7 +71,7 @@ class Index extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => IndexState();
 
-  SliverAppBar sliverAppBar(bool innerBoxIsScrolled) {
+  SliverAppBar sliverAppBar({bool innerBoxIsScrolled, List<Widget> actions}) {
     return SliverAppBar(
       forceElevated: innerBoxIsScrolled,
       backgroundColor: Color.fromARGB(255, 36, 39, 52),
@@ -90,12 +90,12 @@ class Index extends StatefulWidget {
           ),
         ),
       ),
+      actions: actions,
     );
   }
 }
 
 class IndexState extends State<Index> with SingleTickerProviderStateMixin {
-
   @override
   void initState() {
     super.initState();
@@ -120,7 +120,16 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 child: SliverSafeArea(
-                  sliver: widget.sliverAppBar(innerBoxIsScrolled),
+                  sliver: widget.sliverAppBar(
+                    innerBoxIsScrolled: innerBoxIsScrolled,
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.menu),
+                        onPressed: () {},
+                      ),
+                      Spacer(),
+                    ],
+                  ),
                 ),
               ),
             ];
