@@ -15,7 +15,7 @@ class Index extends StatefulWidget {
           child: Text(
             "${tr(DateFormat("EEEE").format(date))}",
             style: TextStyle(
-              fontSize: 38,
+              fontSize: 42,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
@@ -39,16 +39,15 @@ class Index extends StatefulWidget {
         Flexible(
           child: ClipRRect(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
+              topLeft: Radius.circular(64),
             ),
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.only(bottom: 32),
+              padding: EdgeInsets.only(bottom: 32, left: 8),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: <Color>[
                     Color.fromARGB(255, 115, 75, 245),
                     Color.fromARGB(255, 185, 90, 250),
@@ -73,8 +72,9 @@ class Index extends StatefulWidget {
 
   SliverAppBar sliverAppBar({bool innerBoxIsScrolled, List<Widget> actions}) {
     return SliverAppBar(
+      elevation: 0,
       forceElevated: innerBoxIsScrolled,
-      backgroundColor: Color.fromARGB(255, 36, 39, 52),
+      backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.white),
       expandedHeight: 200,
       floating: true,
@@ -85,8 +85,9 @@ class Index extends StatefulWidget {
         title: Text(
           "Thanks",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontFamily: "Potra",
+            fontSize: 26,
           ),
         ),
       ),
@@ -111,7 +112,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
-      backgroundColor: Color.fromARGB(255, 36, 39, 52),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -124,7 +125,10 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                     innerBoxIsScrolled: innerBoxIsScrolled,
                     actions: <Widget>[
                       IconButton(
-                        icon: Icon(Icons.menu),
+                        icon: Icon(
+                          Icons.menu,
+                          color: Color.fromARGB(255, 36, 39, 52),
+                        ),
                         onPressed: () {},
                       ),
                       Spacer(),
