@@ -66,6 +66,9 @@ flutter:
     - family: 나눔바른펜
       fonts:
         - asset: fonts/nanumbarunpen.ttf
+    - family: Potra
+      fonts:
+        - asset: fonts/potra.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

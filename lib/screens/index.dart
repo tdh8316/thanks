@@ -2,10 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/core/i18n.dart';
-import 'package:thanks/widgets/bar_chart.dart';
-import 'package:thanks/widgets/line_chart_gradient.dart';
 
 class Index extends StatefulWidget {
+  Widget dateWidget() {
+    DateTime date = DateTime.now();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 32, left: 32),
+          child: Text(
+            "${tr(DateFormat("EEEE").format(date))}",
+            style: TextStyle(
+              fontSize: 38,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 4, left: 64),
+          child: Text(
+            "${DateFormat("d").format(date)} ${DateFormat("MMM").format(date)}",
+            style: TextStyle(
+              fontSize: 28,
+              color: Colors.white70,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   State<StatefulWidget> createState() => IndexState();
 }
@@ -33,76 +63,76 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    DateTime nowTime = DateTime.now();
-    final dateWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 32, left: 32),
-          child: Text(
-            "${tr(DateFormat("EEEE").format(nowTime))}",
-            style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 4, left: 64),
-          child: Text(
-            "${DateFormat("d").format(nowTime)} ${DateFormat("MMM").format(nowTime)}",
-            style: TextStyle(
-              fontSize: 28,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 36, 39, 52),
+      /*appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 36, 39, 52),
         // TODO: Change to an icon
         title: Center(
           child: Text(
             "Thanks",
-            style: TextStyle(fontSize: 24, color: Colors.black),
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Potra",
+            ),
           ),
         ),
         elevation: 0,
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              dateWidget,
-              Spacer(),
-              Column(
-                children: <Widget>[
-                  Container(height: 30),
-                  RaisedButton(
-                    padding: EdgeInsets.all(12),
-                    color: Color.fromRGBO(149, 107, 201, 100),
-                    child: Text(
-                      tr("Button"),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {},
+      ),*/
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              backgroundColor: Color.fromARGB(255, 36, 39, 52),
+              expandedHeight: 200,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text(
+                  "Thanks",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Potra",
                   ),
-                ],
+                ),
               ),
-              Container(width: 32),
-            ],
-          ),
-          BarChartSample1().build(context),
-        ],
+            ),
+          ];
+        },
+        body: Column(
+          children: <Widget>[
+            Flexible(
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(bottom: 32),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: <Color>[
+                        Color.fromARGB(255, 115, 75, 245),
+                        Color.fromARGB(255, 185, 90, 250),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      widget.dateWidget(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
