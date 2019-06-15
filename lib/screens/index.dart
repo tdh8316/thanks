@@ -4,11 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:thanks/core/i18n.dart';
 
 class Index extends StatefulWidget {
-  Widget bottomCardView() {
+  Widget dateWidget() {
     DateTime date = DateTime.now();
-    Widget dateWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.end,
+    return Stack(
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 32, left: 32),
@@ -29,37 +27,6 @@ class Index extends StatefulWidget {
               fontSize: 28,
               color: Colors.white70,
               fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
-    return Column(
-      children: <Widget>[
-        Flexible(
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(64),
-            ),
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(bottom: 32, left: 8),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    Color.fromARGB(255, 115, 75, 245),
-                    Color.fromARGB(255, 185, 90, 250),
-                  ],
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  dateWidget,
-                ],
-              ),
             ),
           ),
         ),
@@ -138,7 +105,38 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
               ),
             ];
           },
-          body: widget.bottomCardView(),
+          body: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: Stack(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(64),
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(bottom: 32, left: 8, right: 8),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: <Color>[
+                          Color.fromARGB(255, 115, 75, 245),
+                          Color.fromARGB(255, 185, 90, 250),
+                        ],
+                      ),
+                    ),
+                    child: ListView(
+                      padding: EdgeInsets.only(top: 32),
+                      children: <Widget>[
+                        widget.dateWidget(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
