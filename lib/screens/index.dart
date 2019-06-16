@@ -121,7 +121,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: <Color>[
-                          Color.fromARGB(255, 115, 75, 245),
+                          Color.fromARGB(255, 105, 75, 255),
                           Color.fromARGB(255, 185, 90, 250),
                         ],
                       ),
