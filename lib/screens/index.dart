@@ -9,24 +9,24 @@ class Index extends StatefulWidget {
     return Stack(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 32, left: 32),
-          child: Text(
-            "${tr(DateFormat("EEEE").format(date))}",
-            style: TextStyle(
-              fontSize: 42,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 4, left: 64),
+          margin: EdgeInsets.only(top: 4, left: 32),
           child: Text(
             "${DateFormat("d").format(date)} ${DateFormat("MMM").format(date)}",
             style: TextStyle(
               fontSize: 28,
               color: Colors.white70,
               fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 32, left: 64),
+          child: Text(
+            "${tr(DateFormat("EEEE").format(date))}",
+            style: TextStyle(
+              fontSize: 42,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
