@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/core/i18n.dart';
+import 'package:thanks/view/color_scheme.dart';
 
 class Index extends StatefulWidget {
   Widget dateWidget() {
@@ -13,7 +14,7 @@ class Index extends StatefulWidget {
           child: Text(
             "${DateFormat("d").format(date)} ${DateFormat("MMM").format(date)}",
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 32,
               color: Colors.white70,
               fontWeight: FontWeight.w500,
             ),
@@ -24,7 +25,7 @@ class Index extends StatefulWidget {
           child: Text(
             "${tr(DateFormat("EEEE").format(date))}",
             style: TextStyle(
-              fontSize: 42,
+              fontSize: 46,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
@@ -52,8 +53,8 @@ class Index extends StatefulWidget {
         title: Text(
           "Thanks",
           style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Krabuler",
+            color: Colors.black87,
+            fontWeight: FontWeight.w900,
             fontSize: 38,
           ),
         ),
@@ -111,7 +112,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(64),
+                    topLeft: Radius.circular(69),
                   ),
                   child: Container(
                     width: double.infinity,
@@ -120,10 +121,11 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: <Color>[
+                        colors: theme.primaryGradient
+                        /*<Color>[
                           Color.fromARGB(255, 105, 75, 255),
                           Color.fromARGB(255, 185, 90, 250),
-                        ],
+                        ]*/,
                       ),
                     ),
                     child: ListView(

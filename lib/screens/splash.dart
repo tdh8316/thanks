@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:thanks/core/i18n.dart';
 import 'package:thanks/screens/index.dart';
+import 'package:thanks/view/color_scheme.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -45,8 +46,7 @@ class _SplashState extends State<Splash> {
                   fontWeight: FontWeight.bold,
                   foreground: Paint()
                     ..shader = LinearGradient(
-                      end: Alignment.topRight,
-                      colors: <Color>[Colors.amber[400], Color(0xff8921aa)],
+                      colors: theme.titleGradient,
                     ).createShader(
                       Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
                     ),

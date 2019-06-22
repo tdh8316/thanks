@@ -1,5 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
+ColorSchemeBase theme = PastelPink();
+
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
@@ -53,4 +57,27 @@ class ColorSchemes {
     HexColor("#667eea"),
     HexColor("#764ba2"),
   ];
+}
+
+class ColorSchemeBase {
+  Map<int, Color> colors;
+
+  List<Color> primaryGradient;
+  List<Color> secondaryGradient;
+  List<Color> titleGradient;
+
+  Color primaryColor;
+}
+
+class PastelPink extends ColorSchemeBase {
+  final Map<int, Color> colors = ColorSchemes.lightPink;
+
+  final List<Color> primaryGradient = ColorSchemes.pastel;
+  final List<Color> secondaryGradient = ColorSchemes.warmFlame;
+  final List<Color> titleGradient = <Color>[
+    HexColor("#ee9ca7"),
+    HexColor("#fe9c8f"),
+  ];
+
+  final Color primaryColor = HexColor("#ee9ca7");
 }
