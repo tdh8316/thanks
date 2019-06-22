@@ -38,26 +38,70 @@ class Index extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => IndexState();
 
-  SliverAppBar sliverAppBar({bool innerBoxIsScrolled, List<Widget> actions}) {
+  SliverAppBar sliverAppBar(
+      {bool innerBoxIsScrolled, List<Widget> actions, BuildContext context}) {
     return SliverAppBar(
       elevation: 0,
       forceElevated: innerBoxIsScrolled,
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.white),
-      expandedHeight: 200,
+      expandedHeight: MediaQuery.of(context).size.height / 2 - 32,
       floating: true,
       pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.pin,
-        centerTitle: true,
-        title: Text(
-          "Thanks",
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w900,
-            fontSize: 38,
-          ),
-        ),
+      flexibleSpace: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return (constraints.biggest.height <= 144)
+              ? Opacity(
+                  opacity: 1 - constraints.biggest.height/144,
+                  child: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.pin,
+                    centerTitle: true,
+                    title: Text(
+                      "Thanks",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w900,
+                        fontFamily: "Krabuler",
+                      ),
+                    ),
+                  ),
+                )
+              : Opacity(
+                  opacity: constraints.biggest.height < 196
+                      ? 1 - 144 / constraints.biggest.height
+                      : 1,
+                  child: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.parallax,
+                    centerTitle: true,
+                    title: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: constraints.biggest.height / 2 - 16),
+                        Text(
+                          "Good evening,",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 16, top: 8, right: 32),
+                          child: Text(
+                            "Donghyeok Tak",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+        },
       ),
       actions: actions,
     );
@@ -90,18 +134,18 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 child: SliverSafeArea(
                   sliver: widget.sliverAppBar(
-                    innerBoxIsScrolled: innerBoxIsScrolled,
-                    actions: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.menu,
-                          color: Color.fromARGB(255, 36, 39, 52),
+                      innerBoxIsScrolled: innerBoxIsScrolled,
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.menu,
+                            color: Color.fromARGB(255, 36, 39, 52),
+                          ),
+                          onPressed: () {},
                         ),
-                        onPressed: () {},
-                      ),
-                      Spacer(),
-                    ],
-                  ),
+                        Spacer(),
+                      ],
+                      context: context),
                 ),
               ),
             ];
@@ -125,7 +169,8 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                         /*<Color>[
                           Color.fromARGB(255, 105, 75, 255),
                           Color.fromARGB(255, 185, 90, 250),
-                        ]*/,
+                        ]*/
+                        ,
                       ),
                     ),
                     child: ListView(
