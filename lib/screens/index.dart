@@ -53,8 +53,8 @@ class Index extends StatefulWidget {
           "Thanks",
           style: TextStyle(
             color: Colors.black,
-            fontFamily: "Potra",
-            fontSize: 26,
+            fontFamily: "Krabuler",
+            fontSize: 38,
           ),
         ),
       ),
