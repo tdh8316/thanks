@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:thanks/animation/show_up.dart';
 import 'package:thanks/core/i18n.dart';
 import 'package:thanks/view/color_scheme.dart';
-import 'package:thanks/widgets/charts/line_chart_gradient.dart';
-import 'package:thanks/widgets/rounded_button.dart';
+import 'package:thanks/widgets/material_card.dart';
 
 class Index extends StatefulWidget {
   Widget dateWidget() {
@@ -113,7 +112,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                           children: <Widget>[
                             widget.dateWidget(),
                             SizedBox(height: 16),
-                            _bodyHeight >
+                            /*_bodyHeight >
                                     MediaQuery.of(context).size.height / 1.75
                                 ? ShowUp(
                                     child: Container(
@@ -121,41 +120,15 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                     ),
                                     delay: 0,
                                   )
-                                : SizedBox(),
+                                : SizedBox(),*/
                             _bodyHeight >
-                                    MediaQuery.of(context).size.height / 1.75
+                                    MediaQuery.of(context).size.height / 1.5
                                 ? ShowUp(
-                                    child: SimpleRoundIconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.edit),
-                                      buttonText: Text(
-                                        "Add today's story".toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white70,
-                                          fontFamily: "Krabuler",
-                                        ),
-                                      ),
-                                      backgroundColor: theme.primaryColor,
-                                      iconAlignment: Alignment.centerRight,
-                                    ),
+                                    child: storyForToday(),
                                     delay: 0,
                                   )
                                 : FadeInAnimation(
-                                    child: SimpleRoundIconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.edit),
-                                      buttonText: Text(
-                                        "Add today's story".toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white70,
-                                          fontFamily: "Krabuler",
-                                        ),
-                                      ),
-                                      backgroundColor: theme.primaryColor,
-                                      iconAlignment: Alignment.centerRight,
-                                    ),
+                                    child: storyForToday(),
                                     delay: 0,
                                     curve: Curves.elasticInOut,
                                   ),
@@ -173,6 +146,57 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget storyForToday() {
+    /*return SimpleRoundIconButton(
+      onPressed: () {},
+      icon: Icon(Icons.edit),
+      buttonText: Text(
+        "Add today's story".toUpperCase(),
+        style: TextStyle(
+          fontSize: 18,
+          color: Colors.white70,
+          fontFamily: "Krabuler",
+        ),
+      ),
+      backgroundColor: theme.primaryColor,
+      iconAlignment: Alignment.centerRight,
+    );*/
+    return MaterialCardWidget(
+      child: Container(
+        height: MediaQuery.of(context).size.height / 4 + 32,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SizedBox(
+              width: 68,
+              child: Material(
+                elevation: 4,
+                shadowColor: theme.secondaryGradient[0],
+                color: theme.primaryGradient.last.withOpacity(.75),
+                borderRadius: BorderRadius.circular(28),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Icon(Icons.edit, color: Colors.white54, size: 34),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              "Add today's story".toUpperCase(),
+              style: TextStyle(
+                fontSize: 26,
+                fontFamily: "Krabuler",
+                color: theme.primaryGradient[0],
+              ),
+            ),
+          ],
+        ),
+      ),
+      onPressed: () {},
+    );
+  }
+
   SliverAppBar sliverAppBar(
       {bool innerBoxIsScrolled, List<Widget> actions, BuildContext context}) {
     return SliverAppBar(
@@ -180,7 +204,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
       forceElevated: innerBoxIsScrolled,
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.white),
-      expandedHeight: MediaQuery.of(context).size.height / 2 - 32,
+      expandedHeight: MediaQuery.of(context).size.height / 3,
       floating: true,
       pinned: true,
       flexibleSpace: LayoutBuilder(

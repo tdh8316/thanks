@@ -61,7 +61,7 @@ class FadeInAnimation extends StatefulWidget {
   final Curve curve;
 
   FadeInAnimation(
-      {@required this.child, this.delay, this.curve = Curves.decelerate});
+      {@required this.child, this.delay=0, this.curve = Curves.decelerate});
 
   @override
   _FadeInAnimationState createState() => _FadeInAnimationState();
@@ -79,7 +79,7 @@ class _FadeInAnimationState extends State<FadeInAnimation>
     _animController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     final curve = CurvedAnimation(curve: widget.curve, parent: _animController);
-    _animOffset = Tween<Offset>(begin: const Offset(0.0, .5), end: Offset.zero)
+    _animOffset = Tween<Offset>(begin: const Offset(.0, .25), end: Offset.zero)
         .animate(curve);
 
     if (widget.delay == null) {

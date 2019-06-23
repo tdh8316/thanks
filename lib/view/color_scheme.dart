@@ -36,11 +36,11 @@ class ColorSchemes {
   };
 
   static final List<Color> pastel = <Color>[
-    HexColor("#fe9c8f"),
+    HexColor("#ff8c7c"),
     HexColor("#feb2a8"),
     HexColor("#fec8c1"),
     HexColor("#fad9c1"),
-    HexColor("#f9caa7"),
+    HexColor("#f2b587"),
   ];
 
   static final List<Color> warmFlame = <Color>[
