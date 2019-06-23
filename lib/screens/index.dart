@@ -119,25 +119,45 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                     child: Container(
                                       child: lineChartWithGradient(),
                                     ),
-                                    delay: 500,
+                                    delay: 0,
                                   )
                                 : SizedBox(),
-                            Container(
-                              child: SimpleRoundIconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.edit),
-                                buttonText: Text(
-                                  "Add today's story".toUpperCase(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white70,
-                                    fontFamily: "Krabuler",
+                            _bodyHeight >
+                                    MediaQuery.of(context).size.height / 1.5
+                                ? ShowUp(
+                                    child: SimpleRoundIconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.edit),
+                                      buttonText: Text(
+                                        "Add today's story".toUpperCase(),
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white70,
+                                          fontFamily: "Krabuler",
+                                        ),
+                                      ),
+                                      backgroundColor: theme.primaryColor,
+                                      iconAlignment: Alignment.centerRight,
+                                    ),
+                                    delay: 0,
+                                  )
+                                : FadeInAnimation(
+                                    child: SimpleRoundIconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.edit),
+                                      buttonText: Text(
+                                        "Add today's story".toUpperCase(),
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white70,
+                                          fontFamily: "Krabuler",
+                                        ),
+                                      ),
+                                      backgroundColor: theme.primaryColor,
+                                      iconAlignment: Alignment.centerRight,
+                                    ),
+                                    delay: 0,
                                   ),
-                                ),
-                                backgroundColor: theme.primaryColor,
-                                iconAlignment: Alignment.centerRight,
-                              ),
-                            ),
                           ],
                         ),
                       ),
