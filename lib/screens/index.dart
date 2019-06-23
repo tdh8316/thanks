@@ -114,7 +114,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                             widget.dateWidget(),
                             SizedBox(height: 16),
                             _bodyHeight >
-                                    MediaQuery.of(context).size.height / 1.5
+                                    MediaQuery.of(context).size.height / 1.75
                                 ? ShowUp(
                                     child: Container(
                                       child: lineChartWithGradient(),
@@ -123,7 +123,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                   )
                                 : SizedBox(),
                             _bodyHeight >
-                                    MediaQuery.of(context).size.height / 1.5
+                                    MediaQuery.of(context).size.height / 1.75
                                 ? ShowUp(
                                     child: SimpleRoundIconButton(
                                       onPressed: () {},
@@ -157,6 +157,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                       iconAlignment: Alignment.centerRight,
                                     ),
                                     delay: 0,
+                                    curve: Curves.elasticInOut,
                                   ),
                           ],
                         ),

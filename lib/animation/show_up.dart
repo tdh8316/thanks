@@ -23,11 +23,9 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
 
     _animController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 750));
-    final curve =
-        CurvedAnimation(curve: widget.curve, parent: _animController);
-    _animOffset =
-        Tween<Offset>(begin: const Offset(0.0, 1), end: Offset.zero)
-            .animate(curve);
+    final curve = CurvedAnimation(curve: widget.curve, parent: _animController);
+    _animOffset = Tween<Offset>(begin: const Offset(0.0, 1), end: Offset.zero)
+        .animate(curve);
 
     if (widget.delay == null) {
       _animController.forward();
@@ -56,18 +54,21 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
     );
   }
 }
+
 class FadeInAnimation extends StatefulWidget {
   final Widget child;
   final int delay;
   final Curve curve;
 
-  FadeInAnimation({@required this.child, this.delay, this.curve = Curves.decelerate});
+  FadeInAnimation(
+      {@required this.child, this.delay, this.curve = Curves.decelerate});
 
   @override
   _FadeInAnimationState createState() => _FadeInAnimationState();
 }
 
-class _FadeInAnimationState extends State<FadeInAnimation> with TickerProviderStateMixin {
+class _FadeInAnimationState extends State<FadeInAnimation>
+    with TickerProviderStateMixin {
   AnimationController _animController;
   Animation<Offset> _animOffset;
 
@@ -77,11 +78,9 @@ class _FadeInAnimationState extends State<FadeInAnimation> with TickerProviderSt
 
     _animController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
-    final curve =
-    CurvedAnimation(curve: widget.curve, parent: _animController);
-    _animOffset =
-        Tween<Offset>(begin: const Offset(0.0, .5), end: Offset.zero)
-            .animate(curve);
+    final curve = CurvedAnimation(curve: widget.curve, parent: _animController);
+    _animOffset = Tween<Offset>(begin: const Offset(0.0, .5), end: Offset.zero)
+        .animate(curve);
 
     if (widget.delay == null) {
       _animController.forward();
