@@ -126,11 +126,14 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                                 ? ShowUp(
                                     child: storyForToday(),
                                     delay: 0,
+                                    curve: Curves.decelerate,
+                                    animatedOpacity: false,
                                   )
                                 : FadeInAnimation(
                                     child: storyForToday(),
                                     delay: 0,
-                                    curve: Curves.elasticInOut,
+                                    curve: Curves.bounceOut,
+                                    animatedOpacity: false,
                                   ),
                           ],
                         ),

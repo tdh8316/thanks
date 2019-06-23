@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/core/i18n.dart';
 import 'package:thanks/screens/index.dart';
@@ -21,7 +22,7 @@ class _SplashState extends State<Splash> {
       (_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (context) => Index(),
           ),
         );
