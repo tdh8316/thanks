@@ -29,6 +29,7 @@ dependencies:
 
   shared_preferences:
   path_provider:
+  intro_slider:
   fl_chart:
   intl:
 
