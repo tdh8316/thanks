@@ -7,36 +7,6 @@ import 'package:thanks/view/color_scheme.dart';
 import 'package:thanks/widgets/material_card.dart';
 
 class Index extends StatefulWidget {
-  Widget dateWidget() {
-    DateTime date = DateTime.now();
-    return Stack(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 4, left: 32),
-          child: Text(
-            "${DateFormat("d").format(date)} ${DateFormat("MMM").format(date)}",
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.white70,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 32, left: 64),
-          child: Text(
-            "${tr(DateFormat("EEEE").format(date))}",
-            style: TextStyle(
-              fontSize: 46,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   State<StatefulWidget> createState() => IndexState();
 }
@@ -45,8 +15,32 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
   double _appbarHeight = .0;
   double _bodyHeight = .0;
 
+  double bodyOpacity = 1;
+
+  var colors = theme.primaryGradient;
+
+  static ScrollController _controller;
+
   @override
   void initState() {
+    _controller = ScrollController();
+    _controller.addListener(() {
+      if (_controller.offset < 144) {
+        _controller.position.animateTo(
+          _controller.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+        );
+      }
+      setState(() {
+        bodyOpacity =
+            1 - (_controller.offset / _controller.position.maxScrollExtent);
+      });
+      colors = [];
+      for (var color in theme.primaryGradient) {
+        colors.add(color.withOpacity(bodyOpacity));
+      }
+    });
     super.initState();
   }
 
@@ -63,6 +57,7 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: NestedScrollView(
+          controller: _controller,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverOverlapAbsorber(
@@ -104,13 +99,13 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: theme.primaryGradient,
+                            colors: colors,
                           ),
                         ),
                         child: ListView(
                           padding: EdgeInsets.only(top: 32),
                           children: <Widget>[
-                            widget.dateWidget(),
+                            dateWidget(),
                             SizedBox(height: 16),
                             /*_bodyHeight >
                                     MediaQuery.of(context).size.height / 1.75
@@ -146,6 +141,40 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dateWidget() {
+    DateTime date = DateTime.now();
+    return Stack(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 4, left: 32),
+          child: Text(
+            "${DateFormat("d").format(date)} ${DateFormat("MMM").format(date)}",
+            style: TextStyle(
+              fontSize: 32,
+              color: bodyOpacity > .825
+                  ? Colors.white70
+                  : Colors.black87.withOpacity(1 - bodyOpacity),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 32, left: 64),
+          child: Text(
+            "${tr(DateFormat("EEEE").format(date))}",
+            style: TextStyle(
+              fontSize: 46,
+              color: bodyOpacity > .825
+                  ? Colors.white
+                  : Colors.black.withOpacity(1 - bodyOpacity),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
