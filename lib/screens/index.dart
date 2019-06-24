@@ -21,17 +21,26 @@ class IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
   static ScrollController _controller;
 
+  double _lastScrollPosition = 0;
+
   @override
   void initState() {
     _controller = ScrollController();
     _controller.addListener(() {
-      if (_controller.offset < 144) {
+      if (_controller.offset <= 144 && _lastScrollPosition < _controller.offset) {
         _controller.position.animateTo(
           _controller.position.maxScrollExtent,
           duration: Duration(milliseconds: 500),
           curve: Curves.decelerate,
         );
+      } else if (_controller.offset > 144 && _lastScrollPosition > _controller.offset) {
+        _controller.position.animateTo(
+          _controller.position.minScrollExtent,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+        );
       }
+      _lastScrollPosition = _controller.offset;
       setState(() {
         bodyOpacity =
             1 - (_controller.offset / _controller.position.maxScrollExtent);
