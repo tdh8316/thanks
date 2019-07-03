@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:thanks/view/color_scheme.dart';
 
 class MaterialCardWidget extends StatelessWidget {
   const MaterialCardWidget(
@@ -29,7 +28,7 @@ class MaterialCardWidget extends StatelessWidget {
   }
 }
 
-Widget iconContainer(Icon icon) {
+Widget iconContainer(Icon icon, Color backgroundColor) {
   return Container(
     width: 58,
     child: Material(
@@ -40,7 +39,7 @@ Widget iconContainer(Icon icon) {
           child: icon,
         ),
       ),
-      color: theme.primaryColor,
+      color: backgroundColor,
     ),
   );
 }

@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:thanks/screens/index.dart';
 import 'package:thanks/screens/splash.dart';
 
 void main() => runApp(App());
-
-class _ScrollBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      builder: (context, child) {
-        return ScrollConfiguration(
-          behavior: _ScrollBehavior(),
-          child: child,
-        );
-      },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -36,11 +23,15 @@ class App extends StatelessWidget {
       title: "All that Thanks",
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
-        fontFamily: "나눔바른펜",
+        fontFamily: "LotteMartDream",
       ),
 
-      // Display the splash screen
-      home: Splash(),
+      routes: {
+        '/': (context) => Index(),
+        '/splash': (context) => Splash(),
+      },
+
+      initialRoute: '/splash',
     );
   }
 }
