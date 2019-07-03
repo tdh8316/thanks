@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:thanks/screens/index.dart';
 import 'package:thanks/screens/splash.dart';
 
 void main() => runApp(App());
@@ -22,16 +21,10 @@ class App extends StatelessWidget {
       // locale: Locale("en", "US"),
       title: "All that Thanks",
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
         fontFamily: "LotteMartDream",
       ),
 
-      routes: {
-        '/': (context) => Index(),
-        '/splash': (context) => Splash(),
-      },
-
-      initialRoute: '/splash',
+      home: Splash(),
     );
   }
 }

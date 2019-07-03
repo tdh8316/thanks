@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:thanks/widgets/skeleton.dart';
+import 'package:flutter/material.dart';
+import 'package:thanks/components/home.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -9,8 +9,15 @@ class Index extends StatefulWidget {
 class IndexState extends State<Index> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Skeleton(
-      child: null,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: HomeComponent(),
+      ),
     );
   }
 }
