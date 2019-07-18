@@ -146,3 +146,74 @@ class CardItem extends StatelessWidget {
     );
   }
 }
+
+class CardWithChild extends StatelessWidget {
+  CardWithChild({
+    @required this.pageVisibility,
+    @required this.child,
+    this.backgroundImagePath,
+    this.backgroundColor,
+  });
+
+  final PageVisibility pageVisibility;
+  final String backgroundImagePath;
+  final Color backgroundColor;
+  final Widget child;
+
+  final BorderRadius _borderRadius = BorderRadius.circular(48);
+
+  Widget widgetAnimationToScroll({
+    @required double translationFactor,
+    @required Widget child,
+  }) {
+    final double xTranslation = pageVisibility.pagePosition * translationFactor;
+
+    return Opacity(
+      opacity: pageVisibility.visibleFraction,
+      child: Transform(
+        alignment: FractionalOffset.topLeft,
+        transform: Matrix4.translationValues(
+          xTranslation,
+          0.0,
+          0.0,
+        ),
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 16.0,
+        horizontal: 8.0,
+      ),
+      child: Material(
+        elevation: 12.0,
+        borderRadius: _borderRadius,
+        color: backgroundColor != null ? backgroundColor : Colors.white,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            backgroundImagePath != null
+                ? Image.asset(
+                    backgroundImagePath,
+                    fit: BoxFit.cover,
+                    alignment: FractionalOffset(
+                      0.5 + (pageVisibility.pagePosition / 3),
+                      0.5,
+                    ),
+                  )
+                : Container(),
+            // imageOverlayGradient,
+            widgetAnimationToScroll(
+              translationFactor: MediaQuery.of(context).size.width / 2,
+              child: child,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

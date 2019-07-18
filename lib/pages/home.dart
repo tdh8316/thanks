@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(48)),
             child: Material(
-              color: Colors.black,
+              color: Colors.black87,
               child: InkWell(
                 onTap: () {
                   Scaffold.of(context).showSnackBar(
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.topRight,
           child: Padding(
             padding: EdgeInsets.only(top: 35, right: 25),
-            child: Icon(Icons.edit, color: Colors.white, size: 42),
+            child: Icon(Icons.edit, color: Colors.white, size: 38),
           ),
         ),
         Align(
@@ -70,24 +70,37 @@ class _HomePageState extends State<HomePage> {
             child: Icon(Icons.add, color: Colors.white),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
+        Padding(
+          padding: EdgeInsets.only(top: 196),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.75,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 2,
             child: PageTransformer(
               pageViewBuilder: (BuildContext context, visibilityResolver) {
                 return PageView.builder(
                   physics: BouncingScrollPhysics(),
-                  controller: PageController(viewportFraction: .75),
+                  controller:
+                      PageController(viewportFraction: .55, initialPage: 0),
                   itemCount: sampleCardItems.length,
                   itemBuilder: (BuildContext context, index) {
-                    CardItem element = CardItem(
-                      item: sampleCardItems[index],
+                    return CardWithChild(
+                      child: Center(
+                        child: Text(
+                          "I love you",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
                       pageVisibility:
                           visibilityResolver.resolvePageVisibility(index),
+                      backgroundColor: <Color>[
+                        Color.fromARGB(255, 143, 85, 157),
+                        Color(4293617717),
+                        Color.fromARGB(255, 52, 99, 38),
+                      ][index],
                     );
-                    return element;
                   },
                 );
               },
