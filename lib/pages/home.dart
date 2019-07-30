@@ -13,6 +13,11 @@ class _HomePageState extends State<HomePage> {
   HomeBloc _bloc = HomeBloc();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _bloc.dispose();
     super.dispose();
@@ -23,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Stack(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(left: 24, top: 52),
+          padding: EdgeInsets.only(left: 24, top: 32),
           child: Text(
             "Good evening,",
             style: TextStyle(
@@ -34,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 24, top: 84),
+          padding: EdgeInsets.only(left: 24, top: 64),
           child: Text(
             "Donghyeok Tak",
             style: TextStyle(
@@ -47,19 +52,19 @@ class _HomePageState extends State<HomePage> {
         Align(
           alignment: Alignment.topRight,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(48)),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64)),
             child: Material(
               color: Colors.black87,
               child: InkWell(
                 child: Container(
-                  height: 120,
+                  height: 110,
                   width: 110,
                   child: Stack(
                     children: <Widget>[
                       Align(
                         alignment: Alignment.topRight,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 35, right: 25),
+                          padding: EdgeInsets.only(top: 25, right: 25),
                           child: Icon(
                             Icons.edit,
                             color: Colors.white,
@@ -93,19 +98,18 @@ class _HomePageState extends State<HomePage> {
         Padding(
           padding: EdgeInsets.only(top: 196),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
+            height: MediaQuery.of(context).size.height / 3,
             child: PageTransformer(
               pageViewBuilder: (BuildContext context, visibilityResolver) {
                 return PageView.builder(
-                  pageSnapping: true,
+                  scrollDirection: Axis.horizontal,
                   physics: BouncingScrollPhysics(),
-                  controller:
-                      PageController(viewportFraction: .5, initialPage: 0),
+                  controller: PageController(viewportFraction: .75),
                   itemCount: 3,
                   itemBuilder: (BuildContext context, index) {
                     return ShowUp(
                       curve: Curves.fastLinearToSlowEaseIn,
-                      begin: Offset(-.5, -.5),
+                      begin: Offset(.5, .5),
                       animatedOpacity: true,
                       child: SizedBox(
                         height: 32,
@@ -140,20 +144,15 @@ class _HomePageState extends State<HomePage> {
     return CardWithChild(
       child: Center(
         child: Text(
-          "I love you",
+          ["Today", "Yesterday", "First journal!"][index],
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.w700,
           ),
         ),
       ),
       pageVisibility: visibilityResolver.resolvePageVisibility(index),
-      backgroundColor: <Color>[
-        Color.fromARGB(255, 143, 85, 157),
-        Color(4293617717),
-        Color.fromARGB(255, 52, 99, 38),
-      ][index],
     );
   }
 }

@@ -160,7 +160,7 @@ class CardWithChild extends StatelessWidget {
   final Color backgroundColor;
   final Widget child;
 
-  final BorderRadius _borderRadius = BorderRadius.circular(48);
+  final BorderRadius _borderRadius = BorderRadius.circular(32);
 
   Widget widgetAnimationToScroll({
     @required double translationFactor,

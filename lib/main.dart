@@ -12,6 +12,7 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Thanks",
       theme: ThemeData(fontFamily: "Comfortaa"),
       home: SafeArea(
