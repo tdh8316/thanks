@@ -3,6 +3,7 @@ import 'package:thanks/bloc/home.dart';
 import 'package:thanks/components/bubble.dart';
 import 'package:thanks/components/timeline/timeline.dart';
 import 'package:thanks/components/timeline/timeline_model.dart';
+import 'package:thanks/models/hex_color.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -129,37 +130,54 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0)),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
                 borderSide: BorderSide(
-                    color: Colors.black, style: BorderStyle.solid, width: 1),
+                  color: Colors.black,
+                  style: BorderStyle.solid,
+                  width: 1,
+                ),
               ),
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 196),
+          padding: EdgeInsets.only(top: 144, bottom: 64),
           child: SizedBox(
-            child: Timeline(
-              physics: BouncingScrollPhysics(),
-              children: items,
-              position: TimelinePosition.Left,
-              primary: true,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(64),
+                bottomRight: Radius.circular(64),
+              ),
+              child: Timeline(
+                physics: BouncingScrollPhysics(),
+                children: items,
+                position: TimelinePosition.Left,
+                primary: true,
+                lineColor: Colors.blueAccent,
+              ),
             ),
           ),
         ),
-        /*Align(
+        Align(
           alignment: Alignment.bottomRight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(48),
-            ),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 12 + 12,
-              width: MediaQuery.of(context).size.width/1.25,
-              color: HexColor("#0E0E0E"),
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Material(
+              shape: StadiumBorder(),
+              elevation: 12,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+                child: Container(
+                  color: HexColor("#EEEFEA"),
+                  height: MediaQuery.of(context).size.height / 12 + 12,
+                ),
+              ),
             ),
           ),
-        ),*/
+        ),
       ],
     );
   }
