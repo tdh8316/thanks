@@ -51,38 +51,14 @@ class _HomePageState extends State<HomePage> {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64)),
-            child: Material(
-              color: Colors.black87,
-              child: InkWell(
-                child: Container(
-                  height: 110,
-                  width: 110,
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 25, right: 25),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 38,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 25, right: 50),
-                          child: Icon(Icons.add, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
+          child: SizedBox(
+            height: 100,
+            width: 100,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: new OutlineButton(
+                child: Icon(Icons.add),
+                onPressed: () {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Not Implemented'),
@@ -91,6 +67,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(20.0)),
+                borderSide: BorderSide(
+                    color: Colors.black, style: BorderStyle.solid, width: 1),
               ),
             ),
           ),
