@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/bloc/home.dart';
-import 'package:thanks/components/animation/show_up.dart';
-import 'package:thanks/components/card_pages/card.dart';
-import 'package:thanks/components/card_pages/card_page.dart';
+import 'package:thanks/components/bubble.dart';
+import 'package:thanks/components/timeline/timeline.dart';
+import 'package:thanks/components/timeline/timeline_model.dart';
+import 'package:thanks/models/hex_color.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,6 +23,67 @@ class _HomePageState extends State<HomePage> {
     _bloc.dispose();
     super.dispose();
   }
+
+  List<TimelineModel> items = [
+    TimelineModel(
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildBubble(
+          child: Column(
+            children: <Widget>[
+              Icon(Icons.done),
+              Text(
+                "Hi, I'm all that thanks!\n"
+                "I'm the greatest gratitude journaling application!",
+              ),
+            ],
+          ),
+          time: '방금 전',
+        ),
+      ),
+      icon: Icon(Icons.people_outline),
+      isFirst: true,
+    ),
+    TimelineModel(
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Bubble(
+          message:
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          time: '오늘',
+        ),
+      ),
+    ),
+    TimelineModel(
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Bubble(
+          message:
+              "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+          time: '100년 전',
+        ),
+      ),
+    ),
+    TimelineModel(
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Bubble(
+          message:
+              "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          time: '6974년 전',
+        ),
+      ),
+    ),
+    TimelineModel(
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Bubble(
+          message: "All that Thanks - Gratitude journaling application",
+          time: '120억년 전',
+        ),
+      ),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,38 +113,14 @@ class _HomePageState extends State<HomePage> {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64)),
-            child: Material(
-              color: Colors.black87,
-              child: InkWell(
-                child: Container(
-                  height: 110,
-                  width: 110,
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 25, right: 25),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 38,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 25, right: 50),
-                          child: Icon(Icons.add, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
+          child: SizedBox(
+            height: 100,
+            width: 100,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: new OutlineButton(
+                child: Icon(Icons.add),
+                onPressed: () {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Not Implemented'),
@@ -91,68 +129,56 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                  style: BorderStyle.solid,
+                  width: 1,
+                ),
               ),
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 196),
+          padding: EdgeInsets.only(top: 144, bottom: 64),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
-            child: PageTransformer(
-              pageViewBuilder: (BuildContext context, visibilityResolver) {
-                return PageView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  controller: PageController(viewportFraction: .75),
-                  itemCount: 3,
-                  itemBuilder: (BuildContext context, index) {
-                    return ShowUp(
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      begin: Offset(.5, .5),
-                      animatedOpacity: true,
-                      child: SizedBox(
-                        height: 32,
-                        width: 32,
-                        child: _buildCard(index, visibilityResolver),
-                      ),
-                    );
-                  },
-                );
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(64),
+                bottomRight: Radius.circular(64),
+              ),
+              child: Timeline(
+                physics: BouncingScrollPhysics(),
+                children: items,
+                position: TimelinePosition.Left,
+                primary: true,
+                lineColor: Colors.blueAccent,
+              ),
             ),
           ),
         ),
-        /*Align(
+        Align(
           alignment: Alignment.bottomRight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(48),
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Material(
+              shape: StadiumBorder(),
+              elevation: 12,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+                child: Container(
+                  color: HexColor("#EEEFEA"),
+                  height: MediaQuery.of(context).size.height / 12 + 12,
+                ),
+              ),
             ),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 12 + 12,
-              width: MediaQuery.of(context).size.width/1.25,
-              color: HexColor("#0E0E0E"),
-            ),
-          ),
-        ),*/
-      ],
-    );
-  }
-
-  Widget _buildCard(index, visibilityResolver) {
-    return CardWithChild(
-      child: Center(
-        child: Text(
-          ["Today", "Yesterday", "First journal!"][index],
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-      pageVisibility: visibilityResolver.resolvePageVisibility(index),
+      ],
     );
   }
 }
