@@ -4,6 +4,7 @@ import 'package:thanks/components/bubble.dart';
 import 'package:thanks/components/timeline/timeline.dart';
 import 'package:thanks/components/timeline/timeline_model.dart';
 import 'package:thanks/models/hex_color.dart';
+import 'package:thanks/pages/writer/date_picker.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -121,11 +122,9 @@ class _HomePageState extends State<HomePage> {
               child: new OutlineButton(
                 child: Icon(Icons.add),
                 onPressed: () {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Not Implemented'),
-                      behavior: SnackBarBehavior.floating,
-                      duration: Duration(milliseconds: 1500),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DatePickerActivity(),
                     ),
                   );
                 },
