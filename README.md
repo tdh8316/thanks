@@ -10,15 +10,13 @@
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/tdh8316/thanks.svg?style=social)](https://twitter.com/intent/tweet?text=Beautiful%20diray%20application:&url=https%3A%2F%2Fgithub.com%2Ftdh8316%2Fthanks)
 
 
-## Thanks
-
-Beautiful cross-platform gratitude journal application built with flutter.
-
 # Disclaimer
 This project is under development.
 
 The first official release will be announced on October 2019.
-it will be available on both Android and iOS.
 
-## Overview
-What are you thankful for today?
+# Thanks, All that Thanks
+
+Your, by you, for you personal mental health mentor, **cross-platform gratitude journal application** built with flutter and 🤘🏼.
+
+All that Thanks will help you to memory precious daily memories, such as the moments when receiving help!
