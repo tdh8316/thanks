@@ -1,5 +1,5 @@
 name: thanks
-description: What are you thankful for today?
+description: Beautiful cross-platform gratitude journal application
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,10 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  rxdart: ^0.22.0
-
-  datetime_picker_formfield:
-  intl:
+  rxdart: ^0.22.1+1
 
 dev_dependencies:
   flutter_test:
@@ -75,12 +72,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
-  fonts:
-    - family: Comfortaa
-      fonts:
-        - asset: assets/fonts/comfortaa/Comfortaa-Regular.ttf
-        - asset: assets/fonts/comfortaa/Comfortaa-SemiBold.ttf
-          weight: 700
-        - asset: assets/fonts/comfortaa/Comfortaa-Bold.ttf
-          weight: 900
