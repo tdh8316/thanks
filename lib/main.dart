@@ -5,7 +5,9 @@ import 'package:thanks/pages/index.dart';
 class Application extends StatelessWidget {
   Application() {
     SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp],
+      [
+        DeviceOrientation.portraitUp,
+      ],
     );
   }
 
@@ -13,15 +15,13 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Thanks",
-      theme: ThemeData(fontFamily: "Comfortaa"),
-      home: SafeArea(
-        child: Index(),
+      theme: ThemeData(
+        fontFamily: "Ubuntu",
       ),
+      title: "All that Thanks",
+      home: Index(),
     );
   }
 }
 
-void main() => WidgetsFlutterBinding.ensureInitialized()
-  ..attachRootWidget(Application())
-  ..scheduleWarmUpFrame();
+void main() => runApp(Application());
