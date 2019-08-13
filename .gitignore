@@ -24,6 +24,7 @@
 **/doc/api/
 .dart_tool/
 .flutter-plugins
+.metadata
 .packages
 .pub-cache/
 .pub/
