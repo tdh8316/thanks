@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thanks/pages/home.dart';
 import 'package:thanks/styles/default.dart';
 
 class Index extends StatefulWidget {
@@ -10,7 +9,7 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   int _index = 0;
   final List<Widget> _children = <Widget>[
-    HomePage(),
+    Container(child: Text("0")),
     Container(child: Text("1")),
     Container(child: Text("2")),
     Container(child: Text("3")),
@@ -20,6 +19,10 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
   }
+
+  setIndex(int targetIndex) => setState(() {
+        _index = targetIndex;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -44,81 +47,110 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, bottom: 8),
-              child: _index != 0
-                  ? IconButton(
-                      icon: Icon(
-                        Icons.home,
-                        size: 28,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _index = 0;
-                        });
-                      },
-                    )
-                  : ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return RadialGradient(
-                          colors: <Color>[
+              child: ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return RadialGradient(
+                    colors: _index == 0
+                        ? <Color>[
                             DefaultStyle.primary1,
                             DefaultStyle.primary2,
+                          ]
+                        : <Color>[
+                            DefaultStyle.grey3,
+                            DefaultStyle.grey3,
                           ],
-                          tileMode: TileMode.mirror,
-                        ).createShader(bounds);
-                      },
-                      child: IconButton(icon: Icon(
-                        Icons.home,
-                        size: 28,
-                        color: Colors.white,
-                      ), onPressed: null),
-                    ),
+                    tileMode: TileMode.mirror,
+                  ).createShader(bounds);
+                },
+                child: IconButton(
+                  icon: Icon(
+                    Icons.home,
+                    size: 28,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => setIndex(0),
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, right: 32, bottom: 8),
-              child: IconButton(
-                icon: Icon(
-                  Icons.calendar_today,
-                  size: 28,
-                  color:
-                      _index != 1 ? DefaultStyle.grey3 : DefaultStyle.primary1,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _index = 1;
-                  });
+              child: ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return RadialGradient(
+                    colors: _index == 1
+                        ? <Color>[
+                            DefaultStyle.primary1,
+                            DefaultStyle.primary2,
+                          ]
+                        : <Color>[
+                            DefaultStyle.grey3,
+                            DefaultStyle.grey3,
+                          ],
+                    tileMode: TileMode.mirror,
+                  ).createShader(bounds);
                 },
+                child: IconButton(
+                  icon: Icon(
+                    Icons.calendar_today,
+                    size: 28,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => setIndex(1),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 32, bottom: 8),
-              child: IconButton(
-                icon: Icon(
-                  Icons.dashboard,
-                  size: 28,
-                  color:
-                      _index != 2 ? DefaultStyle.grey3 : DefaultStyle.primary1,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _index = 2;
-                  });
+              child: ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return RadialGradient(
+                    colors: _index == 2
+                        ? <Color>[
+                            DefaultStyle.primary1,
+                            DefaultStyle.primary2,
+                          ]
+                        : <Color>[
+                            DefaultStyle.grey3,
+                            DefaultStyle.grey3,
+                          ],
+                    tileMode: TileMode.mirror,
+                  ).createShader(bounds);
                 },
+                child: IconButton(
+                  icon: Icon(
+                    Icons.dashboard,
+                    size: 28,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => setIndex(2),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, right: 16, bottom: 8),
-              child: IconButton(
-                icon: Icon(
-                  Icons.person,
-                  size: 28,
-                  color:
-                      _index != 3 ? DefaultStyle.grey3 : DefaultStyle.primary1,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _index = 3;
-                  });
+              child: ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return RadialGradient(
+                    colors: _index == 3
+                        ? <Color>[
+                            DefaultStyle.primary1,
+                            DefaultStyle.primary2,
+                          ]
+                        : <Color>[
+                            DefaultStyle.grey3,
+                            DefaultStyle.grey3,
+                          ],
+                    tileMode: TileMode.mirror,
+                  ).createShader(bounds);
                 },
+                child: IconButton(
+                  icon: Icon(
+                    Icons.person,
+                    size: 28,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => setIndex(3),
+                ),
               ),
             ),
           ],
