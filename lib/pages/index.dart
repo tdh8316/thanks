@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/styles/default.dart';
 
+import 'home.dart';
+
 class Index extends StatefulWidget {
   @override
   State<Index> createState() => _IndexState();
@@ -8,21 +10,30 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   int _index = 0;
+  PageController _pageController;
   final List<Widget> _children = <Widget>[
-    Container(child: Text("0")),
-    Container(child: Text("1")),
-    Container(child: Text("2")),
-    Container(child: Text("3")),
+    HomePage(),
+    Container(child: Center(child: Text("1",style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("2",style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("3",style: TextStyle(fontSize: 69)))),
   ];
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
   }
 
-  setIndex(int targetIndex) => setState(() {
-        _index = targetIndex;
-      });
+  setIndex(int targetIndex) {
+    setState(() {
+      _index = targetIndex;
+    });
+    _pageController.animateToPage(
+      _index,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +47,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
         backgroundColor: DefaultStyle.primary3,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: _children[_index],
+      body:HomePage(),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         elevation: 12,

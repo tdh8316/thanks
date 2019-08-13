@@ -9,6 +9,11 @@ class Application extends StatelessWidget {
         DeviceOrientation.portraitUp,
       ],
     );
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent
+      ),
+    );
   }
 
   @override
