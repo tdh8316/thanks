@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/styles/default.dart';
 
 import 'home.dart';
@@ -13,9 +14,9 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   PageController _pageController;
   final List<Widget> _children = <Widget>[
     HomePage(),
-    Container(child: Center(child: Text("1",style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("2",style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("3",style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("1", style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("2", style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("3", style: TextStyle(fontSize: 69)))),
   ];
 
   @override
@@ -28,26 +29,37 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     setState(() {
       _index = targetIndex;
     });
-    _pageController.animateToPage(
-      _index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.fastLinearToSlowEaseIn,
-    );
+    _pageController.jumpToPage(targetIndex);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        elevation: 12,
-        onPressed: () {
-          print("tabbed fab");
-        },
-        child: Icon(Icons.add, size: 32),
-        backgroundColor: DefaultStyle.primary3,
+      floatingActionButton: ShowUp(
+        delay: Duration(seconds: 1),
+        child: Builder(
+          builder: (context) => FloatingActionButton(
+            elevation: 12,
+            onPressed: () {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Not Implemented'),
+                  behavior: SnackBarBehavior.floating,
+                  duration: Duration(seconds: 1),
+                ),
+              );
+            },
+            child: Icon(Icons.add, size: 32),
+            backgroundColor: DefaultStyle.primary3,
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body:HomePage(),
+      body:PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        children: _children,
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         elevation: 12,

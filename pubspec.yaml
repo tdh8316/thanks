@@ -26,6 +26,8 @@ dependencies:
 
   rxdart: ^0.22.1+1
 
+  intl:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

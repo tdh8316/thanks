@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 
 class ShowUp extends StatefulWidget {
   final Widget child;
-  final int delay;
+  final Duration delay;
   final Curve curve;
   final bool animatedOpacity;
   final Offset begin;
+  final Duration duration;
 
   ShowUp({
     @required this.child,
     this.delay,
-    this.curve = Curves.elasticOut,
+    this.curve = Curves.linear,
     this.animatedOpacity = false,
-    this.begin = const Offset(0, .25),
+    this.begin = const Offset(0, 1),
+    this.duration = const Duration(seconds: 1),
   });
 
   @override
@@ -30,7 +32,7 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
     super.initState();
 
     _animController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 750));
+        AnimationController(vsync: this, duration: widget.duration);
     final curve = CurvedAnimation(curve: widget.curve, parent: _animController);
     _animOffset =
         Tween<Offset>(begin: widget.begin, end: Offset.zero).animate(curve);
@@ -38,7 +40,7 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
     if (widget.delay == null) {
       _animController.forward();
     } else {
-      Timer(Duration(milliseconds: widget.delay), () {
+      Timer(widget.delay, () {
         _animController.forward();
       });
     }
