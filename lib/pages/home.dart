@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/models/fakes.dart';
 import 'package:thanks/models/structs.dart';
 import 'package:thanks/styles/default.dart';
@@ -47,9 +48,10 @@ class _HomePageState extends State<HomePage> {
                   child: SafeArea(
                     child: Row(
                       children: <Widget>[
-                        Icon(
-                          Icons.menu,
-                          color: Colors.white,
+                        SizedBox(width: 4),
+                        IconButton(
+                          onPressed: () => Scaffold.of(context).openDrawer(),
+                          icon: Icon(Icons.menu, color: Colors.white),
                         ),
                         Spacer(),
                         Text(
@@ -60,10 +62,17 @@ class _HomePageState extends State<HomePage> {
                               .copyWith(color: Colors.white),
                         ),
                         Spacer(),
-                        Icon(
-                          Icons.notifications,
-                          color: Colors.white,
+                        IconButton(
+                          onPressed: () => Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Not Implemented'),
+                              behavior: SnackBarBehavior.floating,
+                              duration: Duration(seconds: 1),
+                            ),
+                          ),
+                          icon: Icon(Icons.notifications, color: Colors.white),
                         ),
+                        SizedBox(width: 4),
                       ],
                     ),
                   ),
@@ -95,6 +104,8 @@ class _HomePageState extends State<HomePage> {
                   endIndent: 16,
                   color: Colors.white,
                 ),
+                Spacer(),
+                _buildParagraph(context),
               ],
             ),
           ),
@@ -116,49 +127,83 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildParagraph(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+          padding: EdgeInsets.only(left: 12, right: 12, bottom: 64),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Let's get started\non your",
+                style: Theme.of(context).textTheme.display1.copyWith(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+              Text(
+                "first story!",
+                style: Theme.of(context).textTheme.display1.copyWith(
+                      color: DefaultStyle.primary2,
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+            ],
+          )),
+    );
+  }
+
   Widget _buildRecentPosts(BuildContext context) {
+    var recentPosts = fakeRecentPosts;
     return SizedBox(
       height: (MediaQuery.of(context).size.height / 5) * 0.9,
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: fakeRecentPosts.length,
+        itemCount: recentPosts.length,
         itemBuilder: (context, i) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width / 2.5,
-            child: Card(
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          fakeRecentPosts[i][DiaryStructure.date]
-                              [DateConstants.day],
-                          style: Theme.of(context).textTheme.title.copyWith(
-                                color: DefaultStyle.primary3.withOpacity(.75),
-                              ),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          fakeRecentPosts[i][DiaryStructure.date]
-                              [DateConstants.dayName],
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                                color: DefaultStyle.grey1.withOpacity(.75),
-                              ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        fakeRecentPosts[i][DiaryStructure.title],
-                        style: Theme.of(context).textTheme.body1,
+          return ShowUp(
+            delay: Duration(milliseconds: i*200),
+            duration: Duration(seconds: 1),
+            animatedOpacity: true,
+            curve: Curves.bounceOut,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            recentPosts[i][DiaryStructure.date]
+                                [DateConstants.day],
+                            style: Theme.of(context).textTheme.title.copyWith(
+                                  color: DefaultStyle.primary3.withOpacity(.75),
+                                ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            recentPosts[i][DiaryStructure.date]
+                                [DateConstants.dayName],
+                            style: Theme.of(context).textTheme.caption.copyWith(
+                                  color: DefaultStyle.grey1.withOpacity(.75),
+                                ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          recentPosts[i][DiaryStructure.title],
+                          style: Theme.of(context).textTheme.body1,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

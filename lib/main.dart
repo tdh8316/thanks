@@ -11,7 +11,7 @@ class Application extends StatelessWidget {
     );
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent
+        statusBarColor: Colors.transparent,
       ),
     );
   }

@@ -8,7 +8,7 @@ List<Map<DiaryStructure, dynamic>> fakeRecentPosts = [
       DateConstants.day:'13',
       DateConstants.year:'2019',
     },
-    DiaryStructure.title: "Hello, world!",
+    DiaryStructure.title: "I'm so excited to start writing journal with you!",
   },{
     DiaryStructure.date: {
       DateConstants.dayName:"Mon",
@@ -16,7 +16,7 @@ List<Map<DiaryStructure, dynamic>> fakeRecentPosts = [
       DateConstants.day:'12',
       DateConstants.year:'2019',
     },
-    DiaryStructure.title: "Awful day ;(",
+    DiaryStructure.title: "Let's start to write your story!",
   },{
     DiaryStructure.date: {
       DateConstants.dayName:"Sun",
