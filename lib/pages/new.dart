@@ -15,9 +15,11 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
 
   List<Widget> _storyBoard = [
     StorySelectDate(),
-    Container(child: Center(child: Text("1", style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("2", style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("3", style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("Hello", style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("Ready to write?", style: TextStyle(fontSize: 32)))),
+    Container(child: Center(child: Text("Yeah!", style: TextStyle(fontSize: 32)))),
+    Container(child: Center(child: Text("🤘🏼", style: TextStyle(fontSize: 69)))),
+    Container(child: Center(child: Text("Done!", style: TextStyle(fontSize: 69)))),
   ];
 
   @override

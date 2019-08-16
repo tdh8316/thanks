@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class StorySelectDate extends StatefulWidget {
@@ -35,17 +34,14 @@ class _StorySelectDate extends State<StorySelectDate> {
             "Create a new story",
             style: Theme.of(context).textTheme.display1,
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 2),
+          SizedBox(height: MediaQuery.of(context).size.height / 2.5),
           Text(
             "${DateFormat("MMMM d").format(_date)}",
-            style: Theme.of(context).textTheme.headline,
+            style: TextStyle(fontSize: 32),
           ),
-          MaterialButton(
+          IconButton(
             onPressed: _selectDate,
-            child: Text(
-              "Not today?",
-              style: Theme.of(context).textTheme.caption,
-            ),
+            icon: Icon(Icons.keyboard_arrow_down),
           ),
         ],
       ),
@@ -53,18 +49,12 @@ class _StorySelectDate extends State<StorySelectDate> {
   }
 
   Future<Null> _selectDate() async {
-    DateTime picked = await showDatePicker(
+    DateTime _selectedDate = await showDatePicker(
       context: context,
       initialDate: _date,
-      firstDate: DateTime.now().subtract(Duration(days: 7)),
+      firstDate: DateTime.now().subtract(Duration(days: 365)),
       lastDate: DateTime.now(),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData.light(),
-          child: child,
-        );
-      },
     );
-    if (picked != null) setState(() => _date = picked);
+    if (_selectedDate != null) setState(() => _date = _selectedDate);
   }
 }

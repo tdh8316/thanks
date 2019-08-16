@@ -63,13 +63,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Spacer(),
                         IconButton(
-                          onPressed: () => Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Not Implemented'),
-                              behavior: SnackBarBehavior.floating,
-                              duration: Duration(seconds: 1),
-                            ),
-                          ),
+                          onPressed: () {
+                            selectedTheme=ColorSchemes.white;
+                          },
                           icon: Icon(Icons.notifications, color: Colors.white),
                         ),
                         SizedBox(width: 4),
@@ -131,26 +127,27 @@ class _HomePageState extends State<HomePage> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-          padding: EdgeInsets.only(left: 12, right: 12, bottom: 64),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Let's get started\non your",
-                style: Theme.of(context).textTheme.display1.copyWith(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
-              Text(
-                "first story!",
-                style: Theme.of(context).textTheme.display1.copyWith(
-                      color: DefaultStyle.primary2,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-            ],
-          )),
+        padding: EdgeInsets.only(left: 12, right: 12, bottom: 64),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "Let's get started\non your",
+              style: Theme.of(context).textTheme.display1.copyWith(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            Text(
+              "first story!",
+              style: Theme.of(context).textTheme.display1.copyWith(
+                    color: DefaultStyle.primary2,
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -164,10 +161,10 @@ class _HomePageState extends State<HomePage> {
         itemCount: recentPosts.length,
         itemBuilder: (context, i) {
           return ShowUp(
-            delay: Duration(milliseconds: i*200),
+            delay: Duration(milliseconds: i * 200),
             duration: Duration(seconds: 1),
             animatedOpacity: true,
-            curve: Curves.bounceOut,
+            curve: Curves.elasticOut,
             child: SizedBox(
               width: MediaQuery.of(context).size.width / 2.5,
               child: Card(

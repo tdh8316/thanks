@@ -13,12 +13,6 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   int _index = 0;
   PageController _pageController;
-  final List<Widget> _children = <Widget>[
-    HomePage(),
-    Container(child: Center(child: Calendar())),
-    Container(child: Center(child: Text("2", style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("3", style: TextStyle(fontSize: 69)))),
-  ];
 
   @override
   void initState() {
@@ -59,11 +53,68 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.all(16),
+          children: <Widget>[
+            DrawerHeader(
+              child: Column(
+                children: <Widget>[
+                  Text("Unknown User"),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 32,
+                    backgroundImage: NetworkImage(
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "What do I call you?",
+                style: Theme.of(context).textTheme.subhead,
+              ),
+              subtitle: Text(
+                "Your nickname",
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Coming soon...",
+                style: Theme.of(context).textTheme.subhead,
+              ),
+            ),
+            ListTile(
+              title: Text("Unlock premium features"),
+            ),
+          ],
+        ),
+      ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
-        children: _children,
+        children: <Widget>[
+          HomePage(),
+          Calendar(),
+          Container(
+            child: Center(
+              child: Text(
+                "In development by ☕",
+                style: TextStyle(fontSize: 32),
+              ),
+            ),
+          ),
+          Container(
+            child: Center(
+              child: Text(
+                "Coming soon",
+                style: TextStyle(fontSize: 32),
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),

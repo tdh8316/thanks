@@ -121,48 +121,51 @@ class _CalendarState extends State<Calendar> {
         ),
         Align(
           alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.only(top: 64, left: 12, right: 12),
-            child: CalendarCarousel<Event>(
-              onDayPressed: (DateTime date, List<Event> events) {
-                setState(() {
-                  _dateTime = date;
-                });
-              },
-              iconColor: DefaultStyle.grey1,
-              headerTextStyle: Theme.of(context)
-                  .textTheme
-                  .title
-                  .copyWith(color: DefaultStyle.grey1),
-              todayBorderColor: Colors.transparent,
-              todayButtonColor: Colors.transparent,
-              todayTextStyle: TextStyle(color: Colors.black),
-              thisMonthDayBorderColor: Colors.transparent,
-              selectedDayButtonColor: DefaultStyle.primary3,
-              selectedDayBorderColor: DefaultStyle.primary3,
-              selectedDayTextStyle: TextStyle(color: Colors.white),
-              weekendTextStyle: TextStyle(color: Colors.black),
-              daysTextStyle: TextStyle(color: Colors.black),
-              nextDaysTextStyle: TextStyle(color: Colors.grey),
-              prevDaysTextStyle: TextStyle(color: Colors.grey),
-              weekdayTextStyle: TextStyle(color: Colors.grey),
-              weekDayFormat: WeekdayFormat.short,
-              firstDayOfWeek: null,
-              showHeader: true,
-              isScrollable: false,
-              weekFormat: false,
-              height: 500,
-              selectedDateTime: _dateTime,
-              daysHaveCircularBorder: true,
-              customGridViewPhysics: NeverScrollableScrollPhysics(),
-              // markedDatesMap: _getCarouselMarkedDates(),
-              markedDateWidget: Container(
-                height: 3,
-                width: 9,
-                decoration: new BoxDecoration(
-                  color: Color(0xFF30A9B2),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width / 1.1,
+            child: Padding(
+              padding: EdgeInsets.only(top: 82, left: 12, right: 12),
+              child: CalendarCarousel<Event>(
+                onDayPressed: (DateTime date, List<Event> events) {
+                  setState(() {
+                    _dateTime = date;
+                  });
+                },
+                iconColor: DefaultStyle.grey1,
+                headerTextStyle: Theme.of(context)
+                    .textTheme
+                    .title
+                    .copyWith(color: DefaultStyle.grey1),
+                todayBorderColor: Colors.transparent,
+                todayButtonColor: Colors.transparent,
+                todayTextStyle: TextStyle(color: Colors.black),
+                thisMonthDayBorderColor: Colors.transparent,
+                selectedDayButtonColor: DefaultStyle.primary3,
+                selectedDayBorderColor: DefaultStyle.primary3,
+                selectedDayTextStyle: TextStyle(color: Colors.white),
+                weekendTextStyle: TextStyle(color: Colors.black),
+                daysTextStyle: TextStyle(color: Colors.black),
+                nextDaysTextStyle: TextStyle(color: Colors.grey),
+                prevDaysTextStyle: TextStyle(color: Colors.grey),
+                weekdayTextStyle: TextStyle(color: Colors.grey),
+                weekDayFormat: WeekdayFormat.short,
+                firstDayOfWeek: null,
+                showHeader: true,
+                isScrollable: false,
+                weekFormat: false,
+                height: 600,
+                selectedDateTime: _dateTime,
+                daysHaveCircularBorder: true,
+                customGridViewPhysics: NeverScrollableScrollPhysics(),
+                // markedDatesMap: _getCarouselMarkedDates(),
+                markedDateWidget: Container(
+                  height: 3,
+                  width: 9,
+                  decoration: new BoxDecoration(
+                    color: Color(0xFF30A9B2),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
                 ),
               ),
             ),
@@ -180,62 +183,78 @@ class _CalendarState extends State<Calendar> {
             color: DefaultStyle.grey3,
           ),
         ),
-        Align(
-          alignment: Alignment.lerp(
-            Alignment.center,
-            Alignment.bottomCenter,
-            0.75,
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 7.5,
-              child: Card(
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            recentPosts[1][DiaryStructure.date]
-                                [DateConstants.day],
-                            style: Theme.of(context)
-                                .textTheme
-                                .display1
-                                .copyWith(
-                                  color: DefaultStyle.primary3.withOpacity(.75),
+        _buildStoryWidget(context, _dateTime),
+      ],
+    );
+  }
+
+  Widget _buildStoryWidget(BuildContext context, DateTime targetDate) {
+    var _targetPost = fakeStories[targetDate.toString().split(' ')[0]];
+    if (_targetPost == null) return Container();
+    return (targetDate.day.toString() ==
+                _targetPost[DiaryStructure.date][DateConstants.day]
+                    .toString() &&
+            targetDate.month.toString() ==
+                _targetPost[DiaryStructure.date][DateConstants.month]
+                    .toString() &&
+            targetDate.year.toString() ==
+                _targetPost[DiaryStructure.date][DateConstants.year].toString())
+        ? Align(
+            alignment: Alignment.lerp(
+              Alignment.center,
+              Alignment.bottomCenter,
+              0.75,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 7.5,
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _targetPost[DiaryStructure.date]
+                                  [DateConstants.day],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .display1
+                                  .copyWith(
+                                    color:
+                                        DefaultStyle.primary3.withOpacity(.75),
+                                  ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            _targetPost[DiaryStructure.date]
+                                [DateConstants.dayName],
+                            style: Theme.of(context).textTheme.caption.copyWith(
+                                  color: DefaultStyle.grey1.withOpacity(.75),
                                 ),
                           ),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          recentPosts[1][DiaryStructure.date]
-                              [DateConstants.dayName],
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                                color: DefaultStyle.grey1.withOpacity(.75),
-                              ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "This is an example of the story.",
-                          style: Theme.of(context).textTheme.body1,
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "This is an example of the story.",
+                            style: Theme.of(context).textTheme.body1,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
-    );
+          )
+        : Container();
   }
 }
