@@ -63,7 +63,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       // print(max(.7, (1 - (index - page).abs()) + viewPortFraction)*60);
-                      return _buildColorsWidgets()[index](currentPage == index);
+                      return _buildColorsWidgets()[index](max(.7, (1 - (index - page).abs()) + viewPortFraction)*60);
                     },
                   ),
                 ),
@@ -76,10 +76,10 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
   }
 
   List<Function> _buildColorsWidgets() => <Function>[
-        (bool isPrimary) => FlatButton(
+        (double size) => FlatButton(
               child: Container(
-                height: isPrimary ? 100 : 64,
-                width: isPrimary ? 100 : 64,
+                height: size,
+                width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white),
@@ -96,10 +96,10 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                 });
               },
             ),
-        (bool isPrimary) => FlatButton(
+        (double size) => FlatButton(
               child: Container(
-                height: isPrimary ? 100 : 64,
-                width: isPrimary ? 100 : 64,
+                height: size,
+                width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white),
@@ -116,10 +116,10 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                 });
               },
             ),
-        (bool isPrimary) => FlatButton(
+        (double size) => FlatButton(
               child: Container(
-                height: isPrimary ? 100 : 64,
-                width: isPrimary ? 100 : 64,
+                height: size,
+                width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white),
@@ -136,10 +136,10 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                 });
               },
             ),
-        (bool isPrimary) => FlatButton(
+        (double size) => FlatButton(
               child: Container(
-                height: isPrimary ? 100 : 64,
-                width: isPrimary ? 100 : 64,
+                height: size,
+                width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white),
