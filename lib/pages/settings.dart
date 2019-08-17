@@ -1,9 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thanks/styles/default.dart';
 
 class Settings extends StatefulWidget {
+  Settings() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -19,6 +28,16 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
     pageController = PageController(viewportFraction: viewPortFraction);
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+    super.dispose();
   }
 
   @override
@@ -63,7 +82,13 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       // print(max(.7, (1 - (index - page).abs()) + viewPortFraction)*60);
-                      return _buildColorsWidgets()[index](max(.7, (1 - (index - page).abs()) + viewPortFraction)*60);
+                      return _buildColorsWidgets()[index](
+                        max(
+                              0.7,
+                              (1 - (index - page).abs()) + viewPortFraction,
+                            ) *
+                            pow(2, 6),
+                      );
                     },
                   ),
                 ),
@@ -77,12 +102,15 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
 
   List<Function> _buildColorsWidgets() => <Function>[
         (double size) => FlatButton(
+              shape: CircleBorder(),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Container(
                 height: size,
                 width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: Colors.white, width: 4),
                   gradient: LinearGradient(
                     colors: defaultColors(),
                     begin: Alignment.bottomRight,
@@ -97,12 +125,15 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
               },
             ),
         (double size) => FlatButton(
+              shape: CircleBorder(),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Container(
                 height: size,
                 width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: Colors.white, width: 4),
                   gradient: LinearGradient(
                     colors: nightFadeColors(),
                     begin: Alignment.bottomRight,
@@ -117,12 +148,15 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
               },
             ),
         (double size) => FlatButton(
+              shape: CircleBorder(),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Container(
                 height: size,
                 width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: Colors.white, width: 4),
                   gradient: LinearGradient(
                     colors: deepBlueColors(),
                     begin: Alignment.bottomRight,
@@ -137,12 +171,15 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
               },
             ),
         (double size) => FlatButton(
+              shape: CircleBorder(),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Container(
                 height: size,
                 width: size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: Colors.white, width: 4),
                   gradient: LinearGradient(
                     colors: grapeColors(),
                     begin: Alignment.bottomRight,

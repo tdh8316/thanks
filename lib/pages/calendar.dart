@@ -82,7 +82,7 @@ class _CalendarState extends State<Calendar> {
                         SizedBox(width: 4),
                         IconButton(
                           onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: Icon(Icons.menu, color: Colors.white),
+                          icon: Icon(Icons.menu, color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         Text(
@@ -90,7 +90,7 @@ class _CalendarState extends State<Calendar> {
                           style: Theme.of(context)
                               .textTheme
                               .title
-                              .copyWith(color: Colors.white),
+                              .copyWith(color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         IconButton(
@@ -101,7 +101,7 @@ class _CalendarState extends State<Calendar> {
                               duration: Duration(seconds: 1),
                             ),
                           ),
-                          icon: Icon(Icons.notifications, color: Colors.white),
+                          icon: Icon(Icons.notifications, color: DefaultStyle.backgroundedTextColor),
                         ),
                         SizedBox(width: 4),
                       ],
@@ -189,6 +189,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   Widget _buildStoryWidget(BuildContext context, DateTime targetDate) {
+    // TODO: New data structure
     var _targetPost = fakeStories[targetDate.toString().split(' ')[0]];
     if (_targetPost == null) return Container();
     return (targetDate.day.toString() ==

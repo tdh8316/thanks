@@ -51,22 +51,20 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: 4),
                         IconButton(
                           onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: Icon(Icons.menu, color: Colors.white),
+                          icon: Icon(Icons.menu,
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         Text(
                           "Thanks",
-                          style: Theme.of(context)
-                              .textTheme
-                              .title
-                              .copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.title.copyWith(
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         IconButton(
-                          onPressed: () {
-                            selectedTheme=ColorSchemes.white;
-                          },
-                          icon: Icon(Icons.notifications, color: Colors.white),
+                          onPressed: () {},
+                          icon: Icon(Icons.notifications,
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         SizedBox(width: 4),
                       ],
@@ -81,7 +79,8 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         "${DateFormat('dd').format(widget.now)}",
                         style: Theme.of(context).textTheme.display2.copyWith(
-                              color: Colors.white70,
+                              color: DefaultStyle.backgroundedTextColor
+                                  .withOpacity(.75),
                             ),
                       ),
                       SizedBox(width: 8),
@@ -89,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                         "${DateFormat('EEEE').format(widget.now)}\n"
                         "${DateFormat("MMM y").format(widget.now)}",
                         style: Theme.of(context).textTheme.subhead.copyWith(
-                              color: Colors.white70,
+                              color: DefaultStyle.backgroundedTextColor
+                                  .withOpacity(.75),
                             ),
                       ),
                     ],
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 Divider(
                   indent: 16,
                   endIndent: 16,
-                  color: Colors.white,
+                  color: DefaultStyle.backgroundedTextColor,
                 ),
                 Spacer(),
                 _buildParagraph(context),
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Let's get started\non your",
               style: Theme.of(context).textTheme.display1.copyWith(
-                    color: Colors.white70,
+                    color: DefaultStyle.backgroundedTextColor.withOpacity(.75),
                     fontWeight: FontWeight.w500,
                   ),
             ),
@@ -152,6 +152,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildRecentPosts(BuildContext context) {
+    // TODO: New data structure
     var recentPosts = fakeRecentPosts;
     return SizedBox(
       height: (MediaQuery.of(context).size.height / 5) * 0.9,

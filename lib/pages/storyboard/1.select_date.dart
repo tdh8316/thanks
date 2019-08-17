@@ -1,7 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:thanks/styles/default.dart';
 
 class StorySelectDate extends StatefulWidget {
+  StorySelectDate({
+    this.pageController,
+  });
+
+  final PageController pageController;
+
   @override
   State<StorySelectDate> createState() => _StorySelectDate();
 }
@@ -11,12 +20,10 @@ class _StorySelectDate extends State<StorySelectDate> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          // Status Bar decoration
-          /*Container(
+    return Column(
+      children: <Widget>[
+        // Status Bar decoration
+        /*Container(
             height: MediaQuery.of(context).padding.top,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -29,22 +36,77 @@ class _StorySelectDate extends State<StorySelectDate> {
               ),
             ),
           ),*/
-          SizedBox(height: 128),
-          Text(
-            "Create a new story",
-            style: Theme.of(context).textTheme.display1,
+        SizedBox(height: MediaQuery.of(context).size.height / 4),
+        Text(
+          "Create a new story",
+          style: Theme.of(context)
+              .textTheme
+              .display1
+              .copyWith(color: DefaultStyle.backgroundedTextColor),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / pi / 2),
+        Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Text(
+              "Story Date",
+              style: TextStyle(
+                color: DefaultStyle.primary4.withOpacity(.25),
+                fontSize: 64,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                SizedBox(height: MediaQuery.of(context).size.height / e / pi),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "${DateFormat("MMMM d").format(_date)}",
+                      style: Theme.of(context).textTheme.headline.copyWith(
+                            fontSize: 32,
+                            color: DefaultStyle.backgroundedTextColor
+                                .withOpacity(.6),
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    IconButton(
+                      onPressed: _selectDate,
+                      tooltip: "Click to set the date of this story.",
+                      icon: Icon(Icons.keyboard_arrow_down,
+                          color: DefaultStyle.backgroundedTextColor),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        Spacer(),
+        MaterialButton(
+          onPressed: () => widget.pageController.animateToPage(
+            1,
+            curve: Curves.fastOutSlowIn,
+            duration: Duration(seconds: 1),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 2.5),
-          Text(
-            "${DateFormat("MMMM d").format(_date)}",
-            style: TextStyle(fontSize: 32),
+          minWidth: MediaQuery.of(context).size.width / 1.5,
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              "I love it!".toUpperCase(),
+              style: Theme.of(context).textTheme.title.copyWith(
+                  color: DefaultStyle.primary1,
+                  // fontFamily: "", // TODO: Font
+                  fontWeight: FontWeight.w500),
+            ),
           ),
-          IconButton(
-            onPressed: _selectDate,
-            icon: Icon(Icons.keyboard_arrow_down),
-          ),
-        ],
-      ),
+          color: DefaultStyle.backgroundedTextColor,
+          shape: StadiumBorder(),
+        ),
+        Spacer(),
+      ],
     );
   }
 

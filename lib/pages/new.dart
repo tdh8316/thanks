@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:thanks/pages/storyboard/1.select_date.dart';
 import 'package:thanks/styles/default.dart';
 
@@ -12,14 +11,21 @@ class NewPost extends StatefulWidget {
 
 class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
   AnimationController _animationControllerFab;
+  static final PageController _pageController = PageController();
 
   List<Widget> _storyBoard = [
-    StorySelectDate(),
-    Container(child: Center(child: Text("Hello", style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("Ready to write?", style: TextStyle(fontSize: 32)))),
-    Container(child: Center(child: Text("Yeah!", style: TextStyle(fontSize: 32)))),
-    Container(child: Center(child: Text("🤘🏼", style: TextStyle(fontSize: 69)))),
-    Container(child: Center(child: Text("Done!", style: TextStyle(fontSize: 69)))),
+    StorySelectDate(pageController: _pageController),
+    Container(
+        child: Center(child: Text("Hello", style: TextStyle(fontSize: 69)))),
+    Container(
+        child: Center(
+            child: Text("Ready to write?", style: TextStyle(fontSize: 32)))),
+    Container(
+        child: Center(child: Text("Yeah!", style: TextStyle(fontSize: 32)))),
+    Container(
+        child: Center(child: Text("🤘🏼", style: TextStyle(fontSize: 69)))),
+    Container(
+        child: Center(child: Text("Done!", style: TextStyle(fontSize: 69)))),
   ];
 
   @override
@@ -38,22 +44,23 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
         });
       },
     );
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      primary: false,
       floatingActionButton: FloatingActionButton(
         heroTag: "new",
+        tooltip: "Click to stop writing this story.",
         elevation: 12,
         onPressed: () async {
-          SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
-          );
-          await _animationControllerFab.reverse(from: 0.5);
+          await _animationControllerFab
+              .reverse(from: 0.5)
+              .timeout(
+                Duration(milliseconds: 64),
+              )
+              .catchError((_) => null);
           Navigator.of(context).pop();
         },
         child: RotationTransition(
@@ -63,9 +70,28 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
         backgroundColor: DefaultStyle.primary3,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: PageView(
-        scrollDirection: Axis.vertical,
-        children: _storyBoard,
+      body: AnimatedBuilder(
+        animation: _pageController,
+        builder: (context, child) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  DefaultStyle.primary1.withOpacity(.75),
+                  DefaultStyle.primary2,
+                ],
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+              ),
+            ),
+            child: child,
+          );
+        },
+        child: PageView(
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          children: _storyBoard,
+        ),
       ),
     );
   }

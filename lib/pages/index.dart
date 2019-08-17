@@ -3,6 +3,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/pages/calendar.dart';
 import 'package:thanks/pages/home.dart';
 import 'package:thanks/pages/new.dart';
+import 'package:thanks/pages/settings.dart';
 import 'package:thanks/styles/default.dart';
 
 class Index extends StatefulWidget {
@@ -89,6 +90,33 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
             ListTile(
               title: Text("Unlock premium features"),
             ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 1,
+                child: Container(
+                  color: DefaultStyle.grey3,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Text("Settings"),
+                  Spacer(),
+                  Icon(
+                    Icons.settings,
+                    color: DefaultStyle.grey2,
+                  ),
+                ],
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Settings()),
+                );
+              },
+            )
           ],
         ),
       ),
