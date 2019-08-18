@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/styles/default.dart';
 
 class Settings extends StatefulWidget {
@@ -22,9 +23,14 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
   int currentPage = 0;
   double page = 0.0;
   double viewPortFraction = .4;
+  SharedPreferences prefs;
 
   @override
   void initState() {
+    (() async {
+      prefs = await SharedPreferences.getInstance();
+    })();
+
     pageController = PageController(viewportFraction: viewPortFraction);
 
     super.initState();
@@ -118,10 +124,11 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   selectedTheme = ColorSchemes.default_;
                 });
+                prefs.setString("theme", ColorSchemes.default_.toString());
               },
             ),
         (double size) => FlatButton(
@@ -141,10 +148,11 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   selectedTheme = ColorSchemes.nightFade;
                 });
+                prefs.setString("theme", ColorSchemes.nightFade.toString());
               },
             ),
         (double size) => FlatButton(
@@ -164,10 +172,11 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   selectedTheme = ColorSchemes.deepBlue;
                 });
+                prefs.setString("theme", ColorSchemes.deepBlue.toString());
               },
             ),
         (double size) => FlatButton(
@@ -187,10 +196,11 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   selectedTheme = ColorSchemes.grape;
                 });
+                prefs.setString("theme", ColorSchemes.grape.toString());
               },
             ),
       ];

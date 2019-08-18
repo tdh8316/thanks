@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/pages/index.dart';
+import 'package:thanks/styles/default.dart';
 
 class Application extends StatelessWidget {
   Application() {
@@ -29,4 +31,14 @@ class Application extends StatelessWidget {
   }
 }
 
-void main() => runApp(Application());
+void main() => (Application app) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.containsKey("theme")) {
+        selectedTheme=ColorSchemes.values.firstWhere(
+              (e) => e.toString() == "${prefs.getString("theme")}",
+          orElse: () => null,
+        );
+      }
+
+      runApp(app);
+    }(Application());
