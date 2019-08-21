@@ -16,21 +16,6 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
   PageController _pageController;
 
   @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  setIndex(int targetIndex) {
-    setState(() {
-      _index = targetIndex;
-    });
-    _pageController.jumpToPage(
-      targetIndex,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: ShowUp(
@@ -48,7 +33,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
                 ),
               );
             },
-            child: Icon(Icons.add, size: 32),
+            child: Icon(Icons.add, size: 32, color: Colors.white),
             backgroundColor: DefaultStyle.primary3,
           ),
         ),
@@ -263,6 +248,21 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  setIndex(int targetIndex) {
+    setState(() {
+      _index = targetIndex;
+    });
+    _pageController.jumpToPage(
+      targetIndex,
     );
   }
 }

@@ -85,9 +85,7 @@ class _DefaultStyle {
   }
 }
 
-class DefaultStyle extends _DefaultStyle {
-  DefaultStyle() : super(theme: selectedTheme);
-
+class DefaultStyle {
   static Color get backgroundedTextColor =>
       _DefaultStyle(theme: selectedTheme)._backgroundedTextColor;
 

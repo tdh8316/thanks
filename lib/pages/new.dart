@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:thanks/pages/storyboard/1.select_date.dart';
+import 'package:thanks/pages/storyboard/2.rate_day.dart';
 import 'package:thanks/styles/default.dart';
 
 class NewPost extends StatefulWidget {
@@ -10,13 +11,12 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
-  AnimationController _animationControllerFab;
   static final PageController _pageController = PageController();
+  AnimationController _animationControllerFab;
 
   List<Widget> _storyBoard = [
     StorySelectDate(pageController: _pageController),
-    Container(
-        child: Center(child: Text("Hello", style: TextStyle(fontSize: 69)))),
+    StoryRateDay(pageController: _pageController),
     Container(
         child: Center(
             child: Text("Ready to write?", style: TextStyle(fontSize: 32)))),
@@ -27,24 +27,6 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
     Container(
         child: Center(child: Text("Done!", style: TextStyle(fontSize: 69)))),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _animationControllerFab = AnimationController(
-      duration: Duration(milliseconds: 100),
-      upperBound: 0.25,
-      vsync: this,
-    );
-    Timer(
-      Duration(milliseconds: 100),
-      () {
-        setState(() {
-          _animationControllerFab.forward(from: 0.0);
-        });
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +47,7 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
         },
         child: RotationTransition(
           turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
-          child: Icon(Icons.add, size: 32),
+          child: Icon(Icons.add, size: 32, color: Colors.white),
         ),
         backgroundColor: DefaultStyle.primary3,
       ),
@@ -93,6 +75,24 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
           children: _storyBoard,
         ),
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animationControllerFab = AnimationController(
+      duration: Duration(milliseconds: 100),
+      upperBound: 0.25,
+      vsync: this,
+    );
+    Timer(
+      Duration(milliseconds: 100),
+      () {
+        setState(() {
+          _animationControllerFab.forward(from: 0.0);
+        });
+      },
     );
   }
 }

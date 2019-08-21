@@ -82,15 +82,14 @@ class _CalendarState extends State<Calendar> {
                         SizedBox(width: 4),
                         IconButton(
                           onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: Icon(Icons.menu, color: DefaultStyle.backgroundedTextColor),
+                          icon: Icon(Icons.menu,
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         Text(
                           "Thanks",
-                          style: Theme.of(context)
-                              .textTheme
-                              .title
-                              .copyWith(color: DefaultStyle.backgroundedTextColor),
+                          style: Theme.of(context).textTheme.title.copyWith(
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         Spacer(),
                         IconButton(
@@ -101,7 +100,8 @@ class _CalendarState extends State<Calendar> {
                               duration: Duration(seconds: 1),
                             ),
                           ),
-                          icon: Icon(Icons.notifications, color: DefaultStyle.backgroundedTextColor),
+                          icon: Icon(Icons.notifications,
+                              color: DefaultStyle.backgroundedTextColor),
                         ),
                         SizedBox(width: 4),
                       ],

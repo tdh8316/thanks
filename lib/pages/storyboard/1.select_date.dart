@@ -5,11 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:thanks/styles/default.dart';
 
 class StorySelectDate extends StatefulWidget {
+  final PageController pageController;
+
   StorySelectDate({
     this.pageController,
   });
-
-  final PageController pageController;
 
   @override
   State<StorySelectDate> createState() => _StorySelectDate();
@@ -75,8 +75,10 @@ class _StorySelectDate extends State<StorySelectDate> {
                     IconButton(
                       onPressed: _selectDate,
                       tooltip: "Click to set the date of this story.",
-                      icon: Icon(Icons.keyboard_arrow_down,
-                          color: DefaultStyle.backgroundedTextColor),
+                      icon: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: DefaultStyle.backgroundedTextColor,
+                      ),
                     ),
                   ],
                 ),
