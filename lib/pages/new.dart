@@ -14,18 +14,23 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
   static final PageController _pageController = PageController();
   AnimationController _animationControllerFab;
 
-  List<Widget> _storyBoard = [
-    StorySelectDate(pageController: _pageController),
-    StoryRateDay(pageController: _pageController),
+  static final StorySelectDate _storySelectDate = StorySelectDate(
+    pageController: _pageController,
+  );
+  static final StoryRateDay _storyRateDay = StoryRateDay(
+    pageController: _pageController,
+  );
+
+  final List<Widget> _storyBoard = [
+    _storySelectDate,
+    _storyRateDay,
     Container(
-        child: Center(
-            child: Text("Ready to write?", style: TextStyle(fontSize: 32)))),
-    Container(
-        child: Center(child: Text("Yeah!", style: TextStyle(fontSize: 32)))),
-    Container(
-        child: Center(child: Text("🤘🏼", style: TextStyle(fontSize: 69)))),
-    Container(
-        child: Center(child: Text("Done!", style: TextStyle(fontSize: 69)))),
+      child: Center(
+        child: ErrorWidget(
+          "NotImplemented",
+        ),
+      ),
+    ),
   ];
 
   @override
@@ -42,7 +47,9 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
               .timeout(
                 Duration(milliseconds: 64),
               )
-              .catchError((_) => null);
+              .catchError(
+                (_) => null,
+              );
           Navigator.of(context).pop();
         },
         child: RotationTransition(

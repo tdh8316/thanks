@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
+import 'package:thanks/components/share/bar.dart';
 import 'package:thanks/models/fakes.dart';
 import 'package:thanks/models/structs.dart';
 import 'package:thanks/styles/default.dart';
@@ -33,34 +34,7 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: SafeArea(
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 4),
-                        IconButton(
-                          onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: Icon(Icons.menu,
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        Spacer(),
-                        Text(
-                          "Thanks",
-                          style: Theme.of(context).textTheme.title.copyWith(
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.notifications,
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        SizedBox(width: 4),
-                      ],
-                    ),
-                  ),
-                ),
+                AppBarWidget(),
                 SizedBox(height: 12),
                 Padding(
                   padding: EdgeInsets.all(8),
@@ -124,6 +98,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildParagraph(BuildContext context) {
+    // TODO: Paragraphs
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(

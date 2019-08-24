@@ -3,6 +3,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel, WeekdayFormat;
+import 'package:thanks/components/share/bar.dart';
 import 'package:thanks/models/fakes.dart';
 import 'package:thanks/models/structs.dart';
 import 'package:thanks/styles/default.dart';
@@ -72,44 +73,7 @@ class _CalendarState extends State<Calendar> {
                 end: Alignment.topLeft,
               ),
             ),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: SafeArea(
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 4),
-                        IconButton(
-                          onPressed: () => Scaffold.of(context).openDrawer(),
-                          icon: Icon(Icons.menu,
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        Spacer(),
-                        Text(
-                          "Thanks",
-                          style: Theme.of(context).textTheme.title.copyWith(
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () => Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Not Implemented'),
-                              behavior: SnackBarBehavior.floating,
-                              duration: Duration(seconds: 1),
-                            ),
-                          ),
-                          icon: Icon(Icons.notifications,
-                              color: DefaultStyle.backgroundedTextColor),
-                        ),
-                        SizedBox(width: 4),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            child: AppBarWidget(),
           ),
         ),
         Align(
