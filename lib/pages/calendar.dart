@@ -73,7 +73,11 @@ class _CalendarState extends State<Calendar> {
                 end: Alignment.topLeft,
               ),
             ),
-            child: AppBarWidget(),
+            child: Column(
+              children: <Widget>[
+                AppBarWidget(),
+              ],
+            ),
           ),
         ),
         Align(
@@ -88,7 +92,7 @@ class _CalendarState extends State<Calendar> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width / 1.1,
             child: Padding(
-              padding: EdgeInsets.only(top: 82, left: 12, right: 12),
+              padding: EdgeInsets.only(top: 64, left: 12, right: 12),
               child: CalendarCarousel<Event>(
                 onDayPressed: (DateTime date, List<Event> events) {
                   setState(() {
@@ -147,7 +151,21 @@ class _CalendarState extends State<Calendar> {
             color: DefaultStyle.grey3,
           ),
         ),
-        _buildStoryWidget(context, _dateTime),
+        Align(
+          alignment: Alignment.lerp(
+            Alignment.center,
+            Alignment.bottomCenter,
+            1,
+          ),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 4,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: _buildStoryWidget(context, _dateTime),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -164,58 +182,49 @@ class _CalendarState extends State<Calendar> {
                     .toString() &&
             targetDate.year.toString() ==
                 _targetPost[DiaryStructure.date][DateConstants.year].toString())
-        ? Align(
-            alignment: Alignment.lerp(
-              Alignment.center,
-              Alignment.bottomCenter,
-              0.75,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 7.5,
-                child: Card(
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              _targetPost[DiaryStructure.date]
-                                  [DateConstants.day],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .display1
-                                  .copyWith(
-                                    color:
-                                        DefaultStyle.primary3.withOpacity(.75),
-                                  ),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            _targetPost[DiaryStructure.date]
-                                [DateConstants.dayName],
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: DefaultStyle.grey1.withOpacity(.75),
+        ? Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            _targetPost[DiaryStructure.date][DateConstants.day],
+                            style: Theme.of(context)
+                                .textTheme
+                                .display1
+                                .copyWith(
+                                  color: DefaultStyle.primary3.withOpacity(.75),
                                 ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "This is an example of the story.",
-                            style: Theme.of(context).textTheme.body1,
-                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          _targetPost[DiaryStructure.date]
+                              [DateConstants.dayName],
+                          style: Theme.of(context).textTheme.caption.copyWith(
+                                color: DefaultStyle.grey1.withOpacity(.75),
+                              ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 12, bottom: 8, right: 8),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "This is an example of the story.\n"
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                          style: Theme.of(context).textTheme.body1,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -35,51 +35,72 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      primary: false,
-      floatingActionButton: FloatingActionButton(
-        heroTag: "new",
-        tooltip: "Click to stop writing this story.",
-        elevation: 12,
-        onPressed: () async {
-          await _animationControllerFab
-              .reverse(from: 0.5)
-              .timeout(
-                Duration(milliseconds: 64),
-              )
-              .catchError(
-                (_) => null,
-              );
-          Navigator.of(context).pop();
-        },
-        child: RotationTransition(
-          turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
-          child: Icon(Icons.add, size: 32, color: Colors.white),
-        ),
-        backgroundColor: DefaultStyle.primary3,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: AnimatedBuilder(
-        animation: _pageController,
-        builder: (context, child) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  DefaultStyle.primary1.withOpacity(.75),
-                  DefaultStyle.primary2,
-                ],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-              ),
+    return WillPopScope(
+      onWillPop: () async =>
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit an App'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No'),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes'),
+                ),
+              ],
             ),
-            child: child,
-          );
-        },
-        child: PageView(
-          controller: _pageController,
-          scrollDirection: Axis.vertical,
-          children: _storyBoard,
+          ) ??
+          false,
+      child: Scaffold(
+        primary: false,
+        floatingActionButton: FloatingActionButton(
+          heroTag: "new",
+          tooltip: "Click to stop writing this story.",
+          elevation: 12,
+          onPressed: () async {
+            await _animationControllerFab
+                .reverse(from: 0.5)
+                .timeout(
+                  Duration(milliseconds: 64),
+                )
+                .catchError(
+                  (_) => null,
+                );
+            Navigator.of(context).pop();
+          },
+          child: RotationTransition(
+            turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
+            child: Icon(Icons.add, size: 32, color: Colors.white),
+          ),
+          backgroundColor: DefaultStyle.primary3,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: AnimatedBuilder(
+          animation: _pageController,
+          builder: (context, child) {
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    DefaultStyle.primary1.withOpacity(.75),
+                    DefaultStyle.primary2,
+                  ],
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                ),
+              ),
+              child: child,
+            );
+          },
+          child: PageView(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            children: _storyBoard,
+          ),
         ),
       ),
     );
