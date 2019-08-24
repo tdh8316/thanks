@@ -7,6 +7,8 @@ import 'package:thanks/styles/default.dart';
 class StorySelectDate extends StatefulWidget {
   final PageController pageController;
 
+  DateTime date = DateTime.now();
+
   StorySelectDate({
     this.pageController,
   });
@@ -16,7 +18,6 @@ class StorySelectDate extends StatefulWidget {
 }
 
 class _StorySelectDate extends State<StorySelectDate> {
-  DateTime _date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _StorySelectDate extends State<StorySelectDate> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "${DateFormat("MMMM d").format(_date)}",
+                      "${DateFormat("MMMM d").format(widget.date)}",
                       style: Theme.of(context).textTheme.headline.copyWith(
                             fontSize: 32,
                             color: DefaultStyle.backgroundedTextColor
@@ -115,10 +116,10 @@ class _StorySelectDate extends State<StorySelectDate> {
   Future<Null> _selectDate() async {
     DateTime _selectedDate = await showDatePicker(
       context: context,
-      initialDate: _date,
+      initialDate: widget.date,
       firstDate: DateTime.now().subtract(Duration(days: 365)),
       lastDate: DateTime.now(),
     );
-    if (_selectedDate != null) setState(() => _date = _selectedDate);
+    if (_selectedDate != null) setState(() => widget.date = _selectedDate);
   }
 }

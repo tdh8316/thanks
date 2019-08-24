@@ -31,7 +31,7 @@ class Application extends StatelessWidget {
   }
 }
 
-void main() => (Application app) async {
+void main() => ({@required Application app}) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.containsKey("theme")) {
         selectedTheme = ColorSchemes.values.firstWhere(
@@ -41,4 +41,6 @@ void main() => (Application app) async {
       }
 
       runApp(app);
-    }(Application());
+    }(
+      app: Application(),
+    );
