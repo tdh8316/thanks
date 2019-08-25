@@ -42,28 +42,30 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<bool> _confirmExit() =>
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Are you sure?'),
+          content: Text('Do you want to exit an App'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No'),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Yes'),
+            ),
+          ],
+        ),
+      ) ??
+      false;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async =>
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Are you sure?'),
-              content: Text('Do you want to exit an App'),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('No'),
-                ),
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('Yes'),
-                ),
-              ],
-            ),
-          ) ??
-          false,
+      onWillPop: _confirmExit,
       child: Scaffold(
         primary: false,
         floatingActionButton: FloatingActionButton(
@@ -79,7 +81,7 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
                 .catchError(
                   (_) => null,
                 );
-            Navigator.of(context).pop();
+            if (await _confirmExit()) Navigator.of(context).pop();
           },
           child: RotationTransition(
             turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
