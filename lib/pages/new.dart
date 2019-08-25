@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thanks/models/structs.dart';
 import 'package:thanks/pages/storyboard/1.select_date.dart';
 import 'package:thanks/pages/storyboard/2.rate_day.dart';
@@ -12,8 +13,10 @@ class NewPost extends StatefulWidget {
 }
 
 class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
-  static final PageController _pageController = PageController();
+  PageController _pageController;
   AnimationController _animationControllerFab;
+  double _primary1opacity = 0.75;
+  double _primary2opacity = 1.0;
 
   final Journal _journal = Journal(
     date: DateTime.now(),
@@ -35,6 +38,28 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
         });
       },
     );
+    _pageController = PageController()
+      ..addListener(
+        () {
+          _primary2opacity =
+              _pageController.page <= 1.0 ? 1 - _pageController.page : 0.0;
+          _primary1opacity =
+              _primary2opacity >= 0.25 ? _primary2opacity - 0.25 : 0.0;
+
+          if (_primary1opacity <= 0.5 && _primary2opacity <= 0.5)
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                statusBarIconBrightness: Brightness.dark,
+              ),
+            );
+          else
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                statusBarIconBrightness: Brightness.light,
+              ),
+            );
+        },
+      );
   }
 
   @override
@@ -42,47 +67,47 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<bool> _confirmExit() =>
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Are you sure?'),
-          content: Text('Do you want to exit an App'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('No'),
-            ),
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Yes'),
-            ),
-          ],
-        ),
-      ) ??
-      false;
+  Future<bool> exitRequest() async {
+    if (_pageController.page == 0.0
+        ? false
+        : !await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Are you sure?'.toUpperCase()),
+                content: Text(
+                    "This story will not be saved and you cannot undone this action!"),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('No'),
+                  ),
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: Text('Yes'),
+                  ),
+                ],
+              ),
+            ) ??
+            false) return false;
+    await _animationControllerFab
+        .reverse(from: 0.5)
+        .timeout(Duration(milliseconds: 64))
+        .catchError((_) => null);
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _confirmExit,
+      onWillPop: exitRequest,
       child: Scaffold(
         primary: false,
         floatingActionButton: FloatingActionButton(
           heroTag: "new",
           tooltip: "Click to stop writing this story.",
           elevation: 12,
-          onPressed: () async {
-            await _animationControllerFab
-                .reverse(from: 0.5)
-                .timeout(
-                  Duration(milliseconds: 64),
-                )
-                .catchError(
-                  (_) => null,
-                );
-            if (await _confirmExit()) Navigator.of(context).pop();
-          },
+          onPressed: () async =>
+              await exitRequest() ? Navigator.of(context).pop() : null,
           child: RotationTransition(
             turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
             child: Icon(Icons.add, size: 32, color: Colors.white),
@@ -97,8 +122,8 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: <Color>[
-                    DefaultStyle.primary1.withOpacity(.75),
-                    DefaultStyle.primary2,
+                    DefaultStyle.primary1.withOpacity(_primary1opacity),
+                    DefaultStyle.primary2.withOpacity(_primary2opacity),
                   ],
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
@@ -131,6 +156,7 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
                 ),
               ),
             ],
+            onPageChanged: (int page) {},
           ),
         ),
       ),

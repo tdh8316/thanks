@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/pages/calendar.dart';
 import 'package:thanks/pages/home.dart';
@@ -17,6 +18,11 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
       floatingActionButton: ShowUp(
         delay: Duration(seconds: 1),
