@@ -23,12 +23,12 @@ enum Emotions {
 }
 
 class Journal {
-  final DateTime date;
+  DateTime date;
 
-  final String title;
+  String title;
 
-  final String body;
-  final Emotions emotion;
+  String body;
+  Emotions emotion;
 
   Journal({
     this.date,

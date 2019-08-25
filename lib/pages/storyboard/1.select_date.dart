@@ -6,11 +6,13 @@ import 'package:thanks/styles/default.dart';
 
 class StorySelectDate extends StatefulWidget {
   final PageController pageController;
-
-  DateTime date = DateTime.now();
+  final DateTime Function() dateGetter;
+  final Function(DateTime) dateSetter;
 
   StorySelectDate({
     this.pageController,
+    this.dateGetter,
+    this.dateSetter,
   });
 
   @override
@@ -18,6 +20,15 @@ class StorySelectDate extends StatefulWidget {
 }
 
 class _StorySelectDate extends State<StorySelectDate> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +76,7 @@ class _StorySelectDate extends State<StorySelectDate> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "${DateFormat("MMMM d").format(widget.date)}",
+                      "${DateFormat("MMMM d").format(widget.dateGetter())}",
                       style: Theme.of(context).textTheme.headline.copyWith(
                             fontSize: 32,
                             color: DefaultStyle.backgroundedTextColor
@@ -116,10 +127,13 @@ class _StorySelectDate extends State<StorySelectDate> {
   Future<Null> _selectDate() async {
     DateTime _selectedDate = await showDatePicker(
       context: context,
-      initialDate: widget.date,
-      firstDate: DateTime.now().subtract(Duration(days: 365)),
+      initialDate: widget.dateGetter(),
+      firstDate: DateTime(1970),
       lastDate: DateTime.now(),
     );
-    if (_selectedDate != null) setState(() => widget.date = _selectedDate);
+    if (_selectedDate != null)
+      setState(() {
+        widget.dateSetter(_selectedDate);
+      });
   }
 }

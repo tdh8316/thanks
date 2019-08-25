@@ -1,37 +1,46 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:thanks/models/structs.dart';
 import 'package:thanks/pages/storyboard/1.select_date.dart';
 import 'package:thanks/pages/storyboard/2.rate_day.dart';
 import 'package:thanks/styles/default.dart';
 
 class NewPost extends StatefulWidget {
   @override
-  State<NewPost> createState() => _NewPostState();
+  State<NewPost> createState() => NewPostState();
 }
 
-class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
+class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
   static final PageController _pageController = PageController();
   AnimationController _animationControllerFab;
 
-  static final StorySelectDate _storySelectDate = StorySelectDate(
-    pageController: _pageController,
-  );
-  static final StoryRateDay _storyRateDay = StoryRateDay(
-    pageController: _pageController,
+  final Journal _journal = Journal(
+    date: DateTime.now(),
   );
 
-  final List<Widget> _storyBoard = [
-    _storySelectDate,
-    _storyRateDay,
-    Container(
-      child: Center(
-        child: ErrorWidget(
-          "NotImplemented",
-        ),
-      ),
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _animationControllerFab = AnimationController(
+      duration: Duration(milliseconds: 100),
+      upperBound: 0.25,
+      vsync: this,
+    );
+    Timer(
+      Duration(milliseconds: 100),
+      () {
+        setState(() {
+          _animationControllerFab.forward(from: 0.0);
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,28 +108,30 @@ class _NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
           child: PageView(
             controller: _pageController,
             scrollDirection: Axis.vertical,
-            children: _storyBoard,
+            children: <Widget>[
+              StorySelectDate(
+                pageController: _pageController,
+                dateGetter: () => _journal.date,
+                dateSetter: (date) {
+                  setState(() {
+                    _journal.date = date;
+                  });
+                },
+              ),
+              StoryRateDay(
+                pageController: _pageController,
+              ),
+              Container(
+                child: Center(
+                  child: ErrorWidget(
+                    "NotImplemented",
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _animationControllerFab = AnimationController(
-      duration: Duration(milliseconds: 100),
-      upperBound: 0.25,
-      vsync: this,
-    );
-    Timer(
-      Duration(milliseconds: 100),
-      () {
-        setState(() {
-          _animationControllerFab.forward(from: 0.0);
-        });
-      },
     );
   }
 }
