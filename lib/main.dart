@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/pages/index.dart';
 import 'package:thanks/styles/default.dart';
+import 'package:thanks/components/slider.dart';
 
 class Application extends StatelessWidget {
   Application() {
@@ -24,6 +25,10 @@ class Application extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Ubuntu",
+        sliderTheme: SliderThemeData(
+          trackHeight: 4,
+          trackShape: RoundSliderTrackShape(radius: 8),
+        )
       ),
       title: "All that Thanks",
       home: Index(),

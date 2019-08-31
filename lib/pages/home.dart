@@ -17,21 +17,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            DefaultStyle.primary1,
+            DefaultStyle.primary2,
+          ],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+        ),
+      ),
       child: Column(
         children: <Widget>[
           Container(
             height: (MediaQuery.of(context).size.height / 5) * 3,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  DefaultStyle.primary1,
-                  DefaultStyle.primary2,
-                ],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-              ),
-            ),
             child: Column(
               children: <Widget>[
                 AppBarWidget(),
@@ -69,19 +68,38 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.only(left: 12, top: 12),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Recent Posts",
-                style: Theme.of(context).textTheme.title.copyWith(
-                    fontSize: Theme.of(context).textTheme.title.fontSize - 2),
+          Spacer(),
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+              // bottomLeft: Radius.circular(16),
+              // bottomRight:  Radius.circular(16),
+            ),
+            child: Container(
+              // width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, top: 12),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Recent Posts",
+                        style: Theme.of(context).textTheme.title.copyWith(
+                            fontSize:
+                                Theme.of(context).textTheme.title.fontSize - 2),
+                      ),
+                    ),
+                  ),
+                  _buildRecentPosts(context),
+                ],
               ),
             ),
           ),
-          _buildRecentPosts(context),
         ],
       ),
     );
@@ -129,59 +147,62 @@ class _HomePageState extends State<HomePage> {
   Widget _buildRecentPosts(BuildContext context) {
     // TODO: New data structure
     var recentPosts = fakeRecentPosts;
-    return SizedBox(
-      height: (MediaQuery.of(context).size.height / 5) * 0.9,
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: recentPosts.length,
-        itemBuilder: (context, i) {
-          return ShowUp(
-            delay: Duration(milliseconds: i * 200),
-            duration: Duration(seconds: 1),
-            animatedOpacity: true,
-            curve: Curves.elasticOut,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 2.5,
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            recentPosts[i][DiaryStructure.date]
-                                [DateConstants.day],
-                            style: Theme.of(context).textTheme.title.copyWith(
-                                  color: DefaultStyle.primary3.withOpacity(.75),
-                                ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            recentPosts[i][DiaryStructure.date]
-                                [DateConstants.dayName],
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: DefaultStyle.grey1.withOpacity(.75),
-                                ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          recentPosts[i][DiaryStructure.title],
-                          style: Theme.of(context).textTheme.body1,
+    return Padding(
+      padding:  EdgeInsets.all(8),
+      child: SizedBox(
+        height: (MediaQuery.of(context).size.height / 5) * 0.9,
+        child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemCount: recentPosts.length,
+          itemBuilder: (context, i) {
+            return ShowUp(
+              delay: Duration(milliseconds: i * 200),
+              duration: Duration(seconds: 1),
+              animatedOpacity: true,
+              curve: Curves.elasticOut,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 2.5,
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              recentPosts[i][DiaryStructure.date]
+                                  [DateConstants.day],
+                              style: Theme.of(context).textTheme.title.copyWith(
+                                    color: DefaultStyle.primary3.withOpacity(.75),
+                                  ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              recentPosts[i][DiaryStructure.date]
+                                  [DateConstants.dayName],
+                              style: Theme.of(context).textTheme.caption.copyWith(
+                                    color: DefaultStyle.grey1.withOpacity(.75),
+                                  ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 8),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            recentPosts[i][DiaryStructure.title],
+                            style: Theme.of(context).textTheme.body1,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

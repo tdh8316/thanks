@@ -109,7 +109,7 @@ class _StorySelectDate extends State<StorySelectDate> {
           child: Padding(
             padding: EdgeInsets.all(16),
             child: Text(
-              "I love it!".toUpperCase(),
+              "continue".toUpperCase(),
               style: Theme.of(context).textTheme.title.copyWith(
                   color: DefaultStyle.primary1,
                   // fontFamily: "", // TODO: Font

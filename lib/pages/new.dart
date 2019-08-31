@@ -17,6 +17,7 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
   AnimationController _animationControllerFab;
   double _primary1opacity = 0.75;
   double _primary2opacity = 1.0;
+  bool _isFABVisible = true;
 
   final Journal _journal = Journal(
     date: DateTime.now(),
@@ -46,18 +47,25 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
           _primary1opacity =
               _primary2opacity >= 0.25 ? _primary2opacity - 0.25 : 0.0;
 
-          if (_primary1opacity <= 0.5 && _primary2opacity <= 0.5)
+          if (_primary1opacity <= 0.5 && _primary2opacity <= 0.5) {
             SystemChrome.setSystemUIOverlayStyle(
               SystemUiOverlayStyle(
                 statusBarIconBrightness: Brightness.dark,
               ),
             );
-          else
+            setState(() {
+              _isFABVisible = false;
+            });
+          } else {
             SystemChrome.setSystemUIOverlayStyle(
               SystemUiOverlayStyle(
                 statusBarIconBrightness: Brightness.light,
               ),
             );
+            setState(() {
+              _isFABVisible = true;
+            });
+          }
         },
       );
   }
@@ -102,17 +110,21 @@ class NewPostState extends State<NewPost> with SingleTickerProviderStateMixin {
       onWillPop: exitRequest,
       child: Scaffold(
         primary: false,
-        floatingActionButton: FloatingActionButton(
-          heroTag: "new",
-          tooltip: "Click to stop writing this story.",
-          elevation: 12,
-          onPressed: () async =>
-              await exitRequest() ? Navigator.of(context).pop() : null,
-          child: RotationTransition(
-            turns: Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
-            child: Icon(Icons.add, size: 32, color: Colors.white),
+        floatingActionButton: Visibility(
+          visible: _isFABVisible,
+          child: FloatingActionButton(
+            heroTag: "new",
+            tooltip: "Click to stop writing this story.",
+            elevation: 12,
+            onPressed: () async =>
+                await exitRequest() ? Navigator.of(context).pop() : null,
+            child: RotationTransition(
+              turns:
+                  Tween(begin: 0.0, end: .5).animate(_animationControllerFab),
+              child: Icon(Icons.add, size: 32, color: Colors.white),
+            ),
+            backgroundColor: DefaultStyle.primary3,
           ),
-          backgroundColor: DefaultStyle.primary3,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: AnimatedBuilder(
