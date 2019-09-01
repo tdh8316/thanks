@@ -127,8 +127,8 @@ class _StoryRateDay extends State<StoryRateDay> {
             child: Text(
               "continue".toUpperCase(),
               style: Theme.of(context).textTheme.button.copyWith(
-                color: DefaultStyle.primary4,
-              )
+                    color: DefaultStyle.primary4,
+                  ),
             ),
           ),
           color: DefaultStyle.backgroundedTextColor,

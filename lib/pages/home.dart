@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: New data structure
     var recentPosts = fakeRecentPosts;
     return Padding(
-      padding:  EdgeInsets.all(8),
+      padding: EdgeInsets.all(8),
       child: SizedBox(
         height: (MediaQuery.of(context).size.height / 5) * 0.9,
         child: ListView.builder(
@@ -174,14 +174,18 @@ class _HomePageState extends State<HomePage> {
                               recentPosts[i][DiaryStructure.date]
                                   [DateConstants.day],
                               style: Theme.of(context).textTheme.title.copyWith(
-                                    color: DefaultStyle.primary3.withOpacity(.75),
+                                    color:
+                                        DefaultStyle.primary3.withOpacity(.75),
                                   ),
                             ),
                             SizedBox(width: 8),
                             Text(
                               recentPosts[i][DiaryStructure.date]
                                   [DateConstants.dayName],
-                              style: Theme.of(context).textTheme.caption.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  .copyWith(
                                     color: DefaultStyle.grey1.withOpacity(.75),
                                   ),
                             ),
