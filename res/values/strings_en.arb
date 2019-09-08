@@ -1,0 +1,11 @@
+{
+  "howWasYourDay": "How was your day?",
+  "titleDateFormat": "${dayName}, MMM dd, yyyy",
+  "Monday": "EEEE",
+  "Tuesday": "EEEE",
+  "Wednesday": "EEEE",
+  "Thursday": "EEEE",
+  "Friday": "EEEE",
+  "Saturday": "EEEE",
+  "Sunday": "EEEE"
+}

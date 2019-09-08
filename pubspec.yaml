@@ -19,10 +19,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_cupertino_localizations: ^1.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  shared_preferences:
+  intl:
 
 dev_dependencies:
   flutter_test:
@@ -70,3 +75,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Nixgon
+      fonts:
+        - asset: res/fonts/Nixgon-M.ttf
+          weight: 500
+        - asset: res/fonts/Nixgon-B.ttf
+          weight: 900
+    - family: NotoSans
+      fonts:
+        - asset: res/fonts/NotoSansCJKkr-Regular.otf
