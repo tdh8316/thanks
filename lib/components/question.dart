@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
+import 'package:thanks/pages/new.dart';
 import 'package:thanks/styles/colors.dart';
 
 class Question extends StatelessWidget {
@@ -50,14 +51,14 @@ class Question extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, "좋아! 😊"),
+                  child: _buildButton(context, S.of(context).feelingGreat),
                   animatedOpacity: true,
                   duration: Duration(milliseconds: 500),
                   begin: Offset(0, .1),
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, "그저 그래 😐"),
+                  child: _buildButton(context, S.of(context).feelingNotGood),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 100),
                   duration: Duration(milliseconds: 250),
@@ -65,7 +66,7 @@ class Question extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, "너무 슬프다 😥"),
+                  child: _buildButton(context, S.of(context).feelingSad),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 200),
                   duration: Duration(milliseconds: 250),
@@ -73,7 +74,7 @@ class Question extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, "정말 화난다 😡"),
+                  child: _buildButton(context, S.of(context).feelingAngry),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 300),
                   duration: Duration(milliseconds: 500),
@@ -96,7 +97,13 @@ class Question extends StatelessWidget {
                 ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) => NewJournalPage(),
+            ),
+          );
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(color: DefaultColorTheme.main, width: 0.75),

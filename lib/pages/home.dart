@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/components/question.dart';
 
 class HomePage extends StatefulWidget {
@@ -7,6 +8,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  SharedPreferences prefs;
+
+  bool showQuestion() {
+    final DateTime _now = DateTime.now();
+    List<String> latestDate = prefs.getStringList("latestDate");
+    if (latestDate == null) return true;
+    return (latestDate[1] != _now.day.toString()) |
+            (latestDate[0] != _now.year.toString())
+        ? true
+        : false;
+  }
+
+  @override
+  void initState() {
+    initSharedPreferences();
+    super.initState();
+  }
+
+  Future<Null> initSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) => Container(
         child: SafeArea(
@@ -17,10 +40,13 @@ class _HomePageState extends State<HomePage> {
                 child: () {
                   switch (position) {
                     case 0:
-                      return Question();
+                      if (showQuestion()) return Question();
+                      continue _;
+                    _:
                     default:
                       return Text(position.toString());
                   }
+                  return null;
                 }(),
               );
             },

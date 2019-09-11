@@ -28,6 +28,11 @@ class S implements WidgetsLocalizations {
   String get Thursday => "EEEE";
   String get Tuesday => "EEEE";
   String get Wednesday => "EEEE";
+  String get feelingAngry => "Really angry \uD83D\uDE21";
+  String get feelingGreat => "I'm great! \uD83D\uDE0A";
+  String get feelingNotGood => "Not good \uD83D\uDE10";
+  String get feelingSad => "Sad \uD83D\uDE25";
+  String get home => "Home";
   String get howWasYourDay => "How was your day?";
   String titleDateFormat(String dayName) => "${dayName}, MMM dd, yyyy";
 }
@@ -39,13 +44,23 @@ class $ko_KR extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get feelingNotGood => "그저 그래 \uD83D\uDE10";
+  @override
   String get Monday => "월요일";
+  @override
+  String get howWasYourDay => "오늘 어땠어?";
+  @override
+  String get feelingAngry => "정말 화난다 \uD83D\uDE21";
+  @override
+  String get Saturday => "토요일";
+  @override
+  String get home => "홈";
   @override
   String get Thursday => "목요일";
   @override
-  String get howWasYourDay => "오늘 하루는 어땠나요?";
-  @override
   String get Friday => "금요일";
+  @override
+  String get feelingGreat => "좋아! \uD83D\uDE0A";
   @override
   String get Sunday => "일요일";
   @override
@@ -53,7 +68,7 @@ class $ko_KR extends S {
   @override
   String get Tuesday => "화요일";
   @override
-  String get Saturday => "토요일";
+  String get feelingSad => "너무 슬프다 \uD83D\uDE25";
   @override
   String titleDateFormat(String dayName) => "yyyy. M. d. ${dayName}";
 }
