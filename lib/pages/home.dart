@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/components/question.dart';
 
@@ -13,7 +12,7 @@ class _HomePageState extends State<HomePage> {
 
   bool showQuestion() {
     final DateTime _now = DateTime.now();
-    List<String> latestDate = prefs.getStringList("latestDate");
+    List<String> latestDate = prefs?.getStringList("latestDate");
     if (latestDate == null) return true;
     return (latestDate[1] != _now.day.toString()) |
             (latestDate[0] != _now.year.toString())
@@ -28,7 +27,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<Null> initSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
+    var _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs = _prefs;
+    });
   }
 
   @override

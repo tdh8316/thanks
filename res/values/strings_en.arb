@@ -7,5 +7,17 @@
   "Thursday": "EEEE",
   "Friday": "EEEE",
   "Saturday": "EEEE",
-  "Sunday": "EEEE"
+  "Sunday": "EEEE",
+  "feelingGreat": "I'm great! \uD83D\uDE0A",
+  "feelingNotGood": "Not good \uD83D\uDE10",
+  "feelingSad": "Sad \uD83D\uDE25",
+  "feelingAngry": "Really angry \uD83D\uDE21",
+  "home": "Home",
+  "feelingGreatMessage": "",
+  "feelingNotGoodMessage": "",
+  "feelingSadMessage": "",
+  "feelingAngryMessage": "",
+  "startTalking": "",
+  "startWriting": "",
+  "whatDoICallYou": "What do I call you?"
 }

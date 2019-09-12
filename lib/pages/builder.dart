@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
 import 'package:thanks/components/floating_bar.dart';
+import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/pages/home.dart';
+import 'package:thanks/services/account.dart';
 
 class PageBuilder extends StatefulWidget {
   @override
@@ -8,8 +14,63 @@ class PageBuilder extends StatefulWidget {
 }
 
 class _PageBuilderState extends State<PageBuilder> {
+  bool isLoggedIn = false;
+  final FacebookLogin facebookLogin = FacebookLogin()
+    ..loginBehavior = FacebookLoginBehavior.webViewOnly;
+
+  void onLoginStatusChanged(bool isLoggedIn) {
+    setState(() {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+
+  void initiateFacebookLogin() async {
+    var facebookLoginResult = await facebookLogin.logInWithReadPermissions(
+      [
+        'email',
+      ],
+    );
+    switch (facebookLoginResult.status) {
+      case FacebookLoginStatus.error:
+        onLoginStatusChanged(false);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        onLoginStatusChanged(false);
+        break;
+      case FacebookLoginStatus.loggedIn:
+        var graphResponse = await http.get('https://graph.facebook.com'
+            '/v2.12/me?fields='
+            'name,first_name,last_name,email,'
+            'picture.height(200)'
+            '&access_token=${facebookLoginResult.accessToken.token}');
+        AccountInstance.profileData = json.decode(graphResponse.body);
+        onLoginStatusChanged(true);
+        break;
+    }
+  }
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isLoggedIn)
+      return Scaffold(
+        body: SafeArea(
+          child: FlatButton(
+            child: Text("LOGIN"),
+            onPressed: () {
+              initiateFacebookLogin();
+            },
+          ),
+        ),
+      );
+    return _buildScreen();
+  }
+
+  Widget _buildScreen() => Scaffold(
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.all(16),
@@ -17,12 +78,11 @@ class _PageBuilderState extends State<PageBuilder> {
               DrawerHeader(
                 child: Column(
                   children: <Widget>[
-                    Text("Unknown User"),
-                    Spacer(),
+                    SizedBox(height: 16),
                     CircleAvatar(
                       radius: 32,
                       backgroundImage: NetworkImage(
-                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                        AccountInstance.profileData['picture']['data']['url'],
                       ),
                     ),
                   ],
@@ -30,11 +90,11 @@ class _PageBuilderState extends State<PageBuilder> {
               ),
               ListTile(
                 title: Text(
-                  "What do I call you?",
+                  S.of(context).whatDoICallYou,
                   style: Theme.of(context).textTheme.subhead,
                 ),
                 subtitle: Text(
-                  "Your nickname",
+                  AccountInstance.profileData['name'],
                 ),
               ),
               ListTile(
@@ -80,7 +140,7 @@ class _PageBuilderState extends State<PageBuilder> {
                   // TODO: Define AppBar actions
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.black87, size: 24),
-                    onPressed: (){
+                    onPressed: () {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Not Implemented"),
