@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/pages/builder.dart';
+import 'package:thanks/styles/colors.dart';
 import 'package:thanks/theme.dart';
 
 void main() async => runApp(await MyApp.getInstance());
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
         fontFamily: "Nixgon",
         textTheme: TextStyleTheme.textTheme,
         platform: TargetPlatform.iOS,
+        primaryColor: DefaultColorTheme.main,
+        // primarySwatch: DefaultColorTheme.sub,
       ),
       debugShowCheckedModeBanner: false,
       home: PageBuilder(),

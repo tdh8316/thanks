@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
+import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/new.dart';
 import 'package:thanks/styles/colors.dart';
 
@@ -51,14 +52,22 @@ class Question extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, S.of(context).feelingGreat),
+                  child: _buildButton(
+                    context,
+                    S.of(context).feelingGreat,
+                    Feelings.great,
+                  ),
                   animatedOpacity: true,
                   duration: Duration(milliseconds: 500),
                   begin: Offset(0, .1),
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, S.of(context).feelingNotGood),
+                  child: _buildButton(
+                    context,
+                    S.of(context).feelingNotGood,
+                    Feelings.notGood,
+                  ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 100),
                   duration: Duration(milliseconds: 250),
@@ -66,7 +75,11 @@ class Question extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, S.of(context).feelingSad),
+                  child: _buildButton(
+                    context,
+                    S.of(context).feelingSad,
+                    Feelings.sad,
+                  ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 200),
                   duration: Duration(milliseconds: 250),
@@ -74,7 +87,11 @@ class Question extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 ShowUp(
-                  child: _buildButton(context, S.of(context).feelingAngry),
+                  child: _buildButton(
+                    context,
+                    S.of(context).feelingAngry,
+                    Feelings.angry,
+                  ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 300),
                   duration: Duration(milliseconds: 500),
@@ -86,7 +103,8 @@ class Question extends StatelessWidget {
         ),
       );
 
-  Widget _buildButton(BuildContext context, String content) => FlatButton(
+  Widget _buildButton(BuildContext context, String content, Feelings feeling) =>
+      FlatButton(
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Text(
@@ -100,7 +118,9 @@ class Question extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (BuildContext context) => NewJournalPage(),
+              builder: (BuildContext context) => NewJournalPage(
+                feeling: feeling,
+              ),
             ),
           );
         },

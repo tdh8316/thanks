@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/components/question.dart';
 
@@ -34,17 +35,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => Container(
         child: SafeArea(
           child: ListView.builder(
-            itemBuilder: (BuildContext context, int position) {
+            itemBuilder: (BuildContext context, int i) {
               return Padding(
                 padding: EdgeInsets.all(32),
                 child: () {
-                  switch (position) {
+                  switch (i) {
                     case 0:
                       if (showQuestion()) return Question();
                       continue _;
                     _:
                     default:
-                      return Text(position.toString());
+                      return Text(i.toString());
                   }
                   return null;
                 }(),

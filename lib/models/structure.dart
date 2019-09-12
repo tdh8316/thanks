@@ -1,4 +1,4 @@
-enum feelings {
+enum Feelings {
   great,
   notGood,
   sad,
