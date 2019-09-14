@@ -38,9 +38,12 @@ class S implements WidgetsLocalizations {
   String get feelingSadMessage => "";
   String get home => "Home";
   String get howWasYourDay => "How was your day?";
+  String get introShort => "Gratitude Journal";
   String get startTalking => "";
   String get startWriting => "";
+  String get welcome => "Welcome";
   String get whatDoICallYou => "What do I call you?";
+  String get withFacebook => "Continue with Facebook";
   String titleDateFormat(String dayName) => "${dayName}, MMM dd, yyyy";
 }
 
@@ -71,6 +74,8 @@ class $ko_KR extends S {
   @override
   String get home => "홈";
   @override
+  String get introShort => "감사 일기";
+  @override
   String get startWriting => "그냥 쓸래요";
   @override
   String get Thursday => "목요일";
@@ -88,6 +93,10 @@ class $ko_KR extends S {
   String get Tuesday => "화요일";
   @override
   String get feelingAngryMessage => "화내지 마. 내가 다 들어줄게.";
+  @override
+  String get welcome => "환영합니다!";
+  @override
+  String get withFacebook => "Facebook 으로 계속";
   @override
   String get feelingSad => "너무 슬프다 \uD83D\uDE25";
   @override

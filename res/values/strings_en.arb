@@ -1,4 +1,7 @@
 {
+  "welcome": "Welcome",
+  "withFacebook": "Continue with Facebook",
+  "introShort": "Gratitude Journal",
   "howWasYourDay": "How was your day?",
   "titleDateFormat": "${dayName}, MMM dd, yyyy",
   "Monday": "EEEE",

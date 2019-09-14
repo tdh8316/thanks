@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:http/http.dart' as http;
 import 'package:thanks/components/floating_bar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/pages/home.dart';
-import 'package:thanks/services/account.dart';
+import 'package:thanks/pages/sign_up.dart';
 
 class PageBuilder extends StatefulWidget {
   @override
@@ -14,40 +10,7 @@ class PageBuilder extends StatefulWidget {
 }
 
 class _PageBuilderState extends State<PageBuilder> {
-  bool isLoggedIn = false;
-  final FacebookLogin facebookLogin = FacebookLogin()
-    ..loginBehavior = FacebookLoginBehavior.webViewOnly;
-
-  void onLoginStatusChanged(bool isLoggedIn) {
-    setState(() {
-      this.isLoggedIn = isLoggedIn;
-    });
-  }
-
-  void initiateFacebookLogin() async {
-    var facebookLoginResult = await facebookLogin.logInWithReadPermissions(
-      [
-        'email',
-      ],
-    );
-    switch (facebookLoginResult.status) {
-      case FacebookLoginStatus.error:
-        onLoginStatusChanged(false);
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        onLoginStatusChanged(false);
-        break;
-      case FacebookLoginStatus.loggedIn:
-        var graphResponse = await http.get('https://graph.facebook.com'
-            '/v2.12/me?fields='
-            'name,first_name,last_name,email,'
-            'picture.height(200)'
-            '&access_token=${facebookLoginResult.accessToken.token}');
-        AccountInstance.profileData = json.decode(graphResponse.body);
-        onLoginStatusChanged(true);
-        break;
-    }
-  }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -55,46 +18,67 @@ class _PageBuilderState extends State<PageBuilder> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (!isLoggedIn)
-      return Scaffold(
-        body: SafeArea(
-          child: FlatButton(
-            child: Text("LOGIN"),
-            onPressed: () {
-              initiateFacebookLogin();
-            },
-          ),
-        ),
-      );
-    return _buildScreen();
+  void dispose() {
+    super.dispose();
   }
 
-  Widget _buildScreen() => Scaffold(
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.all(16),
             children: <Widget>[
-              DrawerHeader(
+              /*DrawerHeader(
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 16),
                     CircleAvatar(
                       radius: 32,
-                      backgroundImage: NetworkImage(
-                        AccountInstance.profileData['picture']['data']['url'],
-                      ),
+                      backgroundImage: null,
                     ),
                   ],
                 ),
+              ),*/
+              DrawerHeader(
+                child: Container(),
               ),
               ListTile(
                 title: Text(
                   S.of(context).whatDoICallYou,
                   style: Theme.of(context).textTheme.subhead,
                 ),
-                subtitle: Text(
-                  AccountInstance.profileData['name'],
+                subtitle: Row(
+                  children: <Widget>[
+                    SizedBox(width: 8),
+                    InkWell(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          // TODO
+                          "nickname...",
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _scaffoldKey.currentState.showSnackBar(
+                          SnackBar(
+                            content: Text("NOT SUPPORTED YET"),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 1,
+                  child: Container(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
               ListTile(
@@ -110,7 +94,9 @@ class _PageBuilderState extends State<PageBuilder> {
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: 1,
-                  child: Container(),
+                  child: Container(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
               ListTile(
@@ -126,7 +112,19 @@ class _PageBuilderState extends State<PageBuilder> {
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-              )
+              ),
+              ListTile(
+                title: Text("Logout"),
+                onTap: () {
+                  // StaticSharedPreferences.prefs.remove("userName");
+                  SignUpManager.facebookLogin.logOut();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => SignUpManager(),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -141,7 +139,7 @@ class _PageBuilderState extends State<PageBuilder> {
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.black87, size: 24),
                     onPressed: () {
-                      Scaffold.of(context).showSnackBar(
+                      _scaffoldKey.currentState.showSnackBar(
                         SnackBar(
                           content: Text("Not Implemented"),
                           behavior: SnackBarBehavior.floating,
