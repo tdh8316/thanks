@@ -75,7 +75,7 @@ class SignUpManager extends StatelessWidget {
                   ),
                 ),
                 children: <Widget>[
-                  SizedBox(height: MediaQuery.of(context).size.height / 10),
+                  SizedBox(height: MediaQuery.of(context).size.height / 8),
                   Center(
                     child: Text(
                       "All that Thanks - ${S.of(context).introShort}",
@@ -94,6 +94,7 @@ class SignUpManager extends StatelessWidget {
                       style: Theme.of(context).textTheme.title,
                     ),
                   ),
+                  SizedBox(height: 32),
                   ShowUp(
                     animatedOpacity: true,
                     delay: Duration(milliseconds: 500),
@@ -111,7 +112,12 @@ class SignUpManager extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      onPressed: () => loginToFacebook(context),
+                      // onPressed: () => loginToFacebook(context),
+                      onPressed: () => Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => PageBuilder(),
+                        ),
+                      ),
                       shape: StadiumBorder(),
                       color: DefaultColorTheme.main,
                     ),

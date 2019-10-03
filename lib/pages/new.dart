@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/pages/diary.dart';
 import 'package:thanks/styles/colors.dart';
 
 class NewJournalPage extends StatelessWidget {
@@ -157,7 +158,14 @@ class NewJournalPage extends StatelessWidget {
                             S.of(context).startWriting,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => DiaryPage(
+                              dateTime: _now,
+                              feeling: feeling,
+                            ),
+                          ),
+                        ),
                         shape: StadiumBorder(),
                       ),
                     ),

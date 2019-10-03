@@ -36,23 +36,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => Container(
         child: SafeArea(
-          child: ListView.builder(
-            itemBuilder: (BuildContext context, int i) {
-              return Padding(
-                padding: EdgeInsets.all(32),
-                child: () {
-                  switch (i) {
-                    case 0:
-                      if (showQuestion()) return Question();
-                      continue _;
-                    _:
-                    default:
-                      return Text(i.toString());
-                  }
-                  return null;
-                }(),
-              );
-            },
+          child: Scrollbar(
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int i) {
+                return Padding(
+                  padding: EdgeInsets.all(32),
+                  child: () {
+                    switch (i) {
+                      case 0:
+                        if (showQuestion()) return Question();
+                        continue _;
+                      _:
+                      default:
+                        return Text(i.toString());
+                    }
+                    return null;
+                  }(),
+                );
+              },
+            ),
           ),
         ),
       );

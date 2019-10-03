@@ -13,8 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: Locale("ko", "KR"),
-      // Localizations.localeOf(context)
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

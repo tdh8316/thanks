@@ -39,6 +39,7 @@ class S implements WidgetsLocalizations {
   String get home => "Home";
   String get howWasYourDay => "How was your day?";
   String get introShort => "Gratitude Journal";
+  String get save => "save";
   String get startTalking => "";
   String get startWriting => "";
   String get welcome => "Welcome";
@@ -58,13 +59,9 @@ class $ko_KR extends S {
   @override
   String get Monday => "월요일";
   @override
-  String get feelingGreatMessage => "오늘 좋은 일이 있었나봐!";
-  @override
   String get howWasYourDay => "오늘 기분은 어땠어?";
   @override
-  String get feelingSadMessage => "괜찮을 거야. 너무 걱정하지 마.";
-  @override
-  String get feelingAngry => "정말 화난다 \uD83D\uDE21";
+  String get save => "저장하기";
   @override
   String get startTalking => "대화 시작하기";
   @override
@@ -72,17 +69,31 @@ class $ko_KR extends S {
   @override
   String get Saturday => "토요일";
   @override
-  String get home => "홈";
-  @override
-  String get introShort => "감사 일기";
-  @override
   String get startWriting => "그냥 쓸래요";
-  @override
-  String get Thursday => "목요일";
   @override
   String get whatDoICallYou => "이름이 뭐야?";
   @override
   String get Friday => "금요일";
+  @override
+  String get Tuesday => "화요일";
+  @override
+  String get welcome => "환영합니다!";
+  @override
+  String get withFacebook => "Facebook 으로 계속";
+  @override
+  String get feelingSad => "너무 슬프다 \uD83D\uDE25";
+  @override
+  String get feelingGreatMessage => "오늘 좋은 일이 있었나봐!";
+  @override
+  String get feelingSadMessage => "괜찮을 거야. 너무 걱정하지 마.";
+  @override
+  String get feelingAngry => "정말 화난다 \uD83D\uDE21";
+  @override
+  String get home => "홈";
+  @override
+  String get introShort => "감사 일기";
+  @override
+  String get Thursday => "목요일";
   @override
   String get feelingGreat => "좋아! \uD83D\uDE0A";
   @override
@@ -90,15 +101,7 @@ class $ko_KR extends S {
   @override
   String get Wednesday => "수요일";
   @override
-  String get Tuesday => "화요일";
-  @override
   String get feelingAngryMessage => "화내지 마. 내가 다 들어줄게.";
-  @override
-  String get welcome => "환영합니다!";
-  @override
-  String get withFacebook => "Facebook 으로 계속";
-  @override
-  String get feelingSad => "너무 슬프다 \uD83D\uDE25";
   @override
   String titleDateFormat(String dayName) => "yyyy. M. d. ${dayName}";
 }
