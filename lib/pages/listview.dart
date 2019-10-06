@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/components/question.dart';
+import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 
@@ -10,13 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  SharedPreferences prefs;
   List<Widget> journals = <Widget>[];
   ScrollController scrollController = ScrollController();
 
   bool showQuestion() {
     final DateTime _now = DateTime.now();
-    List<String> latestDate = prefs?.getStringList("latestDate");
+    List<String> latestDate =
+        StaticSharedPreferences.prefs?.getStringList("latestDate");
     if (latestDate == null) return true;
     return (latestDate[1] != _now.day.toString()) |
             (latestDate[0] != _now.year.toString())
@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    initSharedPreferences();
     loadAllItems();
     super.initState();
     scrollController.addListener(() {
@@ -38,13 +37,6 @@ class _HomePageState extends State<HomePage> {
           print("BOTTOM");
         }
       }
-    });
-  }
-
-  Future<Null> initSharedPreferences() async {
-    var _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs = _prefs;
     });
   }
 

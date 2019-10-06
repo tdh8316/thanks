@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thanks/generated/i18n.dart';
+import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
@@ -126,8 +126,8 @@ class _DiaryPageState extends State<DiaryPage> {
       feelings: widget.feeling,
       content: editingController.text,
     );
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(
+
+    StaticSharedPreferences.prefs.setStringList(
       "latestDate",
       [
         "${widget.dateTime.year}",
