@@ -1,6 +1,6 @@
 {
   "welcome": "환영합니다!",
-  "withFacebook": "Facebook 으로 계속",
+  "signUp": "계정 생성하기",
   "introShort": "감사 일기",
   "howWasYourDay": "오늘 기분은 어땠어?",
   "titleDateFormat": "yyyy. M. d. ${dayName}",

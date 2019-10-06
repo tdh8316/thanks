@@ -40,11 +40,11 @@ class S implements WidgetsLocalizations {
   String get howWasYourDay => "How was your day?";
   String get introShort => "Gratitude Journal";
   String get save => "save";
+  String get signUp => "Create your account";
   String get startTalking => "";
   String get startWriting => "";
   String get welcome => "Welcome";
   String get whatDoICallYou => "What do I call you?";
-  String get withFacebook => "Continue with Facebook";
   String titleDateFormat(String dayName) => "${dayName}, MMM dd, yyyy";
 }
 
@@ -63,6 +63,8 @@ class $ko_KR extends S {
   @override
   String get save => "저장하기";
   @override
+  String get signUp => "계정 생성하기";
+  @override
   String get startTalking => "대화 시작하기";
   @override
   String get feelingNotGoodMessage => "힘내! 내일은 좋은 일이 있을거야.";
@@ -78,8 +80,6 @@ class $ko_KR extends S {
   String get Tuesday => "화요일";
   @override
   String get welcome => "환영합니다!";
-  @override
-  String get withFacebook => "Facebook 으로 계속";
   @override
   String get feelingSad => "너무 슬프다 \uD83D\uDE25";
   @override

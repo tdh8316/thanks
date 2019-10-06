@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 
 class DiaryPage extends StatefulWidget {
@@ -20,6 +22,7 @@ class DiaryPage extends StatefulWidget {
 
 class _DiaryPageState extends State<DiaryPage> {
   final PanelController panelController = PanelController();
+  final TextEditingController editingController = TextEditingController();
 
   @override
   void initState() {
@@ -35,18 +38,18 @@ class _DiaryPageState extends State<DiaryPage> {
         onWillPop: () =>
             showDialog(
               context: context,
-              builder: (context) => new AlertDialog(
-                title: new Text('Are you sure?'),
+              builder: (context) =>  AlertDialog(
+                title:  Text('Are you sure?'),
                 content:
-                    new Text('Are you sure you want to close this activity?'),
+                     Text('Are you sure you want to close this activity?'),
                 actions: <Widget>[
-                  new FlatButton(
+                   FlatButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: new Text('No'),
+                    child:  Text('No'),
                   ),
-                  new FlatButton(
+                   FlatButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: new Text('Yes'),
+                    child:  Text('Yes'),
                   ),
                 ],
               ),
@@ -87,6 +90,7 @@ class _DiaryPageState extends State<DiaryPage> {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        controller: editingController,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         showCursor: true,
@@ -96,6 +100,9 @@ class _DiaryPageState extends State<DiaryPage> {
                         decoration: InputDecoration(
                           hintText: "Input your story here...",
                           border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          fontFamily: "NotoSans"
                         ),
                       ),
                     ),
@@ -117,7 +124,10 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
       );
 
-  Future<bool> _save() async {
-    return false;
+  Future<Null> _save() async {
+    savePlainEntry(editingController.text);
+    SharedPreferences prefs =await SharedPreferences.getInstance();
+    DateTime now = DateTime.now();
+    prefs.setStringList("latestDate", ["${now.year}", "${now.day}"]);
   }
 }

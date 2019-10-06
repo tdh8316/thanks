@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/pages/builder.dart';
@@ -10,6 +9,7 @@ import 'package:thanks/styles/colors.dart';
 class SignUpManager extends StatelessWidget {
   static final FacebookLogin facebookLogin = FacebookLogin()
     ..loginBehavior = FacebookLoginBehavior.webViewOnly;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   static Future<Null> loginToFacebook(BuildContext context) async {
     final FacebookLoginResult result =
@@ -62,6 +62,7 @@ class SignUpManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        key: _scaffoldKey,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(8),
           child: AnimationLimiter(
@@ -69,7 +70,7 @@ class SignUpManager extends StatelessWidget {
               children: AnimationConfiguration.toStaggeredList(
                 duration: Duration(milliseconds: 500),
                 childAnimationBuilder: (widget) => SlideAnimation(
-                  horizontalOffset: MediaQuery.of(context).size.width / 2,
+                  verticalOffset: 50,
                   child: FadeInAnimation(
                     child: widget,
                   ),
@@ -82,9 +83,9 @@ class SignUpManager extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline,
                     ),
                   ),
-                  SizedBox(height: 64),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * (3 / 4),
+                  SizedBox(height: 32),
+                  FractionallySizedBox(
+                    widthFactor: .825,
                     child: Image.asset("res/assets/humans/4.png"),
                   ),
                   Padding(
@@ -95,32 +96,53 @@ class SignUpManager extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 32),
-                  ShowUp(
-                    animatedOpacity: true,
-                    delay: Duration(milliseconds: 500),
-                    begin: Offset.zero,
-                    child: FlatButton(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: 60,
-                          right: 60,
-                          top: 20,
-                          bottom: 20,
-                        ),
-                        child: Text(
-                          S.of(context).withFacebook,
-                          style: TextStyle(color: Colors.white),
-                        ),
+                  FlatButton(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 60,
+                        right: 60,
+                        top: 20,
+                        bottom: 20,
                       ),
-                      // onPressed: () => loginToFacebook(context),
-                      onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => PageBuilder(),
-                        ),
+                      child: Text(
+                        S.of(context).signUp,
+                        style: TextStyle(color: Colors.white),
                       ),
-                      shape: StadiumBorder(),
-                      color: DefaultColorTheme.main,
                     ),
+                    // onPressed: () => loginToFacebook(context),
+                    onPressed: () {
+                      _scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Text("Not supported yet"),
+                          behavior: SnackBarBehavior.floating,
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
+                    },
+                    shape: StadiumBorder(),
+                    color: DefaultColorTheme.main,
+                  ),
+                  SizedBox(height: 8),
+                  FlatButton(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 60,
+                        right: 60,
+                        top: 20,
+                        bottom: 20,
+                      ),
+                      child: Text(
+                        "이 단계 건너뛰기",
+                        style: TextStyle(color: DefaultColorTheme.main),
+                      ),
+                    ),
+                    // onPressed: () => loginToFacebook(context),
+                    onPressed: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => PageBuilder(),
+                      ),
+                    ),
+                    shape: StadiumBorder(),
                   ),
                 ],
               ),

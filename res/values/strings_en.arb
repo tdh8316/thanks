@@ -1,6 +1,6 @@
 {
   "welcome": "Welcome",
-  "withFacebook": "Continue with Facebook",
+  "signUp": "Create your account",
   "introShort": "Gratitude Journal",
   "howWasYourDay": "How was your day?",
   "titleDateFormat": "${dayName}, MMM dd, yyyy",

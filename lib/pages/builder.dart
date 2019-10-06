@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
 import 'package:thanks/generated/i18n.dart';
-import 'package:thanks/pages/home.dart';
+import 'package:thanks/pages/listview.dart';
 import 'package:thanks/pages/sign_up.dart';
+import 'package:thanks/styles/user.dart';
 
 class PageBuilder extends StatefulWidget {
   @override
@@ -12,9 +13,19 @@ class PageBuilder extends StatefulWidget {
 class _PageBuilderState extends State<PageBuilder> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String _userName;
+
   @override
   void initState() {
     super.initState();
+    initUser();
+  }
+
+  Future<Null> initUser() async {
+    String userName = await getUserName();
+    setState(() {
+      _userName = userName;
+    });
   }
 
   @override
@@ -56,17 +67,17 @@ class _PageBuilderState extends State<PageBuilder> {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           // TODO
-                          "nickname...",
+                          _userName ?? "",
                         ),
                       ),
                       onTap: () {
-                        Navigator.of(context).pop();
+                        /*Navigator.of(context).pop();
                         _scaffoldKey.currentState.showSnackBar(
                           SnackBar(
                             content: Text("NOT SUPPORTED YET"),
                             behavior: SnackBarBehavior.floating,
                           ),
-                        );
+                        );*/
                       },
                     ),
                   ],
@@ -141,8 +152,9 @@ class _PageBuilderState extends State<PageBuilder> {
                     onPressed: () {
                       _scaffoldKey.currentState.showSnackBar(
                         SnackBar(
-                          content: Text("Not Implemented"),
+                          content: Text("Not supported yet"),
                           behavior: SnackBarBehavior.floating,
+                          duration: Duration(seconds: 1),
                         ),
                       );
                     },

@@ -4,3 +4,8 @@ enum Feelings {
   sad,
   angry,
 }
+
+enum ItemElements {
+  date,
+  body,
+}
