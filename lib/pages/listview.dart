@@ -121,6 +121,8 @@ class _HomePageState extends State<HomePage> {
         return "너무 슬프다 \uD83D\uDE25";
       case "angry":
         return "정말 화난다 \uD83D\uDE21";
+      default:
+        return null;
     }
   }
 }
