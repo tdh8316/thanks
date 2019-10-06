@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
       localeResolutionCallback: S.delegate.resolution(
         fallback: Locale("en", ""),
       ),
+      // TODO: Translation is required
+      locale: Locale("ko", "KR"),
       title: "Thanks",
       theme: ThemeData(
         fontFamily: "Nixgon",

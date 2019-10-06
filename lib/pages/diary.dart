@@ -38,18 +38,17 @@ class _DiaryPageState extends State<DiaryPage> {
         onWillPop: () =>
             showDialog(
               context: context,
-              builder: (context) =>  AlertDialog(
-                title:  Text('Are you sure?'),
-                content:
-                     Text('Are you sure you want to close this activity?'),
+              builder: (context) => AlertDialog(
+                title: Text('Are you sure?'),
+                content: Text('Are you sure you want to close this activity?'),
                 actions: <Widget>[
-                   FlatButton(
+                  FlatButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child:  Text('No'),
+                    child: Text('No'),
                   ),
-                   FlatButton(
+                  FlatButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child:  Text('Yes'),
+                    child: Text('Yes'),
                   ),
                 ],
               ),
@@ -101,9 +100,7 @@ class _DiaryPageState extends State<DiaryPage> {
                           hintText: "Input your story here...",
                           border: InputBorder.none,
                         ),
-                        style: TextStyle(
-                          fontFamily: "NotoSans"
-                        ),
+                        style: TextStyle(fontFamily: "NotoSans"),
                       ),
                     ),
                   ],
@@ -129,8 +126,13 @@ class _DiaryPageState extends State<DiaryPage> {
       feelings: widget.feeling,
       content: editingController.text,
     );
-    SharedPreferences prefs =await SharedPreferences.getInstance();
-    DateTime now = DateTime.now();
-    prefs.setStringList("latestDate", ["${now.year}", "${now.day}"]);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(
+      "latestDate",
+      [
+        "${widget.dateTime.year}",
+        "${widget.dateTime.day}",
+      ],
+    );
   }
 }

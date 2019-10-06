@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -22,29 +22,53 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get Friday => "EEEE";
+
   String get Monday => "EEEE";
+
   String get Saturday => "EEEE";
+
   String get Sunday => "EEEE";
+
   String get Thursday => "EEEE";
+
   String get Tuesday => "EEEE";
+
   String get Wednesday => "EEEE";
+
   String get feelingAngry => "Really angry \uD83D\uDE21";
+
   String get feelingAngryMessage => "";
+
   String get feelingGreat => "I'm great! \uD83D\uDE0A";
+
   String get feelingGreatMessage => "";
+
   String get feelingNotGood => "Not good \uD83D\uDE10";
+
   String get feelingNotGoodMessage => "";
+
   String get feelingSad => "Sad \uD83D\uDE25";
+
   String get feelingSadMessage => "";
+
   String get home => "Home";
+
   String get howWasYourDay => "How was your day?";
+
   String get introShort => "Gratitude Journal";
+
   String get save => "save";
+
   String get signUp => "Create your account";
+
   String get startTalking => "";
+
   String get startWriting => "";
+
   String get welcome => "Welcome";
+
   String get whatDoICallYou => "What do I call you?";
+
   String titleDateFormat(String dayName) => "${dayName}, MMM dd, yyyy";
 }
 
@@ -56,52 +80,76 @@ class $ko_KR extends S {
 
   @override
   String get feelingNotGood => "그저 그래 \uD83D\uDE10";
+
   @override
   String get Monday => "월요일";
+
   @override
   String get howWasYourDay => "오늘 기분은 어땠어?";
+
   @override
   String get save => "저장하기";
+
   @override
   String get signUp => "계정 생성하기";
+
   @override
   String get startTalking => "대화 시작하기";
+
   @override
   String get feelingNotGoodMessage => "힘내! 내일은 좋은 일이 있을거야.";
+
   @override
   String get Saturday => "토요일";
+
   @override
   String get startWriting => "그냥 쓸래요";
+
   @override
   String get whatDoICallYou => "이름이 뭐야?";
+
   @override
   String get Friday => "금요일";
+
   @override
   String get Tuesday => "화요일";
+
   @override
   String get welcome => "환영합니다!";
+
   @override
   String get feelingSad => "너무 슬프다 \uD83D\uDE25";
+
   @override
   String get feelingGreatMessage => "오늘 좋은 일이 있었나봐!";
+
   @override
   String get feelingSadMessage => "괜찮을 거야. 너무 걱정하지 마.";
+
   @override
   String get feelingAngry => "정말 화난다 \uD83D\uDE21";
+
   @override
   String get home => "홈";
+
   @override
   String get introShort => "감사 일기";
+
   @override
   String get Thursday => "목요일";
+
   @override
   String get feelingGreat => "좋아! \uD83D\uDE0A";
+
   @override
   String get Sunday => "일요일";
+
   @override
   String get Wednesday => "수요일";
+
   @override
   String get feelingAngryMessage => "화내지 마. 내가 다 들어줄게.";
+
   @override
   String titleDateFormat(String dayName) => "yyyy. M. d. ${dayName}";
 }
@@ -120,7 +168,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution(
+      {Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -130,7 +179,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution(
+      {Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -148,7 +198,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
         default:
-          // NO-OP.
+        // NO-OP.
       }
     }
     S.current = const S();
@@ -164,7 +214,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
+      bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -197,7 +248,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry &&
+            (supportedLocale.countryCode == null ||
+                supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -207,7 +260,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-  ? null
-  : l.countryCode != null && l.countryCode.isEmpty
-    ? l.languageCode
-    : l.toString();
+    ? null
+    : l.countryCode != null && l.countryCode.isEmpty
+        ? l.languageCode
+        : l.toString();

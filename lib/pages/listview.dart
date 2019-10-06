@@ -68,11 +68,11 @@ class _HomePageState extends State<HomePage> {
                     return Question();
                   else
                     return Text("Blank");
-                } else{
+                } else {
                   Map data = loadPlainEntry(index - 1);
                   return item(
                     data[ItemElements.date],
-                    null,
+                    data[ItemElements.feeling],
                     data[ItemElements.body],
                   );
                 }
@@ -83,12 +83,44 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget item(String date, String feeling, String body) => InkWell(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(date),
-            Text(body),
-          ],
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Not supported yet"),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(seconds: 1),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "$date. ${_getFeelingTranslation(feeling)}",
+                style: TextStyle(fontWeight: FontWeight.w900),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: Text(body),
+              ),
+            ],
+          ),
         ),
       );
+
+  String _getFeelingTranslation(String feeling) {
+    switch (feeling) {
+      case "great":
+        return "좋아! \uD83D\uDE0A";
+      case "notGood":
+        return "그저 그래 \uD83D\uDE10";
+      case "sad":
+        return "너무 슬프다 \uD83D\uDE25";
+      case "angry":
+        return "정말 화난다 \uD83D\uDE21";
+    }
+  }
 }

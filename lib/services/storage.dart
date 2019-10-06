@@ -29,9 +29,9 @@ Future<Null> savePlainEntry({String content, Feelings feelings}) async {
     "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now())}.txt",
   );
   //file.writeAsString(content);
-  final Map<ItemElements, dynamic> raw = {
-    ItemElements.feeling: feelings,
-    ItemElements.body: content,
+  final Map<String, dynamic> raw = {
+    ItemElements.feeling.toString(): "$feelings".split('.')[1],
+    ItemElements.body.toString(): content,
   };
 
   file.writeAsStringSync(jsonEncode(raw));
@@ -71,7 +71,7 @@ Map<ItemElements, String> loadPlainEntry(int i) {
       jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
   return {
     ItemElements.date: file.path.split('/').last.split('.').first,
-    ItemElements.feeling: decoded["feeling"],
-    ItemElements.body: decoded["body"],
+    ItemElements.feeling: decoded[ItemElements.feeling.toString()],
+    ItemElements.body: decoded[ItemElements.body.toString()],
   };
 }
