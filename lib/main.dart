@@ -1,49 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thanks/components/slider.dart';
-import 'package:thanks/pages/index.dart';
-import 'package:thanks/styles/default.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:thanks/generated/i18n.dart';
+import 'package:thanks/pages/builder.dart';
+import 'package:thanks/services/storage.dart';
+import 'package:thanks/styles/colors.dart';
+import 'package:thanks/theme.dart';
 
-class Application extends StatelessWidget {
-  Application() {
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.portraitUp,
-      ],
-    );
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ),
-    );
-  }
+void main() async => runApp(await MyApp.getInstance());
 
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Ubuntu",
-        sliderTheme: SliderThemeData(
-          trackHeight: 4,
-          trackShape: RoundSliderTrackShape(radius: 8),
-        ),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      localeResolutionCallback: S.delegate.resolution(
+        fallback: Locale("en", ""),
       ),
-      title: "All that Thanks",
-      home: Index(),
-    );
-  }
-}
-
-void main() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.containsKey("theme")) {
-    selectedTheme = ColorSchemes.values.firstWhere(
-      (e) => e.toString() == "${prefs.getString("theme")}",
-      orElse: () => null,
+      title: "Thanks",
+      theme: ThemeData(
+        fontFamily: "Nixgon",
+        textTheme: TextStyleTheme.textTheme,
+        platform: TargetPlatform.iOS,
+        primaryColor: DefaultColorTheme.main,
+        // primarySwatch: DefaultColorTheme.sub,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: PageBuilder(),
     );
   }
 
-  runApp(Application());
+  static Future<MyApp> getInstance() async {
+    // Set system overlay style
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+
+    //StaticSharedPreferences.prefs = await SharedPreferences.getInstance();
+    return MyApp();
+  }
 }
