@@ -21,6 +21,7 @@ class _PageBuilderState extends State<PageBuilder> {
     initUser();
   }
 
+  // TODO: Establish user management system
   Future<Null> initUser() async {
     String userName = await getUserName();
     setState(() {
@@ -66,7 +67,6 @@ class _PageBuilderState extends State<PageBuilder> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          // TODO
                           _userName ?? "",
                         ),
                       ),
@@ -146,7 +146,7 @@ class _PageBuilderState extends State<PageBuilder> {
                 floating: true,
                 snap: true,
                 actions: <Widget>[
-                  // TODO: Define AppBar actions
+                  // TODO: Assign AppBar actions
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.black87, size: 24),
                     onPressed: () {

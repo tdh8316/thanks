@@ -23,7 +23,7 @@ class SignUpManager extends StatelessWidget {
             action: SnackBarAction(
               label: "Detail",
               onPressed: () {
-                // TODO: ERROR TRACE
+                // TODO: Error tracer
               },
             ),
           ),
