@@ -125,7 +125,10 @@ class _DiaryPageState extends State<DiaryPage> {
       );
 
   Future<Null> _save() async {
-    savePlainEntry(editingController.text);
+    savePlainEntry(
+      feelings: widget.feeling,
+      content: editingController.text,
+    );
     SharedPreferences prefs =await SharedPreferences.getInstance();
     DateTime now = DateTime.now();
     prefs.setStringList("latestDate", ["${now.year}", "${now.day}"]);

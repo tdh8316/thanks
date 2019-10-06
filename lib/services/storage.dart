@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
@@ -23,12 +24,21 @@ Future<Null> loadAllItems() async {
   }
 }
 
-Future<Null> savePlainEntry(String content) async {
+Future<Null> savePlainEntry({String content, Feelings feelings}) async {
   File file = File(
     "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now())}.txt",
   );
-  file.writeAsString(content);
+  //file.writeAsString(content);
+  final Map<ItemElements, dynamic> raw = {
+    ItemElements.feeling: feelings,
+    ItemElements.body: content,
+  };
 
+  file.writeAsStringSync(jsonEncode(raw));
+}
+
+Future<Null> savePlainEntryTest() async {
+  File file;
   file = File(
     "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 1)))}.txt",
   );
@@ -53,14 +63,15 @@ Future<Null> savePlainEntry(String content) async {
     "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 6)))}.txt",
   );
   file.writeAsString("A new start.");
-
-  // print("Saved file at ${file.path}");
 }
 
 Map<ItemElements, String> loadPlainEntry(int i) {
   File file = File(_files[i]);
+  final Map<String, dynamic> decoded =
+      jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
   return {
     ItemElements.date: file.path.split('/').last.split('.').first,
-    ItemElements.body: file.readAsStringSync(),
+    ItemElements.feeling: decoded["feeling"],
+    ItemElements.body: decoded["body"],
   };
 }

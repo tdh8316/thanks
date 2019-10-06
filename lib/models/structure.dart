@@ -7,5 +7,6 @@ enum Feelings {
 
 enum ItemElements {
   date,
+  feeling,
   body,
 }
