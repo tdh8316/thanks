@@ -114,6 +114,7 @@ class Question extends StatelessWidget {
                   begin: Offset(0, 1),
                   curve: Curves.linearToEaseOut,
                 ),
+                SizedBox(height: 32)
               ],
             ),
           ],

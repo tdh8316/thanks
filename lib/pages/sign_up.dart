@@ -83,7 +83,7 @@ class SignUpManager extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline,
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: MediaQuery.of(context).size.height / 8),
                   FractionallySizedBox(
                     widthFactor: .825,
                     child: Image.asset("res/assets/humans/4.png"),
@@ -101,8 +101,8 @@ class SignUpManager extends StatelessWidget {
                       padding: EdgeInsets.only(
                         left: 64,
                         right: 64,
-                        top: 16,
-                        bottom: 16,
+                        top: 18,
+                        bottom: 18,
                       ),
                       child: Text(
                         S.of(context).signUp,
@@ -128,8 +128,8 @@ class SignUpManager extends StatelessWidget {
                       padding: EdgeInsets.only(
                         left: 64,
                         right: 64,
-                        top: 16,
-                        bottom: 16,
+                        top: 18,
+                        bottom: 18,
                       ),
                       child: Text(
                         "이 단계 건너뛰기",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/pages/viewer/plain.dart';
 import 'package:thanks/services/storage.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +19,9 @@ class _HomePageState extends State<HomePage> {
     final DateTime _now = DateTime.now();
     List<String> latestDate =
         StaticSharedPreferences.prefs?.getStringList("latestDate");
-    if (latestDate == null) return true;
-    return (latestDate[1] != _now.day.toString()) |
+    if (latestDate == null || latestDate.length != 3) return true;
+    return (latestDate[2] != _now.day.toString()) ||
+            (latestDate[1] != _now.month.toString()) ||
             (latestDate[0] != _now.year.toString())
         ? true
         : false;
@@ -49,7 +51,12 @@ class _HomePageState extends State<HomePage> {
               controller: scrollController,
               itemCount: itemLength + 1,
               itemBuilder: (BuildContext context, int index) => Padding(
-                padding: EdgeInsets.all(32),
+                padding: EdgeInsets.only(
+                  left: 32,
+                  right: 32,
+                  top: 8,
+                  bottom: 8,
+                ),
                 child: () {
                   if (index == 0) {
                     if (showQuestion())
@@ -57,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                     else
                       return Text("여기에 무엇이 있으면 좋을까요?");
                   } else {
-                    Map data = loadPlainEntry(index - 1);
-                    return item(
+                    Map data = loadPlainEntryFromIndex(index - 1);
+                    return _buildItemWidget(
                       data[ItemElements.date],
                       data[ItemElements.feeling],
                       data[ItemElements.body],
@@ -71,21 +78,19 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget item(String date, String feeling, String body) {
+  Widget _buildItemWidget(String date, String feeling, String body) {
     List<String> dateList = date.split('-');
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: () {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Not supported yet"),
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 1),
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => PlainEntryViewer(date: date),
           ),
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

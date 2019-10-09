@@ -94,12 +94,9 @@ class _PageBuilderState extends State<PageBuilder> {
               ),
               ListTile(
                 title: Text(
-                  "Coming soon...",
+                  "도움말...",
                   style: Theme.of(context).textTheme.subhead,
                 ),
-              ),
-              ListTile(
-                title: Text("Unlock premium features"),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),

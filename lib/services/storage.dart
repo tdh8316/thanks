@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:thanks/models/structure.dart';
 
 List<String> _files = List();
+const String fileNameFormat = "yyyy-MM-dd";
 
 Future<String> get _localPath async =>
     (await getApplicationDocumentsDirectory()).path;
@@ -28,8 +29,8 @@ Future<Null> updateItems() async {
 
 Future<Null> savePlainEntry(
     {String content, Feelings feelings, DateTime time}) async {
-  File file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(time)}.txt",
+  final File file = File(
+    "${await _localPath}/${DateFormat(fileNameFormat).format(time)}.txt",
   );
   //file.writeAsString(content);
   final Map<String, dynamic> raw = {
@@ -50,8 +51,8 @@ genFakeData() {
   }
 }
 
-Map<ItemElements, String> loadPlainEntry(int i) {
-  File file = File(_files[i]);
+Map<ItemElements, String> loadPlainEntryFromIndex(int i) {
+  final File file = File(_files[i]);
   if (!file.existsSync())
     return {
       ItemElements.date:
@@ -69,3 +70,11 @@ Map<ItemElements, String> loadPlainEntry(int i) {
         decoded[ItemElements.body.toString()] ?? "Unknown format",
   };
 }
+
+Future<String> loadPlainEntryFromDate({
+  String string,
+  DateTime dateTime,
+}) async =>
+    File(
+      "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
+    ).readAsStringSync();
