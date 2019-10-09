@@ -20,7 +20,7 @@ class NewJournalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    key: _scaffoldKey,
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.white,
           brightness: Brightness.light,

@@ -206,6 +206,7 @@ class _DiaryPageState extends State<DiaryPage> {
       "latestDate",
       [
         "${_dateTime.year}",
+        "${_dateTime.month}",
         "${_dateTime.day}",
       ],
     );
