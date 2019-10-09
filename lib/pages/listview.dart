@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
-import 'package:thanks/pages/viewer/plain.dart';
+import 'package:thanks/pages/viewer/plain_viewer.dart';
 import 'package:thanks/services/storage.dart';
 
 class HomePage extends StatefulWidget {

@@ -78,3 +78,13 @@ Future<String> loadPlainEntryFromDate({
     File(
       "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
     ).readAsStringSync();
+
+Future<Null> removeEntryFromDate({
+  String string,
+  DateTime dateTime,
+}) async {
+  final File file = File(
+    "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
+  );
+  file.deleteSync();
+}

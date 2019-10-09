@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/generated/i18n.dart';
+import 'package:thanks/models/shared.dart';
 import 'package:thanks/services/storage.dart';
 
 class PlainEntryViewer extends StatefulWidget {
@@ -34,6 +36,26 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
               style: TextStyle(color: Colors.black),
             ),
           ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("삭제", style: TextStyle(color: Colors.red)),
+              onPressed: () async {
+                // Delete
+                await removeEntryFromDate(string: widget.date);
+                StaticSharedPreferences.prefs.remove("latestDate");
+                await updateItems();
+                Navigator.pop(context);
+                Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  message: "${widget.date} 삭제됨.",
+                  backgroundColor: Colors.red,
+                  duration: Duration(seconds: 5),
+                  borderRadius: 8,
+                  margin: EdgeInsets.all(8),
+                )..show(context);
+              },
+            )
+          ],
           elevation: 0,
         ),
         body: SingleChildScrollView(
@@ -52,9 +74,10 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                   else
                     return Center(
                       child: Padding(
-                        padding:  EdgeInsets.all(8),
+                        padding: EdgeInsets.all(8),
                         child: Text(
-                          JsonEncoder.withIndent('\t').convert(jsonDecode(snapshot.data)),
+                          JsonEncoder.withIndent('\t')
+                              .convert(jsonDecode(snapshot.data)),
                         ),
                       ),
                     );
