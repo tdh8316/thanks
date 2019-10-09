@@ -182,13 +182,14 @@ class _DiaryPageState extends State<DiaryPage> {
               setState(() {
                 _dateTime = selectedDate;
               });
+              panelController.close();
             },
           ),
         );
       case EditorAction.location:
-        return Text("Location");
+        return Center(child: Text("Location"));
       case EditorAction.image:
-        return Text("Image");
+        return Center(child: Text("Image"));
       default:
         return Container();
     }
