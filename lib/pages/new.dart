@@ -130,8 +130,8 @@ class NewJournalPage extends StatelessWidget {
                           padding: EdgeInsets.only(
                             left: 60,
                             right: 60,
-                            top: 20,
-                            bottom: 20,
+                            top: 18,
+                            bottom: 18,
                           ),
                           child: Text(
                             S.of(context).startTalking,

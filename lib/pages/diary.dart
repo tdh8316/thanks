@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:thanks/components/popup_calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
@@ -24,14 +26,18 @@ class DiaryPage extends StatefulWidget {
 class _DiaryPageState extends State<DiaryPage> {
   final PanelController panelController = PanelController();
   final TextEditingController editingController = TextEditingController();
+  DateTime _dateTime;
+  ScrollController scrollController = ScrollController();
+  EditorAction panelAction;
 
   @override
   void initState() {
-    super.initState();
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) =>
           visible ? panelController.hide() : panelController.show(),
     );
+    _dateTime = widget.dateTime;
+    super.initState();
   }
 
   @override
@@ -101,15 +107,12 @@ class _DiaryPageState extends State<DiaryPage> {
                           hintText: "Input your story here...",
                           border: InputBorder.none,
                         ),
-                        style: TextStyle(fontFamily: "NotoSans"),
                       ),
                     ),
                   ],
                 ),
               ),
-              panel: Center(
-                child: Text("panel"),
-              ),
+              panel: _buildPanel(),
               collapsed: Row(
                 children: <Widget>[
                   Spacer(),
@@ -119,7 +122,12 @@ class _DiaryPageState extends State<DiaryPage> {
                       color: Colors.grey,
                       size: 28,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      panelController.open();
+                      setState(() {
+                        panelAction = EditorAction.date;
+                      });
+                    },
                   ),
                   Spacer(),
                   IconButton(
@@ -128,7 +136,12 @@ class _DiaryPageState extends State<DiaryPage> {
                       color: Colors.grey,
                       size: 28,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      panelController.open();
+                      setState(() {
+                        panelAction = EditorAction.location;
+                      });
+                    },
                   ),
                   Spacer(),
                   IconButton(
@@ -137,7 +150,12 @@ class _DiaryPageState extends State<DiaryPage> {
                       color: Colors.grey,
                       size: 28,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      panelController.open();
+                      setState(() {
+                        panelAction = EditorAction.image;
+                      });
+                    },
                   ),
                   Spacer(),
                 ],
@@ -151,21 +169,46 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
       );
 
+  Widget _buildPanel() {
+    switch (panelAction) {
+      case EditorAction.date:
+        return FractionallySizedBox(
+          heightFactor: 1.125,
+          widthFactor: 1.05,
+          child: CalendarPopupView(
+            barrierDismissible: true,
+            maximumDate: DateTime.now(),
+            onApplyClick: (DateTime selectedDate) {
+              setState(() {
+                _dateTime = selectedDate;
+              });
+            },
+          ),
+        );
+      case EditorAction.location:
+        return Text("Location");
+      case EditorAction.image:
+        return Text("Image");
+      default:
+        return Container();
+    }
+  }
+
   Future<Null> _save() async {
     savePlainEntry(
       feelings: widget.feeling,
       content: editingController.text,
-      time: widget.dateTime,
+      time: _dateTime,
     );
 
     StaticSharedPreferences.prefs.setStringList(
       "latestDate",
       [
-        "${widget.dateTime.year}",
-        "${widget.dateTime.day}",
+        "${_dateTime.year}",
+        "${_dateTime.day}",
       ],
     );
-    genFakeData();
+    // genFakeData();
     updateItems();
     Navigator.of(context).pop();
     Navigator.of(context).push(

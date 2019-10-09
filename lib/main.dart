@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/pages/builder.dart';
+import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 import 'package:thanks/theme.dart';
 
@@ -50,6 +51,8 @@ class MyApp extends StatelessWidget {
     );
 
     StaticSharedPreferences.prefs = await SharedPreferences.getInstance();
+    updateItems();
+
     return MyApp();
   }
 }

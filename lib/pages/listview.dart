@@ -27,9 +27,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    updateItems();
     scrollController.addListener(() {
-      print(scrollController.position.pixels);
+      // print(scrollController.position.pixels);
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           print("TOP");
@@ -93,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding:EdgeInsets.only(top: 4),
+                  padding: EdgeInsets.only(top: 4),
                   child: Text(
                     "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일.",
                     style: TextStyle(fontWeight: FontWeight.w900),

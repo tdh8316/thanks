@@ -99,10 +99,10 @@ class SignUpManager extends StatelessWidget {
                   FlatButton(
                     child: Padding(
                       padding: EdgeInsets.only(
-                        left: 60,
-                        right: 60,
-                        top: 20,
-                        bottom: 20,
+                        left: 64,
+                        right: 64,
+                        top: 16,
+                        bottom: 16,
                       ),
                       child: Text(
                         S.of(context).signUp,
@@ -126,10 +126,10 @@ class SignUpManager extends StatelessWidget {
                   FlatButton(
                     child: Padding(
                       padding: EdgeInsets.only(
-                        left: 60,
-                        right: 60,
-                        top: 20,
-                        bottom: 20,
+                        left: 64,
+                        right: 64,
+                        top: 16,
+                        bottom: 16,
                       ),
                       child: Text(
                         "이 단계 건너뛰기",

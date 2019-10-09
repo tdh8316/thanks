@@ -10,3 +10,9 @@ enum ItemElements {
   feeling,
   body,
 }
+
+enum EditorAction {
+  date,
+  location,
+  image,
+}
