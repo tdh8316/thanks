@@ -125,7 +125,7 @@ class _PageBuilderState extends State<PageBuilder> {
                 title: Text("Logout"),
                 onTap: () {
                   // StaticSharedPreferences.prefs.remove("userName");
-                  SignUpManager.facebookLogin.logOut();
+                  // SignUpManager.facebookLogin.logOut();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (BuildContext context) => SignUpManager(),
