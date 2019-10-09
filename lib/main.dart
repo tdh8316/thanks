@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
       localeResolutionCallback: S.delegate.resolution(
         fallback: Locale("en", ""),
       ),
-      // TODO: Translation is required
+      // TODO: Translation
       locale: Locale("ko", "KR"),
       title: "Thanks",
       theme: ThemeData(
-        fontFamily: "Nixgon",
+        fontFamily: "dovemayo",
         textTheme: TextStyleTheme.textTheme,
         platform: TargetPlatform.iOS,
         primaryColor: DefaultColorTheme.main,

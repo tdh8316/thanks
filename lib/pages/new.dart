@@ -8,6 +8,7 @@ import 'package:thanks/pages/diary.dart';
 import 'package:thanks/styles/colors.dart';
 
 class NewJournalPage extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final Feelings feeling;
 
   NewJournalPage({
@@ -19,6 +20,7 @@ class NewJournalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.white,
           brightness: Brightness.light,
@@ -136,7 +138,15 @@ class NewJournalPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _scaffoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: Text("Not supported yet"),
+                              behavior: SnackBarBehavior.floating,
+                              duration: Duration(seconds: 1),
+                            ),
+                          );
+                        },
                         shape: StadiumBorder(),
                         color: DefaultColorTheme.main,
                       ),

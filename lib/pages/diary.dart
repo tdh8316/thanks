@@ -4,6 +4,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/pages/done.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 
@@ -109,8 +110,37 @@ class _DiaryPageState extends State<DiaryPage> {
               panel: Center(
                 child: Text("panel"),
               ),
-              collapsed: Center(
-                child: Text("collapsed"),
+              collapsed: Row(
+                children: <Widget>[
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.calendar_today,
+                      color: Colors.grey,
+                      size: 28,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.add_location,
+                      color: Colors.grey,
+                      size: 28,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.image,
+                      color: Colors.grey,
+                      size: 28,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Spacer(),
+                ],
               ),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(24.0),
@@ -125,6 +155,7 @@ class _DiaryPageState extends State<DiaryPage> {
     savePlainEntry(
       feelings: widget.feeling,
       content: editingController.text,
+      time: widget.dateTime,
     );
 
     StaticSharedPreferences.prefs.setStringList(
@@ -133,6 +164,14 @@ class _DiaryPageState extends State<DiaryPage> {
         "${widget.dateTime.year}",
         "${widget.dateTime.day}",
       ],
+    );
+    genFakeData();
+    updateItems();
+    Navigator.of(context).pop();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => DoneWritingPage(),
+      ),
     );
   }
 }

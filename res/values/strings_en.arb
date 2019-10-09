@@ -23,5 +23,6 @@
   "startTalking": "",
   "startWriting": "",
   "whatDoICallYou": "What do I call you?",
-  "save": "save"
+  "save": "save",
+  "return_": "back"
 }

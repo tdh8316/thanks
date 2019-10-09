@@ -12,7 +12,7 @@ Future<String> get _localPath async =>
 
 int get itemLength => _files.length;
 
-Future<Null> loadAllItems() async {
+Future<Null> updateItems() async {
   final List<FileSystemEntity> _entities = [
     ...Directory(await _localPath).listSync().where(
           (a) => a.path.endsWith(".txt"),
@@ -22,11 +22,14 @@ Future<Null> loadAllItems() async {
   for (int i = 0; i < _entities.length; i++) {
     _files.add(_entities[i].path);
   }
+  _files.sort();
+  _files = _files.reversed.toList();
 }
 
-Future<Null> savePlainEntry({String content, Feelings feelings}) async {
+Future<Null> savePlainEntry(
+    {String content, Feelings feelings, DateTime time}) async {
   File file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now())}.txt",
+    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(time)}.txt",
   );
   //file.writeAsString(content);
   final Map<String, dynamic> raw = {
@@ -37,41 +40,32 @@ Future<Null> savePlainEntry({String content, Feelings feelings}) async {
   file.writeAsStringSync(jsonEncode(raw));
 }
 
-Future<Null> savePlainEntryTest() async {
-  File file;
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 1)))}.txt",
-  );
-  file.writeAsString("Day 5.");
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 2)))}.txt",
-  );
-  file.writeAsString("Day 4.");
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 3)))}.txt",
-  );
-  file.writeAsString("Day 3.");
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 4)))}.txt",
-  );
-  file.writeAsString("Day 2.");
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 5)))}.txt",
-  );
-  file.writeAsString("Day 1.");
-  file = File(
-    "${await _localPath}/${DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(Duration(days: 6)))}.txt",
-  );
-  file.writeAsString("A new start.");
+genFakeData() {
+  for (int i = 1; i < 100; i++) {
+    savePlainEntry(
+      content: "This is an example of the text widget.",
+      feelings: Feelings.great,
+      time: DateTime.now().subtract(Duration(days: i)),
+    );
+  }
 }
 
 Map<ItemElements, String> loadPlainEntry(int i) {
   File file = File(_files[i]);
+  if (!file.existsSync())
+    return {
+      ItemElements.date:
+          file?.path?.split('/')?.last?.split('.')?.first ?? "Unknown date",
+      ItemElements.feeling: "",
+      ItemElements.body: "Not found",
+    };
   final Map<String, dynamic> decoded =
-      jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+      jsonDecode(file?.readAsStringSync() ?? "") as Map<String, dynamic>;
   return {
-    ItemElements.date: file.path.split('/').last.split('.').first,
-    ItemElements.feeling: decoded[ItemElements.feeling.toString()],
-    ItemElements.body: decoded[ItemElements.body.toString()],
+    ItemElements.date:
+        file?.path?.split('/')?.last?.split('.')?.first ?? "Unknown date",
+    ItemElements.feeling: decoded[ItemElements.feeling.toString()] ?? "",
+    ItemElements.body:
+        decoded[ItemElements.body.toString()] ?? "Unknown format",
   };
 }

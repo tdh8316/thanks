@@ -14,32 +14,38 @@ class Question extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              DateFormat(
-                S.of(context).titleDateFormat(
-                  () {
-                    switch (DateFormat("EEEE").format(now)) {
-                      case "Monday":
-                        return S.of(context).Monday;
-                      case "Tuesday":
-                        return S.of(context).Tuesday;
-                      case "Wednesday":
-                        return S.of(context).Wednesday;
-                      case "Thursday":
-                        return S.of(context).Thursday;
-                      case "Friday":
-                        return S.of(context).Friday;
-                      case "Saturday":
-                        return S.of(context).Saturday;
-                      case "Sunday":
-                        return S.of(context).Sunday;
-                      default:
-                        return "Unknown Date";
-                    }
-                  }(),
-                ),
-              ).format(now),
-              style: Theme.of(context).textTheme.subhead,
+            ShowUp(
+              child: Text(
+                DateFormat(
+                  S.of(context).titleDateFormat(
+                    () {
+                      switch (DateFormat("EEEE").format(now)) {
+                        case "Monday":
+                          return S.of(context).Monday;
+                        case "Tuesday":
+                          return S.of(context).Tuesday;
+                        case "Wednesday":
+                          return S.of(context).Wednesday;
+                        case "Thursday":
+                          return S.of(context).Thursday;
+                        case "Friday":
+                          return S.of(context).Friday;
+                        case "Saturday":
+                          return S.of(context).Saturday;
+                        case "Sunday":
+                          return S.of(context).Sunday;
+                        default:
+                          return "Unknown Date";
+                      }
+                    }(),
+                  ),
+                ).format(now),
+                style: Theme.of(context).textTheme.subhead,
+              ),
+              animatedOpacity: true,
+              begin: Offset.zero,
+              delay: Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: 500),
             ),
             SizedBox(height: 16),
             ShowUp(

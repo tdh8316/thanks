@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
 import 'package:thanks/models/shared.dart';
@@ -26,8 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    loadAllItems();
-    super.initState();
+    updateItems();
     scrollController.addListener(() {
       print(scrollController.position.pixels);
       if (scrollController.position.atEdge) {
@@ -38,70 +38,88 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
-  }
-
-  Future<Null> loadData(i) async {
-    setState(() {
-      //journals.add(Text(loadPlainEntry(i)));
-    });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Container(
         child: SafeArea(
-          child: ListView.builder(
+          child: CupertinoScrollbar(
             controller: scrollController,
-            itemCount: itemLength + 1,
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: EdgeInsets.all(32),
-              child: () {
-                if (index == 0) {
-                  if (showQuestion())
-                    return Question();
-                  else
-                    return Text("Blank");
-                } else {
-                  Map data = loadPlainEntry(index - 1);
-                  return item(
-                    data[ItemElements.date],
-                    data[ItemElements.feeling],
-                    data[ItemElements.body],
-                  );
-                }
-              }(),
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: itemLength + 1,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: EdgeInsets.all(32),
+                child: () {
+                  if (index == 0) {
+                    if (showQuestion())
+                      return Question();
+                    else
+                      return Text("여기에 무엇이 있으면 좋을까요?");
+                  } else {
+                    Map data = loadPlainEntry(index - 1);
+                    return item(
+                      data[ItemElements.date],
+                      data[ItemElements.feeling],
+                      data[ItemElements.body],
+                    );
+                  }
+                }(),
+              ),
             ),
           ),
         ),
       );
 
-  Widget item(String date, String feeling, String body) => InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: () {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Not supported yet"),
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(seconds: 1),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "$date. ${_getFeelingTranslation(feeling)}",
-                style: TextStyle(fontWeight: FontWeight.w900),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Text(body),
-              ),
-            ],
+  Widget item(String date, String feeling, String body) {
+    List<String> dateList = date.split('-');
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Not supported yet"),
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 1),
           ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding:EdgeInsets.only(top: 4),
+                  child: Text(
+                    "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일.",
+                    style: TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                  child: Text(
+                    "${_getFeelingTranslation(feeling)}",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: Text(
+                body,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 
   String _getFeelingTranslation(String feeling) {
     switch (feeling) {

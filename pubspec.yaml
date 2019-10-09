@@ -88,12 +88,9 @@ flutter:
     - res/assets/humans/
 
   fonts:
-    - family: Nixgon
+    - family: dovemayo
       fonts:
-        - asset: res/fonts/Nixgon-M.ttf
+        - asset: res/fonts/dovemayo.otf
           weight: 500
-        - asset: res/fonts/Nixgon-B.ttf
+        - asset: res/fonts/dovemayo_bold.otf
           weight: 900
-    - family: NotoSans
-      fonts:
-        - asset: res/fonts/NotoSansCJKkr-Regular.otf
