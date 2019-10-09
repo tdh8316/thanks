@@ -36,28 +36,31 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
           ),
           elevation: 0,
         ),
-        body: FutureBuilder<String>(
-          future: loadPlainEntryFromDate(string: widget.date),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(
-                  child: Text("Loading..."),
-                );
-              default:
-                if (snapshot.hasError)
-                  return ErrorWidget(snapshot.error);
-                else
+        body: SingleChildScrollView(
+          controller: _scrollController,
+          child: FutureBuilder<String>(
+            future: loadPlainEntryFromDate(string: widget.date),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
                   return Center(
-                    child: Padding(
-                      padding:  EdgeInsets.all(8),
-                      child: Text(
-                        JsonEncoder.withIndent('\t').convert(jsonDecode(snapshot.data)),
-                      ),
-                    ),
+                    child: Text("Loading..."),
                   );
-            }
-          },
+                default:
+                  if (snapshot.hasError)
+                    return ErrorWidget(snapshot.error);
+                  else
+                    return Center(
+                      child: Padding(
+                        padding:  EdgeInsets.all(8),
+                        child: Text(
+                          JsonEncoder.withIndent('\t').convert(jsonDecode(snapshot.data)),
+                        ),
+                      ),
+                    );
+              }
+            },
+          ),
         ),
       );
 }
