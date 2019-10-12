@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
@@ -40,9 +41,14 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
             FlatButton(
               child: Text("삭제", style: TextStyle(color: Colors.red)),
               onPressed: () async {
-                // Delete
+                // Delete file located in internal storage
                 await removeEntryFromDate(string: widget.date);
-                StaticSharedPreferences.prefs.remove("latestDate");
+
+                if (listEquals<String>(
+                  StaticSharedPreferences.prefs.getStringList("latestDate"),
+                  this.widget.date.split('-'),
+                )) StaticSharedPreferences.prefs.remove("latestDate");
+
                 await updateItems();
                 Navigator.pop(context);
                 Flushbar(
@@ -54,7 +60,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                   margin: EdgeInsets.all(8),
                 )..show(context);
               },
-            )
+            ),
           ],
           elevation: 0,
         ),
@@ -76,8 +82,9 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                       child: Padding(
                         padding: EdgeInsets.all(8),
                         child: Text(
-                          JsonEncoder.withIndent('\t')
-                              .convert(jsonDecode(snapshot.data)),
+                          JsonEncoder.withIndent('\t').convert(
+                            jsonDecode(snapshot.data),
+                          ),
                         ),
                       ),
                     );

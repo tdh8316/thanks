@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   bool showQuestion() {
     final DateTime _now = DateTime.now();
-    List<String> latestDate =
+    final List<String> latestDate =
         StaticSharedPreferences.prefs?.getStringList("latestDate");
     if (latestDate == null || latestDate.length != 3) return true;
     return (latestDate[2] != _now.day.toString()) ||

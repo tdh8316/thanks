@@ -25,6 +25,8 @@ Future<Null> updateItems() async {
   }
   _files.sort();
   _files = _files.reversed.toList();
+
+  return null;
 }
 
 Future<Null> savePlainEntry(
@@ -44,7 +46,7 @@ Future<Null> savePlainEntry(
 genFakeData() {
   for (int i = 1; i < 100; i++) {
     savePlainEntry(
-      content: "This is an example of the text widget.",
+      content: "This is an  ${i}st example of the text widget.",
       feelings: Feelings.great,
       time: DateTime.now().subtract(Duration(days: i)),
     );
@@ -82,9 +84,7 @@ Future<String> loadPlainEntryFromDate({
 Future<Null> removeEntryFromDate({
   String string,
   DateTime dateTime,
-}) async {
-  final File file = File(
-    "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
-  );
-  file.deleteSync();
-}
+}) async =>
+    File(
+      "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
+    ).deleteSync();
