@@ -107,8 +107,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                         height: 48,
                         decoration: BoxDecoration(
                           color: HotelAppTheme.buildLightTheme().primaryColor,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(24.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(24.0)),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.6),

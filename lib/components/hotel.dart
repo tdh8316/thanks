@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:thanks/models/hex_color.dart';
 
 class HotelAppTheme {
-
   static TextTheme _buildTextTheme(TextTheme base) {
     var fontName = "WorkSans";
     return base.copyWith(

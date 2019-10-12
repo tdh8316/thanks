@@ -6,7 +6,6 @@ import 'package:thanks/components/popup_calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
-import 'package:thanks/pages/done.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 
@@ -205,7 +204,8 @@ class _DiaryPageState extends State<DiaryPage> {
     final List<String> latestDate =
         StaticSharedPreferences.prefs.getStringList("latestDate");
 
-    if (latestDate == null || latestDate.length != 3 ||
+    if (latestDate == null ||
+        latestDate.length != 3 ||
         _dateTime.isAfter(
           DateTime(
             int.parse(latestDate[0]), // year
