@@ -5,12 +5,12 @@ import 'package:thanks/pages/listview.dart';
 import 'package:thanks/pages/sign_up.dart';
 import 'package:thanks/styles/user.dart';
 
-class PageBuilder extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  State<PageBuilder> createState() => _PageBuilderState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _PageBuilderState extends State<PageBuilder> {
+class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _userName;
@@ -160,7 +160,7 @@ class _PageBuilderState extends State<PageBuilder> {
               ),
             ];
           },
-          body: HomePage(),
+          body: ListViewPage(),
         ),
       );
 }

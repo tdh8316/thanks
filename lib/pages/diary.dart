@@ -222,12 +222,8 @@ class _DiaryPageState extends State<DiaryPage> {
         ],
       );
     // genFakeData();
-    updateItems();
+    await updateItems();
+
     Navigator.of(context).pop();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => DoneWritingPage(),
-      ),
-    );
   }
 }

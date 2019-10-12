@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         // primarySwatch: DefaultColorTheme.sub,
       ),
       debugShowCheckedModeBanner: false,
-      home: PageBuilder(),
+      home: HomePage(),
     );
   }
 
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
     );
 
     StaticSharedPreferences.prefs = await SharedPreferences.getInstance();
-    updateItems();
 
     return MyApp();
   }

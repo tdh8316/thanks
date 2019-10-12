@@ -6,12 +6,12 @@ import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/viewer/plain_viewer.dart';
 import 'package:thanks/services/storage.dart';
 
-class HomePage extends StatefulWidget {
+class ListViewPage extends StatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ListViewPage> createState() => _ListViewPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ListViewPageState extends State<ListViewPage> {
   List<Widget> journals = <Widget>[];
   ScrollController scrollController = ScrollController();
 
@@ -43,39 +43,61 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: SafeArea(
-          child: CupertinoScrollbar(
-            controller: scrollController,
-            child: ListView.builder(
-              controller: scrollController,
-              itemCount: itemLength + 1,
-              itemBuilder: (BuildContext context, int index) => Padding(
-                padding: EdgeInsets.only(
-                  left: 32,
-                  right: 32,
-                  top: 8,
-                  bottom: 8,
+  Widget build(BuildContext context) => FutureBuilder<Null>(
+        future: updateItems(),
+        builder: (BuildContext context, AsyncSnapshot<Null> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return Container(
+                child: SafeArea(
+                  child: CupertinoScrollbar(
+                    controller: scrollController,
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: itemLength + 1,
+                      itemBuilder: (BuildContext context, int index) => Padding(
+                        padding: EdgeInsets.only(
+                          left: 32,
+                          right: 32,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                        child: () {
+                          if (index == 0) {
+                            if (showQuestion())
+                              return Question();
+                            else
+                              return Text("여기에 무엇이 있으면 좋을까요?");
+                          } else {
+                            Map data = loadPlainEntryFromIndex(index - 1);
+                            return _buildItemWidget(
+                              data[ItemElements.date],
+                              data[ItemElements.feeling],
+                              data[ItemElements.body],
+                            );
+                          }
+                        }(),
+                      ),
+                    ),
+                  ),
                 ),
-                child: () {
-                  if (index == 0) {
-                    if (showQuestion())
-                      return Question();
-                    else
-                      return Text("여기에 무엇이 있으면 좋을까요?");
-                  } else {
-                    Map data = loadPlainEntryFromIndex(index - 1);
-                    return _buildItemWidget(
-                      data[ItemElements.date],
-                      data[ItemElements.feeling],
-                      data[ItemElements.body],
-                    );
-                  }
-                }(),
-              ),
-            ),
-          ),
-        ),
+              );
+
+            default:
+              if (snapshot.hasError)
+                return Container(
+                  child: SafeArea(
+                    child: Center(
+                      child: Text(
+                        "Exception: ${snapshot.error}",
+                        style: TextStyle(fontFamily: "Roboto"),
+                      ),
+                    ),
+                  ),
+                );
+              return Container();
+          }
+        },
       );
 
   Widget _buildItemWidget(String date, String feeling, String body) {

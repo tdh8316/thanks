@@ -1008,7 +1008,7 @@ class SignUpManager extends StatelessWidget {
                     // onPressed: () => loginToFacebook(context),
                     onPressed: () => Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (BuildContext context) => PageBuilder(),
+                        builder: (BuildContext context) => HomePage(),
                       ),
                     ),
                     shape: StadiumBorder(),
