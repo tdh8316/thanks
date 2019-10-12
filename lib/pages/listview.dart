@@ -82,7 +82,6 @@ class _ListViewPageState extends State<ListViewPage> {
                   ),
                 ),
               );
-
             default:
               if (snapshot.hasError)
                 return Container(
