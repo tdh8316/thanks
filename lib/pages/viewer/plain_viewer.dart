@@ -41,6 +41,30 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
             FlatButton(
               child: Text("삭제", style: TextStyle(color: Colors.red)),
               onPressed: () async {
+                if (!await showCupertinoDialog(
+                      context: context,
+                      builder: (context) => CupertinoAlertDialog(
+                        content: Text("정말 이 추억을 지울거야?"),
+                        actions: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: FlatButton(
+                              shape: StadiumBorder(),
+                              color: Colors.redAccent,
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: Text('지울래',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text('싫어',
+                                style: TextStyle(color: Colors.blue)),
+                          ),
+                        ],
+                      ),
+                    ) ??
+                    true) return;
                 // Delete file located in internal storage
                 await removeEntryFromDate(string: widget.date);
 

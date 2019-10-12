@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:thanks/components/popup_calendar.dart';
+import 'package:thanks/components/calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
@@ -41,20 +41,24 @@ class _DiaryPageState extends State<DiaryPage> {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () =>
-            showDialog(
+        onWillPop: () async =>
+            await showCupertinoDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                title: Text('Are you sure?'),
-                content: Text('Are you sure you want to close this activity?'),
+              builder: (context) => CupertinoAlertDialog(
+                content: Text("이 일기는 사라지는데 그래도 나갈래?"),
                 actions: <Widget>[
-                  FlatButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('No'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: FlatButton(
+                      shape: StadiumBorder(),
+                      color: Colors.redAccent,
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text('그래', style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                   FlatButton(
-                    onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('Yes'),
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('싫어', style: TextStyle(color: Colors.blue)),
                   ),
                 ],
               ),
@@ -171,17 +175,37 @@ class _DiaryPageState extends State<DiaryPage> {
   Widget _buildPanel() {
     switch (panelAction) {
       case EditorAction.date:
+        final DateTime now = DateTime.now();
         return FractionallySizedBox(
           heightFactor: 1.125,
           widthFactor: 1.05,
-          child: CalendarPopupView(
-            barrierDismissible: true,
+          child: DatePickerWidget(
+            barrierDismissible: false,
             maximumDate: DateTime.now(),
-            onApplyClick: (DateTime selectedDate) {
-              setState(() {
-                _dateTime = selectedDate;
-              });
-              panelController.close();
+            onApplyClick: (DateTime selectedDate) async {
+              if (DateTime(
+                selectedDate.year,
+                selectedDate.month,
+                selectedDate.day,
+              ).isAfter(DateTime(now.year, now.month, now.day)))
+                await showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) => CupertinoAlertDialog(
+                    content: Text("미래의 일기는 쓸 수 없어요!"),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text('확인'),
+                      ),
+                    ],
+                  ),
+                );
+              else {
+                setState(() {
+                  _dateTime = selectedDate;
+                });
+                panelController.close();
+              }
             },
           ),
         );

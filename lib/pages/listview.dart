@@ -133,13 +133,13 @@ class _ListViewPageState extends State<ListViewPage> {
                 ),
               ],
             ),
-            Padding(
+            body.length != 0 ? Padding(
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: Text(
                 body,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
+            ) : Container(),
           ],
         ),
       ),
