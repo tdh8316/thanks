@@ -74,3 +74,4 @@
 # Do not commit anything unrelated to flutter.
 android/
 ios/
+res/
