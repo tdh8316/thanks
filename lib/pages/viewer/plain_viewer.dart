@@ -52,14 +52,18 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                               shape: StadiumBorder(),
                               color: Colors.redAccent,
                               onPressed: () => Navigator.of(context).pop(true),
-                              child: Text('지울래',
-                                  style: TextStyle(color: Colors.white)),
+                              child: Text(
+                                '지울래',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                           FlatButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: Text('싫어',
-                                style: TextStyle(color: Colors.blue)),
+                            child: Text(
+                              '싫어',
+                              style: TextStyle(color: Colors.blue),
+                            ),
                           ),
                         ],
                       ),
@@ -73,8 +77,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                   this.widget.date.split('-'),
                 )) StaticSharedPreferences.prefs.remove("latestDate");
 
-                await updateItems();
-                Navigator.pop(context);
+                Navigator.of(context).pop();
                 Flushbar(
                   flushbarPosition: FlushbarPosition.BOTTOM,
                   message: "${widget.date} 삭제됨.",

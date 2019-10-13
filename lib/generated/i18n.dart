@@ -60,7 +60,7 @@ class $ko_KR extends S {
   @override
   String get Monday => "월요일";
   @override
-  String get howWasYourDay => "오늘 기분은 어땠어?";
+  String get howWasYourDay => "오늘은 어땠어?";
   @override
   String get save => "저장하기";
   @override

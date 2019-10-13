@@ -5,6 +5,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/diary.dart';
+import 'package:thanks/pages/story/index.dart';
 import 'package:thanks/styles/colors.dart';
 
 class NewJournalPage extends StatelessWidget {
@@ -138,15 +139,14 @@ class NewJournalPage extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        onPressed: () {
-                          _scaffoldKey.currentState.showSnackBar(
-                            SnackBar(
-                              content: Text("Not supported yet"),
-                              behavior: SnackBarBehavior.floating,
-                              duration: Duration(seconds: 1),
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => StoryBoard(
+                              dateTime: _now,
+                              feeling: feeling,
                             ),
-                          );
-                        },
+                          ),
+                        ),
                         shape: StadiumBorder(),
                         color: DefaultColorTheme.main,
                       ),

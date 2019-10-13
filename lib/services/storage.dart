@@ -13,6 +13,7 @@ Future<String> get _localPath async =>
 
 int get itemLength => _files.length;
 
+// This mustn't be called except of FutureBuilder
 Future<Null> updateItems() async {
   final List<FileSystemEntity> _entities = [
     ...Directory(await _localPath).listSync().where(

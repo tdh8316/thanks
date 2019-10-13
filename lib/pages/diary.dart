@@ -245,8 +245,6 @@ class _DiaryPageState extends State<DiaryPage> {
           "${_dateTime.day}",
         ],
       );
-    // genFakeData();
-    await updateItems();
 
     Navigator.of(context).pop();
   }
