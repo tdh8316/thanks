@@ -6,7 +6,7 @@ enum Feelings {
 }
 
 enum ItemElements {
-  date,
+  date, // This is not in file, but is its name.
   feeling,
   body,
 }

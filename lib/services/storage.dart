@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:core';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
@@ -30,18 +31,45 @@ Future<Null> updateItems() async {
   return null;
 }
 
+Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
+    {bool remove = false}) async {
+  final File statisticFile = File(
+    "${await _localPath}/statictic-${targetDate.year}-${targetDate.month}.json",
+  );
+  // If file doesn't exist, create one and write basic JSON structure.
+  if (!statisticFile.existsSync()) {
+    statisticFile.createSync(recursive: true);
+    statisticFile.writeAsStringSync('{}');
+  }
+  Map<String, dynamic> statisticJson = jsonDecode(
+    statisticFile.readAsStringSync(),
+  );
+
+  if (!statisticJson.containsKey(feeling.toString())) {
+    statisticJson[feeling.toString()] = 0;
+  }
+  statisticJson[feeling.toString()] =
+      (statisticJson[feeling.toString()] ?? 0) + (remove ? -1 : 1);
+  statisticJson["total"] = (statisticJson["total"] ?? 0) + (remove ? -1 : 1);
+
+  statisticFile.writeAsStringSync(jsonEncode(statisticJson));
+}
+
 Future<Null> savePlainEntry(
-    {String content, Feelings feelings, DateTime time}) async {
+    {String content, Feelings feelings, DateTime date}) async {
   final File file = File(
-    "${await _localPath}/${DateFormat(fileNameFormat).format(time)}.txt",
+    "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
   //file.writeAsString(content);
-  final Map<String, dynamic> raw = {
-    ItemElements.feeling.toString(): "$feelings".split('.')[1],
+  final Map<String, String> raw = {
+    ItemElements.feeling.toString(): "$feelings",
     ItemElements.body.toString(): content,
   };
 
   file.writeAsStringSync(jsonEncode(raw));
+
+  // Add this to statistic
+  addStatisticData(feelings, date);
 }
 
 genFakeData() {
@@ -49,7 +77,7 @@ genFakeData() {
     savePlainEntry(
       content: "This is an  ${i}st example of the text widget.",
       feelings: Feelings.great,
-      time: DateTime.now().subtract(Duration(days: i)),
+      date: DateTime.now().subtract(Duration(days: i)),
     );
   }
 }
@@ -84,8 +112,15 @@ Future<String> loadPlainEntryFromDate({
 
 Future<Null> removeEntryFromDate({
   String string,
-  DateTime dateTime,
-}) async =>
-    File(
-      "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
-    ).deleteSync();
+  DateTime date,
+}) async {
+  File file = File(
+    "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(date)}.txt",
+  );
+  addStatisticData(
+    jsonDecode(file.readAsStringSync())[ItemElements.feeling.toString()],
+    date ?? DateFormat(fileNameFormat).parse(string),
+    remove: true,
+  );
+  file.deleteSync();
+}

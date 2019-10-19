@@ -222,7 +222,7 @@ class _DiaryPageState extends State<DiaryPage> {
     savePlainEntry(
       feelings: widget.feeling,
       content: editingController.text,
-      time: _dateTime,
+      date: _dateTime,
     );
 
     final List<String> latestDate =

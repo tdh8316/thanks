@@ -135,7 +135,7 @@ class _ListViewPageState extends State<ListViewPage> {
             ),
             body.length != 0
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     child: Text(
                       body,
                       overflow: TextOverflow.ellipsis,
@@ -149,17 +149,17 @@ class _ListViewPageState extends State<ListViewPage> {
   }
 
   String _getFeelingTranslation(String feeling) {
-    switch (feeling) {
-      case "great":
-        return "좋아! \uD83D\uDE0A";
-      case "notGood":
-        return "그저 그래 \uD83D\uDE10";
-      case "sad":
-        return "너무 슬프다 \uD83D\uDE25";
-      case "angry":
-        return "정말 화난다 \uD83D\uDE21";
-      default:
-        return null;
-    }
+    if (feeling.runtimeType != String)
+      return '';
+    else if (Feelings.great.toString() == feeling)
+      return "좋아! \uD83D\uDE0A";
+    else if (Feelings.notGood.toString() == feeling)
+      return "그저 그래 \uD83D\uDE10";
+    else if (Feelings.sad.toString() == feeling)
+      return "너무 슬프다 \uD83D\uDE25";
+    else if (Feelings.angry.toString() == feeling)
+      return "정말 화난다 \uD83D\uDE21";
+    else
+      return '\uD83E\uDD14';
   }
 }
