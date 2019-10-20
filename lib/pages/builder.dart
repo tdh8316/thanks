@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
+import 'package:thanks/components/question.dart';
 import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/pages/listview.dart';
 import 'package:thanks/pages/statistic.dart';
@@ -169,11 +170,11 @@ class _HomePageState extends State<HomePage> {
                       size: 24,
                     ),
                     onPressed: () {
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Text("Not supported yet"),
-                          behavior: SnackBarBehavior.floating,
-                          duration: Duration(seconds: 1),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Scaffold(
+                            body: SafeArea(child: Question()),
+                          ),
                         ),
                       );
                     },

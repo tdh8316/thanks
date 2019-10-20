@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:nima/nima_actor.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/models/coordinate.dart';
 import 'package:thanks/services/statistic.dart';
@@ -73,12 +74,36 @@ class _StatisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
     if (data == null || _graphData == null || _graphData.length == 0)
-      return Container(
-        child: Column(
-          children: <Widget>[],
-        ),
+      return Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            child: SizedBox(
+              height: 256,
+              child: NimaActor(
+                "res/assets/Dinosaurs/Dinosaurs.nma",
+                animation: "Idle",
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+            child: Text(
+              "통계를 잠금 해제하려면 이번 달 작성된 일기가 최소 하나 이상 필요합니다.\n"
+              "아니면 1000\\ 에 구매하시던가",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: "나눔바른펜",
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
       );
-    return _buildStatisticWidget(context);
+    else
+      return _buildStatisticWidget(context);
   }
 
   List<PieChartSectionData> showingSections() {
@@ -223,9 +248,10 @@ class _StatisticPageState extends State<StatisticPage> {
                           child: Text(
                             "이번 달의 기록",
                             style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black54,
-                                fontFamily: "나눔바른펜",),
+                              fontSize: 14,
+                              color: Colors.black54,
+                              fontFamily: "나눔바른펜",
+                            ),
                           ),
                         ),
                       ),

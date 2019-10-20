@@ -138,7 +138,11 @@ class _ListViewPageState extends State<ListViewPage> {
             );
           },
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.only(
+              top: 8,
+              left: 8,
+              right: 8,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -157,8 +161,7 @@ class _ListViewPageState extends State<ListViewPage> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         "${_getFeelingTranslation(feeling)}",
                         style: TextStyle(
@@ -179,7 +182,10 @@ class _ListViewPageState extends State<ListViewPage> {
                           body,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          style: TextStyle(fontSize: 20, fontFamily: "나눔손글씨 힘내라는 말보단"),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "나눔손글씨 힘내라는 말보단",
+                          ),
                         ),
                       )
                     : Container(),
