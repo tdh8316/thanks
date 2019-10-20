@@ -74,33 +74,38 @@ class _StatisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
     if (data == null || _graphData == null || _graphData.length == 0)
-      return Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32),
-            child: SizedBox(
-              height: 256,
-              child: NimaActor(
-                "res/assets/Dinosaurs/Dinosaurs.nma",
-                animation: "Idle",
-                fit: BoxFit.contain,
+      return ShowUp(
+        animatedOpacity: true,
+        delay: Duration(seconds: 1),
+        begin: Offset.zero,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              child: SizedBox(
+                height: 256,
+                child: NimaActor(
+                  "res/assets/Dinosaurs/Dinosaurs.nma",
+                  animation: "Idle",
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-            child: Text(
-              "통계를 잠금 해제하려면 이번 달 작성된 일기가 최소 하나 이상 필요합니다.\n"
-              "아니면 1000\\ 에 구매하시던가",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: "나눔바른펜",
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+              child: Text(
+                "통계를 잠금 해제하려면 이번 달 작성된 일기가 최소 하나 이상 필요합니다.\n"
+                "아니면 1000\\ 에 구매하시던가",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "나눔바른펜",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     else
       return _buildStatisticWidget(context);

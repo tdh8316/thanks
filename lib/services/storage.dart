@@ -36,6 +36,8 @@ Future<Null> updateItems() async {
 
 Future<Null> savePlainEntry(
     {String content, Feelings feelings, DateTime date}) async {
+  // Add this to statistic
+  addStatisticData(feelings, date);
   final File file = File(
     "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
@@ -46,9 +48,6 @@ Future<Null> savePlainEntry(
   };
 
   file.writeAsStringSync(jsonEncode(raw));
-
-  // Add this to statistic
-  addStatisticData(feelings, date);
 }
 
 genFakeData() {
