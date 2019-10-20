@@ -5,12 +5,14 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/services/statistic.dart';
 
 List<String> _files = List();
 const String fileNameFormat = "yyyy-MM-dd";
 
 Future<String> get _localPath async =>
     (await getApplicationDocumentsDirectory()).path;
+List<String> get fileList => _files;
 
 int get itemLength => _files.length;
 
@@ -29,30 +31,6 @@ Future<Null> updateItems() async {
   _files = _files.reversed.toList();
 
   return null;
-}
-
-Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
-    {bool remove = false}) async {
-  final File statisticFile = File(
-    "${await _localPath}/statictic-${targetDate.year}-${targetDate.month}.json",
-  );
-  // If file doesn't exist, create one and write basic JSON structure.
-  if (!statisticFile.existsSync()) {
-    statisticFile.createSync(recursive: true);
-    statisticFile.writeAsStringSync('{}');
-  }
-  Map<String, dynamic> statisticJson = jsonDecode(
-    statisticFile.readAsStringSync(),
-  );
-
-  if (!statisticJson.containsKey(feeling.toString())) {
-    statisticJson[feeling.toString()] = 0;
-  }
-  statisticJson[feeling.toString()] =
-      (statisticJson[feeling.toString()] ?? 0) + (remove ? -1 : 1);
-  statisticJson["total"] = (statisticJson["total"] ?? 0) + (remove ? -1 : 1);
-
-  statisticFile.writeAsStringSync(jsonEncode(statisticJson));
 }
 
 Future<Null> savePlainEntry(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
 import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/pages/listview.dart';
+import 'package:thanks/pages/statistic.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +11,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final List<Widget> pages = [
+    ListViewPage(),
+    StatisticPage(),
+    StatisticPage(),
+  ];
+
+  int page = 0;
 
   // String _userName;
 
@@ -171,8 +179,11 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.filter_list,
-                        color: Colors.black87, size: 24),
+                    icon: Icon(
+                      Icons.filter_list,
+                      color: Colors.black87,
+                      size: 24,
+                    ),
                     onPressed: () {
                       _scaffoldKey.currentState.showSnackBar(
                         SnackBar(
@@ -188,20 +199,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ];
           },
-          body: ListViewPage(),
+          body: pages[page],
         ),
         // body: ListViewPage(),
         bottomNavigationBar: Container(
           height: 64,
           margin: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: Colors.grey[300],
                 blurRadius: 8,
                 spreadRadius: 2,
                 offset: Offset(0, -4),
-              )
+              ),
             ],
             borderRadius: new BorderRadius.all(Radius.circular(12)),
             color: HexColor("#f9f9f9"),
@@ -211,27 +222,30 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               FlatButton(
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () => changePage(0),
                 child: Image.asset(
                   "res/assets/hand-with-pen-100.png",
                   scale: 3.5,
+                  color: page == 0 ? Colors.black : Colors.grey,
                 ),
               ),
               Spacer(),
               FlatButton(
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () => changePage(1),
                 child: Image.asset(
                   "res/assets/statistics-100.png",
                   scale: 3.5,
+                  color: page == 1 ? Colors.black : Colors.grey,
                 ),
               ),
               Spacer(),
               FlatButton(
                 shape: StadiumBorder(),
-                onPressed: () {},
+                onPressed: () => changePage(2),
                 child: Image.asset(
                   "res/assets/edit-profile-100.png",
+                  color: page == 2 ? Colors.black : Colors.grey,
                   scale: 3.5,
                 ),
               ),
@@ -240,4 +254,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       );
+
+  void changePage(int page) => setState(() {
+        this.page = page;
+      });
 }

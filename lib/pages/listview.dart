@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
+import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/viewer/plain_viewer.dart';
@@ -48,35 +49,37 @@ class _ListViewPageState extends State<ListViewPage> {
         builder: (BuildContext context, AsyncSnapshot<Null> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              return Scrollbar(
-                child: ListView.builder(
-                  // controller: scrollController,
-                  itemCount: itemLength + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        left: 32,
-                        right: 32,
-                        top: 8,
-                        bottom: 8,
-                      ),
-                      child: () {
-                        if (index == 0) {
-                          if (showQuestion())
-                            return Question();
-                          else
-                            return Container();
-                        } else {
-                          Map data = loadPlainEntryFromIndex(index - 1);
-                          return _buildItemWidget(
-                            data[ItemElements.date],
-                            data[ItemElements.feeling],
-                            data[ItemElements.body],
-                          );
-                        }
-                      }(),
-                    );
-                  },
+              return Container(
+                child: Scrollbar(
+                  child: ListView.builder(
+                    // controller: scrollController,
+                    itemCount: itemLength + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: 32,
+                          right: 32,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                        child: () {
+                          if (index == 0) {
+                            if (showQuestion())
+                              return Question();
+                            else
+                              return Container();
+                          } else {
+                            Map data = loadPlainEntryFromIndex(index - 1);
+                            return _buildItemWidget(
+                              data[ItemElements.date],
+                              data[ItemElements.feeling],
+                              data[ItemElements.body],
+                            );
+                          }
+                        }(),
+                      );
+                    },
+                  ),
                 ),
               );
             default:
