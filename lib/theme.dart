@@ -21,7 +21,7 @@ class TextStyleTheme {
   });
    */
   static const TextTheme textTheme = TextTheme(
-    button: TextStyle(fontWeight: FontWeight.w500),
+    button: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
     headline: TextStyle(fontWeight: FontWeight.w500, color: Colors.black87),
     subhead: TextStyle(fontWeight: FontWeight.w500, letterSpacing: -.5),
   );

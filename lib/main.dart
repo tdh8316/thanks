@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       locale: Locale("ko", "KR"),
       title: "Thanks",
       theme: ThemeData(
-        fontFamily: "dovemayo",
+        fontFamily: "나눔손글씨 암스테르담",
         textTheme: TextStyleTheme.textTheme,
         platform: TargetPlatform.iOS,
         primaryColor: DefaultColorTheme.main,

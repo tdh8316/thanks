@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
-import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/viewer/plain_viewer.dart';
@@ -55,7 +54,7 @@ class _ListViewPageState extends State<ListViewPage> {
                     // controller: scrollController,
                     itemCount: itemLength + 1,
                     itemBuilder: (BuildContext context, int index) {
-                      return Padding(
+                      /*return Padding(
                         padding: EdgeInsets.only(
                           left: 32,
                           right: 32,
@@ -77,7 +76,32 @@ class _ListViewPageState extends State<ListViewPage> {
                             );
                           }
                         }(),
-                      );
+                      );*/
+                      if (index == 0) {
+                        if (showQuestion())
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: 32,
+                              right: 32,
+                              top: 8,
+                              bottom: 8,
+                            ),
+                            child: Question(),
+                          );
+                        else
+                          return Container();
+                      } else {
+                        Map data = loadPlainEntryFromIndex(index - 1);
+                        return Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 14),
+                          child: _buildItemWidget(
+                            data[ItemElements.date],
+                            data[ItemElements.feeling],
+                            data[ItemElements.body],
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),
@@ -101,50 +125,69 @@ class _ListViewPageState extends State<ListViewPage> {
 
   Widget _buildItemWidget(String date, String feeling, String body) {
     List<String> dateList = date.split('-');
-    return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => PlainEntryViewer(date: date),
-          ),
-        );
-      },
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
+    return Column(
+      children: <Widget>[
+        Divider(height: 14),
+        InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => PlainEntryViewer(date: date),
+              ),
+            );
+          },
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text(
-                    "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일.",
-                    style: TextStyle(fontWeight: FontWeight.w900),
-                  ),
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 4),
+                      child: Text(
+                        "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "나눔바른펜",
+                          fontSize: 16,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                      child: Text(
+                        "${_getFeelingTranslation(feeling)}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  child: Text(
-                    "${_getFeelingTranslation(feeling)}",
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
+                body.length != 0
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          body,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(fontSize: 20, fontFamily: "나눔손글씨 힘내라는 말보단"),
+                        ),
+                      )
+                    : Container(),
               ],
             ),
-            body.length != 0
-                ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    child: Text(
-                      body,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                : Container(),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

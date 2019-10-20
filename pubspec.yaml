@@ -104,3 +104,15 @@ flutter:
           weight: 500
         - asset: res/fonts/dovemayo_bold.otf
           weight: 900
+    - family: 나눔손글씨 암스테르담
+      fonts:
+        - asset: res/fonts/나눔손글씨 암스테르담.ttf
+    - family: 나눔손글씨 힘내라는 말보단
+      fonts:
+        - asset: res/fonts/나눔손글씨 힘내라는 말보단.ttf
+    - family: 나눔바른펜
+      fonts:
+        - asset: res/fonts/NanumBarunpenR.ttf
+          weight: 500
+        - asset: res/fonts/NanumBarunpenB.ttf
+          weight: 600

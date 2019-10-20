@@ -36,9 +36,9 @@ List<FlSpot> getCoordinateFromFeeling(DateTime targetDate) {
           else if (Feelings.notGood.toString() == feeling)
             return 1.75;
           else if (Feelings.sad.toString() == feeling)
-            return 1.0;
+            return 1.25;
           else if (Feelings.angry.toString() == feeling)
-            return 1.0;
+            return 1.25;
           else
             return 0.0;
         }(),

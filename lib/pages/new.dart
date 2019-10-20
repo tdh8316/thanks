@@ -77,7 +77,7 @@ class NewJournalPage extends StatelessWidget {
                               }(),
                             ),
                           ).format(_now),
-                          style: TextStyle(fontWeight: FontWeight.w900),
+                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24,),
                         ),
                       ),
                     ),
@@ -99,7 +99,7 @@ class NewJournalPage extends StatelessWidget {
                         }
                       }()}.png"),
                     ),
-                    SizedBox(height: 32),
+                    SizedBox(height: 8),
                     ShowUp(
                       animatedOpacity: true,
                       delay: Duration(milliseconds: 250),
@@ -118,7 +118,7 @@ class NewJournalPage extends StatelessWidget {
                             default:
                               return "";
                           }
-                        }(),
+                        }(), style: TextStyle(fontSize: 24),
                       ),
                     ),
                     SizedBox(height: 48),
@@ -136,7 +136,7 @@ class NewJournalPage extends StatelessWidget {
                           ),
                           child: Text(
                             S.of(context).startTalking,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                         onPressed: () => Navigator.of(context).push(
@@ -165,7 +165,7 @@ class NewJournalPage extends StatelessWidget {
                             bottom: 20,
                           ),
                           child: Text(
-                            S.of(context).startWriting,
+                            S.of(context).startWriting, style: TextStyle(fontSize: 20,),
                           ),
                         ),
                         onPressed: () => Navigator.of(context).pushReplacement(
