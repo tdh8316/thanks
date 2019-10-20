@@ -33,9 +33,9 @@ class _ListViewPageState extends State<ListViewPage> {
       // print(scrollController.position.pixels);
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
-          print("TOP");
+          // print("TOP");
         } else {
-          print("BOTTOM");
+          // print("BOTTOM");
         }
       }
     });
@@ -49,37 +49,76 @@ class _ListViewPageState extends State<ListViewPage> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Container(
-                child: SafeArea(
-                  child: CupertinoScrollbar(
-                    controller: scrollController,
-                    child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: itemLength + 1,
-                      itemBuilder: (BuildContext context, int index) => Padding(
-                        padding: EdgeInsets.only(
-                          left: 32,
-                          right: 32,
-                          top: 8,
-                          bottom: 8,
+                child: Stack(
+                  children: <Widget>[
+                    /*Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.sort),
+                              onPressed: () {},
+                            ),
+                            SizedBox(height: 8),
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
-                        child: () {
-                          if (index == 0) {
-                            if (showQuestion())
-                              return Question();
-                            else
-                              return Text("여기에 무엇이 있으면 좋을까요?");
-                          } else {
-                            Map data = loadPlainEntryFromIndex(index - 1);
-                            return _buildItemWidget(
-                              data[ItemElements.date],
-                              data[ItemElements.feeling],
-                              data[ItemElements.body],
-                            );
-                          }
-                        }(),
+                      ),
+                    ),*/
+                    /*SafeArea(
+                      child: Align(
+                        child: InkWell(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(32)),
+                            child: Container(
+                              height: 100,
+                              width: 81,
+                              color: DefaultColorTheme.main.withOpacity(.75),
+                              child: Icon(Icons.add, size: 32, color: Colors.black54,),
+                            ),
+                          ),
+                        ),
+                        alignment: Alignment.topRight,
+                      ),
+                    ),*/
+                    CupertinoScrollbar(
+                      controller: scrollController,
+                      child: ListView.builder(
+                        controller: scrollController,
+                        itemCount: itemLength + 1,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: 32,
+                              right: 32,
+                              top: 8,
+                              bottom: 8,
+                            ),
+                            child: () {
+                              if (index == 0) {
+                                if (showQuestion())
+                                  return Question();
+                                else
+                                  return Container();
+                              } else {
+                                Map data = loadPlainEntryFromIndex(index - 1);
+                                return _buildItemWidget(
+                                  data[ItemElements.date],
+                                  data[ItemElements.feeling],
+                                  data[ItemElements.body],
+                                );
+                              }
+                            }(),
+                          );
+                        },
                       ),
                     ),
-                  ),
+                  ],
                 ),
               );
             default:

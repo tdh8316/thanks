@@ -82,7 +82,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                   flushbarPosition: FlushbarPosition.BOTTOM,
                   message: "${widget.date} 삭제됨.",
                   backgroundColor: Colors.red,
-                  duration: Duration(seconds: 5),
+                  duration: Duration(seconds: 3),
                   borderRadius: 8,
                   margin: EdgeInsets.all(8),
                 )..show(context);

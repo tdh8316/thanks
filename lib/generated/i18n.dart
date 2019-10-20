@@ -56,11 +56,11 @@ class $ko_KR extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get feelingNotGood => "그저 그래 \uD83D\uDE10";
+  String get feelingNotGood => "그저 그래";
   @override
   String get Monday => "월요일";
   @override
-  String get howWasYourDay => "오늘은 어땠어?";
+  String get howWasYourDay => "오늘 하루는 어땠어?";
   @override
   String get save => "저장하기";
   @override
@@ -84,13 +84,13 @@ class $ko_KR extends S {
   @override
   String get welcome => "환영합니다!";
   @override
-  String get feelingSad => "너무 슬프다 \uD83D\uDE25";
+  String get feelingSad => "너무 슬프다";
   @override
   String get feelingGreatMessage => "오늘 좋은 일이 있었나봐!";
   @override
   String get feelingSadMessage => "괜찮을 거야. 너무 걱정하지 마.";
   @override
-  String get feelingAngry => "정말 화난다 \uD83D\uDE21";
+  String get feelingAngry => "정말 화난다";
   @override
   String get home => "홈";
   @override
@@ -98,7 +98,7 @@ class $ko_KR extends S {
   @override
   String get Thursday => "목요일";
   @override
-  String get feelingGreat => "좋아! \uD83D\uDE0A";
+  String get feelingGreat => "좋아!";
   @override
   String get Sunday => "일요일";
   @override

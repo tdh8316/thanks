@@ -124,13 +124,37 @@ class Question extends StatelessWidget {
   Widget _buildButton(BuildContext context, String content, Feelings feeling) =>
       FlatButton(
         child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Text(
-            content,
-            style: Theme.of(context).textTheme.button.copyWith(
-                  color: DefaultColorTheme.main,
-                  fontWeight: FontWeight.bold,
-                ),
+          padding: EdgeInsets.all(12),
+          child: Row(
+            children: <Widget>[
+              Spacer(),
+              Text(
+                content,
+                style: Theme.of(context).textTheme.button.copyWith(
+                      color: DefaultColorTheme.main,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              SizedBox(width: 8),
+              Image.asset(
+                "res/assets/${() {
+                  switch (feeling) {
+                    case Feelings.great:
+                      return "smiling";
+                    case Feelings.notGood:
+                      return "neutral";
+                    case Feelings.sad:
+                      return "crying";
+                    case Feelings.angry:
+                      return "angry";
+                    default:
+                      return '';
+                  }
+                }()}-100.png",
+                height: 28,
+              ),
+              Spacer(),
+            ],
           ),
         ),
         onPressed: () {
