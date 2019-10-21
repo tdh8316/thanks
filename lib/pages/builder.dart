@@ -15,7 +15,11 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> pages = [
     ListViewPage(),
     StatisticPage(),
-    StatisticPage(),
+    Container(
+      child: Center(
+        child: Text("Nothing to build"),
+      ),
+    ),
   ];
 
   int page = 0;
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                 floating: true,
                 snap: true,
                 actions: <Widget>[
-                  // TODO: Assign AppBar actions
+                  // TODO: Implement AppBar actions
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.black87, size: 24),
                     onPressed: () {

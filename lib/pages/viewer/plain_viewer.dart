@@ -4,6 +4,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/services/storage.dart';
@@ -39,33 +40,52 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text("삭제", style: TextStyle(color: Colors.red)),
+              child: Text(
+                "삭제",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 16,
+                ),
+              ),
               onPressed: () async {
-                if (!await showCupertinoDialog(
+                if (!await showDialog(
                       context: context,
-                      builder: (context) => CupertinoAlertDialog(
-                        content: Text("정말 이 추억을 지울거야?"),
-                        actions: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
-                            child: FlatButton(
-                              shape: StadiumBorder(),
-                              color: Colors.redAccent,
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: Text(
-                                '지울래',
-                                style: TextStyle(color: Colors.white),
+                      builder: (context) => ShowUp(
+                        curve: Curves.elasticOut,
+                        begin: Offset(0, 0.25),
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          content: Text("정말 이 추억을 지울거야?"),
+                          actions: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: FlatButton(
+                                shape: StadiumBorder(),
+                                color: Colors.redAccent,
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '지울래',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          FlatButton(
-                            onPressed: () => Navigator.of(context).pop(false),
-                            child: Text(
-                              '싫어',
-                              style: TextStyle(color: Colors.blue),
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '싫어',
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ) ??
                     true) return;
@@ -79,7 +99,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
 
                 Navigator.of(context).pop();
                 Flushbar(
-                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  flushbarPosition: FlushbarPosition.TOP,
                   message: "${widget.date} 삭제됨.",
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 3),

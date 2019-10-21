@@ -9,6 +9,7 @@ class ShowUp extends StatefulWidget {
   final bool animatedOpacity;
   final Offset begin;
   final Duration duration;
+  final Offset end;
 
   ShowUp({
     @required this.child,
@@ -16,6 +17,7 @@ class ShowUp extends StatefulWidget {
     this.curve = Curves.linear,
     this.animatedOpacity = false,
     this.begin = const Offset(0, 1),
+    this.end = Offset.zero,
     this.duration = const Duration(seconds: 1),
   });
 
@@ -35,7 +37,7 @@ class _ShowUpState extends State<ShowUp> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: widget.duration);
     final curve = CurvedAnimation(curve: widget.curve, parent: _animController);
     _animOffset =
-        Tween<Offset>(begin: widget.begin, end: Offset.zero).animate(curve);
+        Tween<Offset>(begin: widget.begin, end: widget.end).animate(curve);
 
     if (widget.delay == null) {
       if (this.mounted) _animController.forward();

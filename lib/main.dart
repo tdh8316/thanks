@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
       locale: Locale("ko", "KR"),
       title: "Thanks",
       theme: ThemeData(
-        fontFamily: "나눔손글씨 암스테르담",
+        // 네이버에서 제공한 나눔글꼴이 적용되어 있습니다.
+        fontFamily: "나눔바른펜",
         textTheme: TextStyleTheme.textTheme,
         platform: TargetPlatform.iOS,
         primaryColor: DefaultColorTheme.main,

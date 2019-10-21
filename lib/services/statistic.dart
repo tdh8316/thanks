@@ -38,11 +38,13 @@ Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
 
 Future<Map<String, dynamic>> getStatisticData({
   @required DateTime targetDate,
-}) async =>
-    jsonDecode(
-      File(
-            "${(await getApplicationDocumentsDirectory()).path}"
-            "/statictic-${targetDate.year}-${targetDate.month}.json",
-          ).readAsStringSync() ??
-          "{}",
-    );
+}) async {
+  final File dataFile = File(
+    "${(await getApplicationDocumentsDirectory()).path}"
+    "/statictic-${targetDate.year}-${targetDate.month}.json",
+  );
+
+  if (!dataFile.existsSync()) return null;
+
+  return jsonDecode(dataFile.readAsStringSync());
+}

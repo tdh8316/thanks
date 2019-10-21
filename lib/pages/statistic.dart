@@ -76,7 +76,7 @@ class _StatisticPageState extends State<StatisticPage> {
     if (data == null || _graphData == null || _graphData.length == 0)
       return ShowUp(
         animatedOpacity: true,
-        delay: Duration(seconds: 1),
+        delay: Duration(milliseconds: 100),
         begin: Offset.zero,
         child: Column(
           children: <Widget>[
@@ -108,7 +108,7 @@ class _StatisticPageState extends State<StatisticPage> {
         ),
       );
     else
-      return _buildStatisticWidget(context);
+      return SafeArea(child: _buildStatisticWidget(context));
   }
 
   List<PieChartSectionData> showingSections() {
@@ -180,8 +180,8 @@ class _StatisticPageState extends State<StatisticPage> {
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(64),
-                  topRight: Radius.circular(64),
+                  topLeft: Radius.circular(32),
+                  topRight: Radius.circular(32),
                   bottomLeft: Radius.elliptical(256, 64),
                   bottomRight: Radius.elliptical(256, 64),
                 ),
@@ -205,11 +205,12 @@ class _StatisticPageState extends State<StatisticPage> {
                         child: Row(
                           children: <Widget>[
                             Text(
-                              "${targetDate.year}. ${targetDate.month}",
+                              "${targetDate.year}. ${targetDate.month}월",
                               style: TextStyle(
                                 fontSize: 32,
                                 color: Colors.black,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.025,
                               ),
                             ),
                             Spacer(),
@@ -240,7 +241,8 @@ class _StatisticPageState extends State<StatisticPage> {
                               style: TextStyle(
                                 fontSize: 64,
                                 color: Colors.black,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 4,
                               ),
                             ),
                           ),

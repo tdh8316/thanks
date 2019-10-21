@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/question.dart';
+import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/viewer/plain_viewer.dart';
@@ -12,9 +13,6 @@ class ListViewPage extends StatefulWidget {
 }
 
 class _ListViewPageState extends State<ListViewPage> {
-  List<Widget> journals = <Widget>[];
-  ScrollController scrollController = ScrollController();
-
   bool showQuestion() {
     final DateTime _now = DateTime.now();
     final List<String> latestDate =
@@ -29,16 +27,6 @@ class _ListViewPageState extends State<ListViewPage> {
 
   @override
   void initState() {
-    scrollController.addListener(() {
-      // print(scrollController.position.pixels);
-      if (scrollController.position.atEdge) {
-        if (scrollController.position.pixels == 0) {
-          // print("TOP");
-        } else {
-          // print("BOTTOM");
-        }
-      }
-    });
     super.initState();
   }
 
@@ -48,61 +36,39 @@ class _ListViewPageState extends State<ListViewPage> {
         builder: (BuildContext context, AsyncSnapshot<Null> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              return Container(
+              return SafeArea(
                 child: Scrollbar(
-                  child: ListView.builder(
-                    // controller: scrollController,
-                    itemCount: itemLength + 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      /*return Padding(
-                        padding: EdgeInsets.only(
-                          left: 32,
-                          right: 32,
-                          top: 8,
-                          bottom: 8,
-                        ),
-                        child: () {
-                          if (index == 0) {
-                            if (showQuestion())
-                              return Question();
-                            else
-                              return Container();
-                          } else {
-                            Map data = loadPlainEntryFromIndex(index - 1);
-                            return _buildItemWidget(
+                  child: ScrollConfiguration(
+                    behavior: NoBounceBehavior(),
+                    child: ListView.builder(
+                      itemCount: itemLength + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == 0) {
+                          if (showQuestion())
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                left: 32,
+                                right: 32,
+                                top: 8,
+                                bottom: 8,
+                              ),
+                              child: Question(),
+                            );
+                          else
+                            return Container();
+                        } else {
+                          Map data = loadPlainEntryFromIndex(index - 1);
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14),
+                            child: _buildItemWidget(
                               data[ItemElements.date],
                               data[ItemElements.feeling],
                               data[ItemElements.body],
-                            );
-                          }
-                        }(),
-                      );*/
-                      if (index == 0) {
-                        if (showQuestion())
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              left: 32,
-                              right: 32,
-                              top: 8,
-                              bottom: 8,
                             ),
-                            child: Question(),
                           );
-                        else
-                          return Container();
-                      } else {
-                        Map data = loadPlainEntryFromIndex(index - 1);
-                        return Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 14),
-                          child: _buildItemWidget(
-                            data[ItemElements.date],
-                            data[ItemElements.feeling],
-                            data[ItemElements.body],
-                          ),
-                        );
-                      }
-                    },
+                        }
+                      },
+                    ),
                   ),
                 ),
               );
@@ -127,7 +93,7 @@ class _ListViewPageState extends State<ListViewPage> {
     List<String> dateList = date.split('-');
     return Column(
       children: <Widget>[
-        Divider(height: 14),
+        Divider(),
         InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
@@ -139,9 +105,10 @@ class _ListViewPageState extends State<ListViewPage> {
           },
           child: Padding(
             padding: EdgeInsets.only(
-              top: 8,
+              top: 16,
               left: 8,
               right: 8,
+              bottom: 16,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,8 +150,8 @@ class _ListViewPageState extends State<ListViewPage> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "나눔손글씨 힘내라는 말보단",
+                            fontSize: 18,
+                            // fontFamily: "나눔손글씨 암스테르담",
                           ),
                         ),
                       )

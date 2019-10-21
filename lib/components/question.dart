@@ -53,8 +53,11 @@ class Question extends StatelessWidget {
               child: Text(
                 S.of(context).howWasYourDay,
                 style: Theme.of(context).textTheme.headline.copyWith(
-                  fontSize: 26, fontWeight: FontWeight.w700,
-                ),
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.1,
+                      color: Colors.black.withOpacity(0.75),
+                    ),
               ),
               begin: Offset.zero,
               delay: Duration(milliseconds: 1000),
@@ -132,10 +135,11 @@ class Question extends StatelessWidget {
               Spacer(),
               Text(
                 content,
-                style: Theme.of(context).textTheme.button.copyWith(
-                      color: DefaultColorTheme.main,
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: TextStyle(
+                  color: DefaultColorTheme.main.withOpacity(0.825),
+                  fontSize: 16,
+                  letterSpacing: 1.01,
+                ),
               ),
               SizedBox(width: 8),
               Image.asset(

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/components/calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
@@ -41,29 +43,53 @@ class _DiaryPageState extends State<DiaryPage> {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async =>
-            await showCupertinoDialog(
-              context: context,
-              builder: (context) => CupertinoAlertDialog(
-                content: Text("이 일기는 사라지는데 그래도 나갈래?"),
-                actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: FlatButton(
-                      shape: StadiumBorder(),
-                      color: Colors.redAccent,
-                      onPressed: () => Navigator.of(context).pop(true),
-                      child: Text('그래', style: TextStyle(color: Colors.white)),
+        onWillPop: () async {
+          if (panelController.isPanelOpen()) {
+            panelController.close();
+            return false;
+          } else {
+            return await showDialog(
+                  context: context,
+                  builder: (context) => ShowUp(
+                    curve: Curves.elasticOut,
+                    begin: Offset(0, 0.25),
+                    child: AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      content: Text("이 일기는 사라지는데 그래도 나갈래?"),
+                      actions: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: FlatButton(
+                            shape: StadiumBorder(),
+                            color: Colors.redAccent,
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '그래',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '싫어',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  FlatButton(
-                    onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('싫어', style: TextStyle(color: Colors.blue)),
-                  ),
-                ],
-              ),
-            ) ??
-            false,
+                ) ??
+                false;
+          }
+        },
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -81,7 +107,7 @@ class _DiaryPageState extends State<DiaryPage> {
               FlatButton(
                 child: Text(
                   S.of(context).save,
-                  style: TextStyle(color: DefaultColorTheme.main),
+                  style: TextStyle(color: DefaultColorTheme.main, fontSize: 16),
                 ),
                 onPressed: _save,
                 shape: StadiumBorder(),
@@ -97,6 +123,24 @@ class _DiaryPageState extends State<DiaryPage> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 16,
+                      ),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "${DateFormat("yyyy-MM-dd").format(_dateTime)}, "
+                          "${_getFeelingTranslation(widget.feeling.toString())}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(),
                     Expanded(
                       child: TextFormField(
                         controller: editingController,
@@ -107,7 +151,7 @@ class _DiaryPageState extends State<DiaryPage> {
                         cursorColor: DefaultColorTheme.sub,
                         onTap: () => panelController.hide(),
                         decoration: InputDecoration(
-                          hintText: "Input your story here...",
+                          hintText: "이곳에 오늘의 이야기를 말해주세요.",
                           border: InputBorder.none,
                         ),
                         style: TextStyle(
@@ -252,5 +296,20 @@ class _DiaryPageState extends State<DiaryPage> {
       );
 
     Navigator.of(context).pop();
+  }
+
+  String _getFeelingTranslation(String feeling) {
+    if (feeling.runtimeType != String)
+      return '';
+    else if (Feelings.great.toString() == feeling)
+      return "좋아! \uD83D\uDE0A";
+    else if (Feelings.notGood.toString() == feeling)
+      return "그저 그래 \uD83D\uDE10";
+    else if (Feelings.sad.toString() == feeling)
+      return "너무 슬프다 \uD83D\uDE25";
+    else if (Feelings.angry.toString() == feeling)
+      return "정말 화난다 \uD83D\uDE21";
+    else
+      return '\uD83E\uDD14';
   }
 }

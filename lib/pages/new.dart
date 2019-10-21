@@ -77,11 +77,14 @@ class NewJournalPage extends StatelessWidget {
                               }(),
                             ),
                           ).format(_now),
-                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24,),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 28),
+                    SizedBox(height: 16),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * (3 / 4),
                       child: Image.asset("res/assets/humans/${() {
@@ -99,7 +102,7 @@ class NewJournalPage extends StatelessWidget {
                         }
                       }()}.png"),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 16),
                     ShowUp(
                       animatedOpacity: true,
                       delay: Duration(milliseconds: 250),
@@ -118,7 +121,8 @@ class NewJournalPage extends StatelessWidget {
                             default:
                               return "";
                           }
-                        }(), style: TextStyle(fontSize: 24),
+                        }(),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                     SizedBox(height: 48),
@@ -136,7 +140,7 @@ class NewJournalPage extends StatelessWidget {
                           ),
                           child: Text(
                             S.of(context).startTalking,
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
                         onPressed: () => Navigator.of(context).push(
@@ -157,6 +161,7 @@ class NewJournalPage extends StatelessWidget {
                       delay: Duration(milliseconds: 750),
                       curve: Curves.linearToEaseOut,
                       child: FlatButton(
+                        splashColor: Colors.transparent,
                         child: Padding(
                           padding: EdgeInsets.only(
                             left: 60,
@@ -165,7 +170,10 @@ class NewJournalPage extends StatelessWidget {
                             bottom: 20,
                           ),
                           child: Text(
-                            S.of(context).startWriting, style: TextStyle(fontSize: 20,),
+                            S.of(context).startWriting,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                         onPressed: () => Navigator.of(context).pushReplacement(

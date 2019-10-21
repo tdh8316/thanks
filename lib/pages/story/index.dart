@@ -17,11 +17,13 @@ class StoryBoard extends StatefulWidget {
 class _StoryBoardState extends State<StoryBoard> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: PageView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            StoryTagPage(),
-          ],
+        body: SafeArea(
+          child: PageView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              StoryTagPage(),
+            ],
+          ),
         ),
       );
 }
