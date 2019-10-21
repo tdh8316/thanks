@@ -26,9 +26,12 @@ Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
   statisticJson[feeling.toString()] =
       (statisticJson[feeling.toString()] ?? 0) + (remove ? -1 : 1);
 
-  if (!fileList.contains(
+  final bool isFileAlreadyExists = fileList.contains(
     "${(await getApplicationDocumentsDirectory()).path}/${DateFormat(fileNameFormat).format(targetDate)}.txt",
-  )) statisticJson["total"] = (statisticJson["total"] ?? 0) + (remove ? -1 : 1);
+  );
+
+  statisticJson["total"] = (statisticJson["total"] ?? 0) +
+      (remove ? -1 : (isFileAlreadyExists ? 0 : 1));
 
   statisticFile.writeAsStringSync(jsonEncode(statisticJson));
 }
