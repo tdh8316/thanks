@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:nima/nima_actor.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/models/coordinate.dart';
+import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/services/statistic.dart';
 import 'package:thanks/styles/colors.dart';
 
@@ -15,161 +15,164 @@ class StatisticPage extends StatefulWidget {
 class _StatisticPageState extends State<StatisticPage> {
   DateTime targetDate = DateTime.now();
   Map<String, dynamic> data;
-  List<FlSpot> _graphData = [FlSpot(0, 0)];
-  StreamController<PieTouchResponse> pieTouchedResultStreamController;
+  List<FlSpot> _graphCoordinates;
+
   int touchedIndex;
 
-  graphData() => LineChartData(
+  int numOfFiles(data) => int.tryParse("${data != null ? data["total"] : "0"}");
+
+  List<TooltipItem> customTilesStyle<T extends TouchedSpot>(
+      List<T> touchedSpots) {
+    if (touchedSpots == null) {
+      return null;
+    }
+
+    return touchedSpots.map((T touchedSpot) {
+      if (touchedSpots == null || touchedSpot.spot == null) {
+        return null;
+      }
+
+      final String text = () {
+            if (touchedSpot.spot.y == null)
+              return '';
+            else if (touchedSpot.spot.y == YAxisFromFeeling.great)
+              return "좋아! \uD83D\uDE0A";
+            else if (touchedSpot.spot.y == YAxisFromFeeling.notGood)
+              return "그저 그래 \uD83D\uDE10";
+            else if (touchedSpot.spot.y == YAxisFromFeeling.sad)
+              return "너무 슬프다 \uD83D\uDE25";
+            else if (touchedSpot.spot.y == YAxisFromFeeling.angry)
+              return "정말 화난다 \uD83D\uDE21";
+            else
+              return '\uD83E\uDD14';
+          }() +
+          "\n${targetDate.month}. ${touchedSpot.spot.x.toInt()}";
+
+      final TextStyle textStyle = TextStyle(
+        fontFamily: "나눔바른펜",
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+      );
+      return TooltipItem(text, textStyle);
+    }).toList();
+  }
+
+  LineChartData get graphData => LineChartData(
         gridData: FlGridData(show: false),
         titlesData: FlTitlesData(show: false),
         borderData: FlBorderData(show: false),
-        lineTouchData: LineTouchData(enabled: false),
-        maxY: 4,
+        lineTouchData: LineTouchData(
+          enabled: true,
+          touchTooltipData: TouchTooltipData(
+            getTooltipItems: customTilesStyle,
+            tooltipBgColor: DefaultColorTheme.sub,
+            tooltipBottomMargin: 32,
+          ),
+        ),
+        maxY: 2,
         minY: 0,
         maxX: 31,
         lineBarsData: <LineChartBarData>[
           LineChartBarData(
-            spots: _graphData,
+            spots: _graphCoordinates.length > 0
+                ? [FlSpot(0, YAxisFromFeeling.center), ..._graphCoordinates]
+                : [FlSpot(0, 0)],
             isCurved: true,
-            colors: <Color>[DefaultColorTheme.sub],
+            curveSmoothness: 0.25,
+            colors: <Color>[
+              HexColor("#ff9a44"),
+              HexColor("#fc6076"),
+              HexColor("#ff9a44"),
+            ],
             barWidth: 5,
             isStrokeCapRound: true,
-            dotData: const FlDotData(
-              show: false,
+            dotData: FlDotData(
+              show: true,
+              checkToShowDot: (FlSpot spot) =>
+                  spot.x == _graphCoordinates.last.x,
+              dotColor: DefaultColorTheme.main,
+              dotSize: 6,
             ),
             belowBarData: BarAreaData(show: false),
           ),
         ],
+        clipToBorder: false,
       );
 
   @override
   void initState() {
-    aaa();
-    pieTouchedResultStreamController = StreamController();
-    pieTouchedResultStreamController.stream.distinct().listen((details) {
-      if (details == null) {
-        return;
-      }
-
-      setState(() {
-        if (details.touchInput is FlLongPressEnd) {
-          touchedIndex = -1;
-        } else {
-          touchedIndex = details.touchedSectionPosition;
-        }
-      });
-    });
     super.initState();
   }
 
-  aaa() async {
-    final _data = await getStatisticData(targetDate: targetDate);
-    final _gd = getCoordinateFromFeeling(targetDate);
-    setState(() {
-      this.data = _data;
-      this._graphData = _gd;
-    });
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<Null> loadStatisticData() async {
+    data = await getStatisticData(targetDate: targetDate);
+    _graphCoordinates = await getCoordinateFromFeeling(targetDate);
+    return null;
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (data == null || _graphData == null || _graphData.length == 0)
-      return ShowUp(
-        animatedOpacity: true,
-        delay: Duration(milliseconds: 100),
-        begin: Offset.zero,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: SizedBox(
-                height: 256,
-                child: NimaActor(
-                  "res/assets/Dinosaurs/Dinosaurs.nma",
-                  animation: "Idle",
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-              child: Text(
-                "통계를 잠금 해제하려면 이번 달 작성된 일기가 최소 하나 이상 필요합니다.\n"
-                "아니면 1000\\ 에 구매하시던가",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "나눔바른펜",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
+  Widget build(BuildContext context) => FutureBuilder<Null>(
+        future: loadStatisticData(),
+        builder: (BuildContext context, AsyncSnapshot<Null> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              if ((data == null ||
+                      _graphCoordinates == null ||
+                      _graphCoordinates.length == 0) &&
+                  (targetDate.year == DateTime.now().year &&
+                      targetDate.month == DateTime.now().month)) {
+                return Column(
+                  children: <Widget>[
+                    SizedBox(height: 32),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      child: SizedBox(
+                        height: 256,
+                        child: Image.asset("res/assets/humans/3.png"),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 32,
+                      ),
+                      child: Text(
+                        "아직 당신을 알아 가는 단계예요.\n"
+                        "일기를 작성하시면 이 공간을 준비할게요!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: "나눔바른펜",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return SafeArea(child: _buildStatisticWidget(context));
+            default:
+              if (snapshot.hasError)
+                return Container(
+                  child: SafeArea(
+                    child: Center(
+                      child: Text(
+                        "Exception: ${snapshot.error}",
+                        style: TextStyle(fontFamily: "Roboto"),
+                      ),
+                    ),
+                  ),
+                );
+              return Container();
+          }
+        },
       );
-    else
-      return SafeArea(child: _buildStatisticWidget(context));
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 60 : 50;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: DefaultColorTheme.main.withOpacity(.95),
-            value: 40,
-            title: '',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: DefaultColorTheme.main.withOpacity(.75),
-            value: 30,
-            title: '',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: DefaultColorTheme.main.withOpacity(.5),
-            value: 15,
-            title: '',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: DefaultColorTheme.main.withOpacity(.25),
-            value: 15,
-            title: '',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        default:
-          return null;
-      }
-    });
-  }
 
   Widget _buildStatisticWidget(BuildContext context) {
     return SingleChildScrollView(
@@ -200,8 +203,10 @@ class _StatisticPageState extends State<StatisticPage> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 16,
+                        ),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -219,7 +224,14 @@ class _StatisticPageState extends State<StatisticPage> {
                                 Icons.arrow_back_ios,
                                 color: Colors.black54,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  targetDate = DateTime(
+                                    targetDate.year,
+                                    targetDate.month - 1,
+                                  );
+                                });
+                              },
                             ),
                             SizedBox(width: 16),
                             IconButton(
@@ -227,7 +239,16 @@ class _StatisticPageState extends State<StatisticPage> {
                                 Icons.arrow_forward_ios,
                                 color: Colors.black54,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                DateTime temp = DateTime(
+                                  targetDate.year,
+                                  targetDate.month + 1,
+                                );
+                                if (temp.isBefore(DateTime.now()))
+                                  setState(() {
+                                    targetDate = temp;
+                                  });
+                              },
                             ),
                           ],
                         ),
@@ -237,7 +258,7 @@ class _StatisticPageState extends State<StatisticPage> {
                           Padding(
                             padding: EdgeInsets.only(left: 32, right: 8),
                             child: Text(
-                              "${data != null ? data["total"] : "0"}",
+                              numOfFiles(data).toString(),
                               style: TextStyle(
                                 fontSize: 64,
                                 color: Colors.black,
@@ -262,27 +283,39 @@ class _StatisticPageState extends State<StatisticPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ShowUp(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 128,
-                          child: FlChart(
-                            chart: LineChart(
-                              graphData(),
-                            ),
-                          ),
+                      SizedBox(height: 32),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 6,
+                        child: ShowUp(
+                          child: numOfFiles(data) > 0
+                              ? FlChart(
+                                  chart: LineChart(
+                                    graphData,
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                    "이 기간에 작성된 일기가 없어요.",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: DefaultColorTheme.main,
+                                    ),
+                                  ),
+                                ),
+                          animatedOpacity: true,
+                          begin: Offset.zero,
                         ),
-                        animatedOpacity: true,
-                        begin: Offset.zero,
                       ),
                       SizedBox(height: 64),
                     ],
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 300),
+              /*Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 2,
+                ),
                 child: Center(
                   child: FractionallySizedBox(
                     widthFactor: 0.875,
@@ -293,7 +326,7 @@ class _StatisticPageState extends State<StatisticPage> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ],
@@ -301,6 +334,7 @@ class _StatisticPageState extends State<StatisticPage> {
     );
   }
 
+  // ignore: unused_element
   Widget _buildFeelingChart(BuildContext context) => Card(
         elevation: 32,
         shape: RoundedRectangleBorder(
@@ -316,16 +350,12 @@ class _StatisticPageState extends State<StatisticPage> {
                   child: FlChart(
                     chart: PieChart(
                       PieChartData(
-                        pieTouchData: PieTouchData(
-                          touchResponseStreamSink:
-                              pieTouchedResultStreamController.sink,
-                        ),
                         borderData: FlBorderData(
                           show: false,
                         ),
                         sectionsSpace: 0,
                         centerSpaceRadius: 14,
-                        sections: showingSections(),
+                        // sections: showingSections(),
                       ),
                     ),
                   ),

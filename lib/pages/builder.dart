@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
-import 'package:thanks/components/question.dart';
 import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/pages/listview.dart';
+import 'package:thanks/pages/prev_new.dart';
 import 'package:thanks/pages/statistic.dart';
 
 class HomePage extends StatefulWidget {
@@ -169,16 +169,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                   IconButton(
                     icon: Icon(
-                      Icons.playlist_add,
+                      Icons.add,
                       color: Colors.black87,
                       size: 24,
                     ),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (BuildContext context) => Scaffold(
-                            body: SafeArea(child: Question()),
-                          ),
+                          builder: (BuildContext context) => PrevNewPage(),
                         ),
                       );
                     },

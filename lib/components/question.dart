@@ -7,7 +7,11 @@ import 'package:thanks/pages/new.dart';
 import 'package:thanks/styles/colors.dart';
 
 class Question extends StatelessWidget {
-  final DateTime now = DateTime.now();
+  Question({
+    @required this.date,
+  });
+
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -19,7 +23,7 @@ class Question extends StatelessWidget {
                 DateFormat(
                   S.of(context).titleDateFormat(
                     () {
-                      switch (DateFormat("EEEE").format(now)) {
+                      switch (DateFormat("EEEE").format(date)) {
                         case "Monday":
                           return S.of(context).Monday;
                         case "Tuesday":
@@ -39,7 +43,7 @@ class Question extends StatelessWidget {
                       }
                     }(),
                   ),
-                ).format(now),
+                ).format(date),
                 style: TextStyle(fontSize: 20, fontFamily: "나눔바른펜"),
               ),
               animatedOpacity: true,
@@ -168,6 +172,7 @@ class Question extends StatelessWidget {
             MaterialPageRoute(
               builder: (BuildContext context) => NewJournalPage(
                 feeling: feeling,
+                diaryDate: date,
               ),
             ),
           );

@@ -9,7 +9,8 @@ import 'package:thanks/services/storage.dart';
 Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
     {bool remove = false}) async {
   final File statisticFile = File(
-    "${(await getApplicationDocumentsDirectory()).path}/statictic-${targetDate.year}-${targetDate.month}.json",
+    "${(await getApplicationDocumentsDirectory()).path}"
+        "/statictic-${DateFormat("yyyy-MM").format(targetDate)}.json",
   );
   // If file doesn't exist, create one and write basic JSON structure.
   if (!statisticFile.existsSync()) {
@@ -27,13 +28,16 @@ Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
       (statisticJson[feeling.toString()] ?? 0) + (remove ? -1 : 1);
 
   final bool isFileAlreadyExists = fileList.contains(
-    "${(await getApplicationDocumentsDirectory()).path}/${DateFormat(fileNameFormat).format(targetDate)}.txt",
+    "${(await getApplicationDocumentsDirectory()).path}/"
+        "${DateFormat(fileNameFormat).format(targetDate)}.txt",
   );
 
   statisticJson["total"] = (statisticJson["total"] ?? 0) +
       (remove ? -1 : (isFileAlreadyExists ? 0 : 1));
 
   statisticFile.writeAsStringSync(jsonEncode(statisticJson));
+
+  return null;
 }
 
 Future<Map<String, dynamic>> getStatisticData({
@@ -41,7 +45,7 @@ Future<Map<String, dynamic>> getStatisticData({
 }) async {
   final File dataFile = File(
     "${(await getApplicationDocumentsDirectory()).path}"
-    "/statictic-${targetDate.year}-${targetDate.month}.json",
+    "/statictic-${DateFormat("yyyy-MM").format(targetDate)}.json",
   );
 
   if (!dataFile.existsSync()) return null;

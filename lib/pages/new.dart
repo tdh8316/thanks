@@ -14,9 +14,10 @@ class NewJournalPage extends StatelessWidget {
 
   NewJournalPage({
     @required this.feeling,
+   @required this.diaryDate,
   });
 
-  final DateTime _now = DateTime.now();
+  final DateTime diaryDate ;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -56,7 +57,7 @@ class NewJournalPage extends StatelessWidget {
                           DateFormat(
                             S.of(context).titleDateFormat(
                               () {
-                                switch (DateFormat("EEEE").format(_now)) {
+                                switch (DateFormat("EEEE").format(diaryDate)) {
                                   case "Monday":
                                     return S.of(context).Monday;
                                   case "Tuesday":
@@ -76,7 +77,7 @@ class NewJournalPage extends StatelessWidget {
                                 }
                               }(),
                             ),
-                          ).format(_now),
+                          ).format(diaryDate),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 20,
@@ -146,7 +147,7 @@ class NewJournalPage extends StatelessWidget {
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) => StoryBoard(
-                              dateTime: _now,
+                              dateTime: diaryDate,
                               feeling: feeling,
                             ),
                           ),
@@ -179,7 +180,7 @@ class NewJournalPage extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (context) => DiaryPage(
-                              dateTime: _now,
+                              dateTime: diaryDate,
                               feeling: feeling,
                             ),
                           ),

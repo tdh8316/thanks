@@ -13,8 +13,9 @@ class ListViewPage extends StatefulWidget {
 }
 
 class _ListViewPageState extends State<ListViewPage> {
+  final DateTime _now = DateTime.now();
+
   bool showQuestion() {
-    final DateTime _now = DateTime.now();
     final List<String> latestDate =
         StaticSharedPreferences.prefs?.getStringList("latestDate");
     if (latestDate == null || latestDate.length != 3) return true;
@@ -52,7 +53,9 @@ class _ListViewPageState extends State<ListViewPage> {
                                 top: 8,
                                 bottom: 8,
                               ),
-                              child: Question(),
+                              child: Question(
+                                date: _now,
+                              ),
                             );
                           else
                             return Container();
