@@ -14,10 +14,11 @@ class NewJournalPage extends StatelessWidget {
 
   NewJournalPage({
     @required this.feeling,
-   @required this.diaryDate,
+    @required this.diaryDate,
   });
 
-  final DateTime diaryDate ;
+  final DateTime diaryDate;
+
   final ScrollController _scrollController = ScrollController();
 
   @override

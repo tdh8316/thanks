@@ -7,7 +7,7 @@ import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 
 class YAxisFromFeeling {
-  static const double great =1;
+  static const double great = 1;
   static const double notGood = .5;
   static const double sad = .25;
   static const double angry = .25;

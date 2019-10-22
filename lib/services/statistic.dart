@@ -10,7 +10,7 @@ Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
     {bool remove = false}) async {
   final File statisticFile = File(
     "${(await getApplicationDocumentsDirectory()).path}"
-        "/statictic-${DateFormat("yyyy-MM").format(targetDate)}.json",
+    "/statictic-${DateFormat("yyyy-MM").format(targetDate)}.json",
   );
   // If file doesn't exist, create one and write basic JSON structure.
   if (!statisticFile.existsSync()) {
@@ -29,7 +29,7 @@ Future<Null> addStatisticData(dynamic feeling, DateTime targetDate,
 
   final bool isFileAlreadyExists = fileList.contains(
     "${(await getApplicationDocumentsDirectory()).path}/"
-        "${DateFormat(fileNameFormat).format(targetDate)}.txt",
+    "${DateFormat(fileNameFormat).format(targetDate)}.txt",
   );
 
   statisticJson["total"] = (statisticJson["total"] ?? 0) +
