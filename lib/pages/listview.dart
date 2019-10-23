@@ -72,7 +72,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                     );
                                   },
                                   child: Text(
-                                    "다른 날 일기 쓰기",
+                                    "다른 날의 일기 쓰기",
                                     style: TextStyle(
                                       color: DefaultColorTheme.main.withOpacity(
                                         .75,

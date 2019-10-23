@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/story/elaborate.dart';
+import 'package:thanks/pages/story/finish.dart';
 import 'package:thanks/pages/story/tag.dart';
 
 class StoryBoard extends StatefulWidget {
@@ -16,7 +17,7 @@ class StoryBoard extends StatefulWidget {
 }
 
 class _StoryBoardState extends State<StoryBoard> {
-  final PageController pageController = PageController();
+  PageController pageController;
 
   String tag;
 
@@ -24,6 +25,25 @@ class _StoryBoardState extends State<StoryBoard> {
         duration: Duration(milliseconds: 750),
         curve: Curves.fastOutSlowIn,
       );
+
+  @override
+  void initState() {
+    pageController = PageController()
+        /*..addListener(
+        () {
+          if (pageController.position.atEdge) {
+            if (pageController.position.pixels == 0) {
+               print("top");
+            } 
+            else {
+              print("bottom");
+            }
+          }
+        },
+      )*/
+        ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -42,6 +62,7 @@ class _StoryBoardState extends State<StoryBoard> {
                 nextPage: this.nextPage,
               ),
               ElaborateStoryPage(nextPage: this.nextPage),
+              FinishStoryPage(),
             ],
           ),
         ),

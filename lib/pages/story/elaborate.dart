@@ -37,9 +37,19 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
             ),
             elaborate == null || elaborate == false
                 ? _askElaborate(context)
-                : TextField(),
+                : _input(context),
           ],
         ),
+      );
+
+  Widget _input(BuildContext context) => Column(
+        children: <Widget>[
+          TextField(),
+          FlatButton(
+            child: Text("완료"),
+            onPressed: () => widget.nextPage(),
+          ),
+        ],
       );
 
   Widget _askElaborate(BuildContext context) => Column(
