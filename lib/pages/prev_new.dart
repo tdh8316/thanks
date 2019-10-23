@@ -45,6 +45,7 @@ class _PrevNewPageState extends State<PrevNewPage> {
                   ),
                   child: Question(
                     date: targetDate,
+                    navigatorAction: Navigator.of(context).pushReplacement,
                   ),
                 ),
                 Stack(
@@ -61,8 +62,8 @@ class _PrevNewPageState extends State<PrevNewPage> {
                     Column(
                       children: <Widget>[
                         SizedBox(
-                            height:
-                                MediaQuery.of(context).size.height / e / pi),
+                          height: MediaQuery.of(context).size.height / e / pi,
+                        ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,

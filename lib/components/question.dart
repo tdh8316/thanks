@@ -9,9 +9,11 @@ import 'package:thanks/styles/colors.dart';
 class Question extends StatelessWidget {
   Question({
     @required this.date,
+    this.navigatorAction,
   });
 
   final DateTime date;
+  final Function navigatorAction;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -168,7 +170,7 @@ class Question extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.of(context).push(
+          (navigatorAction ?? Navigator.of(context).push)(
             MaterialPageRoute(
               builder: (BuildContext context) => NewJournalPage(
                 feeling: feeling,
