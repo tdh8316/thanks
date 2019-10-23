@@ -8,12 +8,22 @@ import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/styles/colors.dart';
 
 class PrevNewPage extends StatefulWidget {
+  final DateTime initialDate;
+
+  PrevNewPage({this.initialDate});
+
   @override
   State<PrevNewPage> createState() => _PrevNewPageState();
 }
 
 class _PrevNewPageState extends State<PrevNewPage> {
-  DateTime targetDate = DateTime.now();
+  DateTime targetDate;
+
+  @override
+  void initState() {
+    targetDate = widget.initialDate ?? DateTime.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(

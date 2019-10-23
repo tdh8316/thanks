@@ -132,29 +132,35 @@ class NewJournalPage extends StatelessWidget {
                       animatedOpacity: true,
                       delay: Duration(milliseconds: 500),
                       curve: Curves.linearToEaseOut,
-                      child: FlatButton(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 60,
-                            right: 60,
-                            top: 18,
-                            bottom: 18,
-                          ),
-                          child: Text(
-                            S.of(context).startTalking,
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => StoryBoard(
-                              dateTime: diaryDate,
-                              feeling: feeling,
+                      child: Tooltip(
+                        message: "감사 일기를 작성합니다.\n"
+                            "원하는 경우 일반적인 일기를 작성할 수 있습니다.",
+                        padding: EdgeInsets.all(14),
+                        child: FlatButton(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 60,
+                              right: 60,
+                              top: 18,
+                              bottom: 18,
+                            ),
+                            child: Text(
+                              S.of(context).startTalking,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           ),
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => StoryBoard(
+                                dateTime: diaryDate,
+                                feeling: feeling,
+                              ),
+                            ),
+                          ),
+                          shape: StadiumBorder(),
+                          color: DefaultColorTheme.main,
                         ),
-                        shape: StadiumBorder(),
-                        color: DefaultColorTheme.main,
                       ),
                     ),
                     SizedBox(height: 8),
@@ -162,31 +168,36 @@ class NewJournalPage extends StatelessWidget {
                       animatedOpacity: true,
                       delay: Duration(milliseconds: 750),
                       curve: Curves.linearToEaseOut,
-                      child: FlatButton(
-                        splashColor: Colors.transparent,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: 60,
-                            right: 60,
-                            top: 20,
-                            bottom: 20,
-                          ),
-                          child: Text(
-                            S.of(context).startWriting,
-                            style: TextStyle(
-                              fontSize: 14,
+                      child: Tooltip(
+                        message: "방해받지 않고 혼자 일기를 쓰고 싶다면 이 곳을 선택하세요.",
+                        padding: EdgeInsets.all(14),
+                        child: FlatButton(
+                          splashColor: Colors.transparent,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 60,
+                              right: 60,
+                              top: 20,
+                              bottom: 20,
+                            ),
+                            child: Text(
+                              S.of(context).startWriting,
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        onPressed: () => Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => DiaryPage(
-                              dateTime: diaryDate,
-                              feeling: feeling,
+                          onPressed: () =>
+                              Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => DiaryPage(
+                                dateTime: diaryDate,
+                                feeling: feeling,
+                              ),
                             ),
                           ),
+                          shape: StadiumBorder(),
                         ),
-                        shape: StadiumBorder(),
                       ),
                     ),
                   ],

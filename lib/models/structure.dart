@@ -16,3 +16,13 @@ enum EditorAction {
   location,
   image,
 }
+
+const List<String> tagList = <String>[
+  "친구",
+  "소셜",
+  "가족",
+  "일",
+  "그 외",
+  "여행",
+  "음식"
+];

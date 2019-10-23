@@ -96,7 +96,7 @@ class $ko_KR extends S {
   String get signUp => "계정 생성하기";
 
   @override
-  String get startTalking => "대화 시작하기";
+  String get startTalking => "감사일기 쓰기";
 
   @override
   String get feelingNotGoodMessage => "힘내! 내일은 좋은 일이 있을거야.";

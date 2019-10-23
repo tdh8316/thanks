@@ -4,6 +4,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/new.dart';
+import 'package:thanks/pages/prev_new.dart';
 import 'package:thanks/styles/colors.dart';
 
 class Question extends StatelessWidget {
@@ -21,32 +22,35 @@ class Question extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ShowUp(
-              child: Text(
-                DateFormat(
-                  S.of(context).titleDateFormat(
-                    () {
-                      switch (DateFormat("EEEE").format(date)) {
-                        case "Monday":
-                          return S.of(context).Monday;
-                        case "Tuesday":
-                          return S.of(context).Tuesday;
-                        case "Wednesday":
-                          return S.of(context).Wednesday;
-                        case "Thursday":
-                          return S.of(context).Thursday;
-                        case "Friday":
-                          return S.of(context).Friday;
-                        case "Saturday":
-                          return S.of(context).Saturday;
-                        case "Sunday":
-                          return S.of(context).Sunday;
-                        default:
-                          return "Unknown Date";
-                      }
-                    }(),
-                  ),
-                ).format(date),
-                style: TextStyle(fontSize: 20, fontFamily: "나눔바른펜"),
+              child: InkWell(
+                onTap: () => navigatorAction != null ? Null : Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PrevNewPage())),
+                child: Text(
+                  DateFormat(
+                    S.of(context).titleDateFormat(
+                      () {
+                        switch (DateFormat("EEEE").format(date)) {
+                          case "Monday":
+                            return S.of(context).Monday;
+                          case "Tuesday":
+                            return S.of(context).Tuesday;
+                          case "Wednesday":
+                            return S.of(context).Wednesday;
+                          case "Thursday":
+                            return S.of(context).Thursday;
+                          case "Friday":
+                            return S.of(context).Friday;
+                          case "Saturday":
+                            return S.of(context).Saturday;
+                          case "Sunday":
+                            return S.of(context).Sunday;
+                          default:
+                            return "Unknown Date";
+                        }
+                      }(),
+                    ),
+                  ).format(date),
+                  style: TextStyle(fontSize: 20, fontFamily: "나눔바른펜"),
+                ),
               ),
               animatedOpacity: true,
               begin: Offset.zero,
@@ -57,7 +61,7 @@ class Question extends StatelessWidget {
             ShowUp(
               animatedOpacity: true,
               child: Text(
-                S.of(context).howWasYourDay,
+                navigatorAction == null? S.of(context).howWasYourDay : "이 날은 어땠어?",
                 style: Theme.of(context).textTheme.headline.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,

@@ -4,8 +4,10 @@ import 'package:thanks/components/question.dart';
 import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/pages/prev_new.dart';
 import 'package:thanks/pages/viewer/plain_viewer.dart';
 import 'package:thanks/services/storage.dart';
+import 'package:thanks/styles/colors.dart';
 
 class ListViewPage extends StatefulWidget {
   @override
@@ -58,7 +60,28 @@ class _ListViewPageState extends State<ListViewPage> {
                               ),
                             );
                           else
-                            return Container();
+                            return Container(
+                              child: Center(
+                                child: FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            PrevNewPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "다른 날 일기 쓰기",
+                                    style: TextStyle(
+                                      color: DefaultColorTheme.main.withOpacity(
+                                        .75,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
                         } else {
                           Map data = loadPlainEntryFromIndex(index - 1);
                           return Padding(

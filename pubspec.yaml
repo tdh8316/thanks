@@ -94,7 +94,7 @@ flutter:
 
   assets:
     - res/assets/humans/
-    - res/assets/Dinosaurs/
+    - res/assets/tags/
     - res/assets/
 
   fonts:

@@ -71,7 +71,7 @@ class _StatisticPageState extends State<StatisticPage> {
           ),
         ),
         maxY: 2,
-        minY: 0,
+        minY: -1,
         maxX: 31,
         lineBarsData: <LineChartBarData>[
           LineChartBarData(
@@ -195,12 +195,13 @@ class _StatisticPageState extends State<StatisticPage> {
                         //HexColor("#fc6076"),
                         //DefaultColorTheme.main,
                         //HexColor("#ff9a44"),
-                        Colors.white,
-                        Colors.white,
+                        Colors.transparent,
+                        Colors.transparent,
                       ],
                     ),
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -253,24 +254,20 @@ class _StatisticPageState extends State<StatisticPage> {
                           ],
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(left: 32, right: 8),
-                            child: Text(
-                              numOfFiles(data).toString(),
-                              style: TextStyle(
-                                fontSize: 64,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 4,
-                              ),
-                            ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 64, right: 8),
+                        child: Text(
+                          numOfFiles(data).toString(),
+                          style: TextStyle(
+                            fontSize: 64,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 4,
                           ),
-                        ],
+                        ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 32),
+                        padding: EdgeInsets.only(left: 48),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -279,14 +276,45 @@ class _StatisticPageState extends State<StatisticPage> {
                               fontSize: 14,
                               color: Colors.black54,
                               fontFamily: "나눔바른펜",
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
                       ),
                       SizedBox(height: 32),
+                      Row(
+                        children: <Widget>[
+                          Spacer(),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Container(
+                              height: 8,
+                              width: 8,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: <Color>[
+                                    HexColor("#ff9a44"),
+                                    HexColor("#fc6076"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              "월간 기분 변화 추이",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 6,
+                        height: MediaQuery.of(context).size.height / 4,
                         child: ShowUp(
                           child: numOfFiles(data) > 0
                               ? FlChart(
@@ -307,7 +335,8 @@ class _StatisticPageState extends State<StatisticPage> {
                           begin: Offset.zero,
                         ),
                       ),
-                      SizedBox(height: 64),
+                      // SizedBox(height: 64),
+                      Divider(),
                     ],
                   ),
                 ),

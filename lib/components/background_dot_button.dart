@@ -24,20 +24,22 @@ class BackDotButton extends StatelessWidget {
             ),
           ),
           Positioned(
-              child: Container(
-            width: 74.0,
-            height: 40.0,
-            child: FlatButton(
-              child: Text(
-                str,
-                style: TextStyle(
+            child: Container(
+              width: 74.0,
+              height: 40.0,
+              child: FlatButton(
+                child: Text(
+                  str,
+                  style: TextStyle(
                     fontSize: 15.0,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black87),
+                    color: Colors.black87,
+                  ),
+                ),
+                onPressed: () {},
               ),
-              onPressed: () {},
             ),
-          ))
+          ),
         ],
       );
 }
