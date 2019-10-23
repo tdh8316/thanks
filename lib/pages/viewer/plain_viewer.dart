@@ -48,47 +48,47 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                 ),
               ),
               onPressed: () async {
-                if (!await showDialog(
-                      context: context,
-                      builder: (context) => ShowUp(
-                        curve: Curves.elasticOut,
-                        begin: Offset(0, 0.25),
-                        child: AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
-                          content: Text("정말 이 추억을 지울거야?"),
-                          actions: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: FlatButton(
-                                shape: StadiumBorder(),
-                                color: Colors.redAccent,
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '지울래',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
+                bool del = await showDialog(
+                  context: context,
+                  builder: (context) => ShowUp(
+                    curve: Curves.elasticOut,
+                    begin: Offset(0, 0.25),
+                    child: AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      content: Text("정말 이 추억을 지울거야?"),
+                      actions: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: FlatButton(
+                            shape: StadiumBorder(),
+                            color: Colors.redAccent,
+                            onPressed: () =>
+                                Navigator.of(context).pop(true),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '지울래',
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
-                            FlatButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  '싫어',
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ) ??
-                    true) return;
+                        FlatButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '싫어',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ) ?? false;
+                if (!del) return;
                 // Delete file located in internal storage
                 await removeEntryFromDate(string: widget.date);
 
