@@ -5,7 +5,7 @@ import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/prev_new.dart';
-import 'package:thanks/pages/viewer/plain_viewer.dart';
+import 'package:thanks/pages/viewer.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 

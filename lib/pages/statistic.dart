@@ -79,7 +79,7 @@ class _StatisticPageState extends State<StatisticPage> {
                 ? [FlSpot(0, YAxisFromFeeling.center), ..._graphCoordinates]
                 : [FlSpot(0, 0)],
             isCurved: true,
-            curveSmoothness: 0.25,
+            curveSmoothness: 0.014,
             colors: <Color>[
               HexColor("#ff9a44"),
               HexColor("#fc6076"),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:thanks/models/internal.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/story/elaborate.dart';
 import 'package:thanks/pages/story/finish.dart';
 import 'package:thanks/pages/story/tag.dart';
+import 'package:thanks/services/storage.dart';
 
 class StoryBoard extends StatefulWidget {
   final Feelings feeling;
@@ -19,7 +21,14 @@ class StoryBoard extends StatefulWidget {
 class _StoryBoardState extends State<StoryBoard> {
   PageController pageController;
 
+  // These values is used to control data among the widgets
   String tag;
+
+  bool elaborate;
+  final TextEditingController elaborateTextEditingController =
+      TextEditingController();
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   void nextPage() => pageController.nextPage(
         duration: Duration(milliseconds: 750),
@@ -47,6 +56,7 @@ class _StoryBoardState extends State<StoryBoard> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        key: scaffoldKey,
         body: SafeArea(
           child: PageView(
             controller: pageController,
@@ -61,10 +71,40 @@ class _StoryBoardState extends State<StoryBoard> {
                 },
                 nextPage: this.nextPage,
               ),
-              ElaborateStoryPage(nextPage: this.nextPage),
-              FinishStoryPage(),
+              ElaborateStoryPage(
+                nextPage: this.nextPage,
+                textEditingController: elaborateTextEditingController,
+                elaborateSetter: (bool value) {
+                  this.elaborate = value;
+                },
+                elaborateGetter: () => this.elaborate,
+              ),
+              FinishStoryPage(
+                save: _save,
+              ),
             ],
           ),
         ),
       );
+
+  Future<Null> _save() async {
+    if (tag == null)
+      scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("실패: 유효하지 않은 값을 저장하려고 했습니다."),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    // Save contents to a separated file
+    saveEntry(
+      content: elaborateTextEditingController.text,
+      date: widget.dateTime,
+      feelings: widget.feeling,
+      tag: this.tag,
+    );
+
+    updateLatestWriting(widget.dateTime);
+  }
 }

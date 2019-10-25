@@ -60,6 +60,28 @@ Future<Null> addStatisticData(
         (statisticJson[feeling.toString()] ?? 0) + (remove ? -1 : 1);
   }
 
+  // Tag
+  if (tag != null) {
+    if (isFileAlreadyExists && !remove) {
+      // Load existing tag
+
+      final File file = File(
+        "${(await getApplicationDocumentsDirectory()).path}/"
+        "${DateFormat(fileNameFormat).format(targetDate)}.txt",
+      );
+      final Map<String, dynamic> decoded =
+          jsonDecode(file?.readAsStringSync() ?? "") as Map<String, dynamic>;
+      String _existingTag = decoded[ItemElements.tag.toString()];
+      print("EXISTING TAG:REMOVING: $_existingTag");
+      statisticJson[_existingTag] -= 1;
+      statisticJson[tag] = (statisticJson[tag] ?? 0) + 1;
+    } else {
+      // Calculate tag count
+      statisticJson[tag] = // -1 if remove is true.
+          (statisticJson[tag] ?? 0) + (remove ? -1 : 1);
+    }
+  }
+
   statisticFile.writeAsStringSync(jsonEncode(statisticJson));
 
   return null;

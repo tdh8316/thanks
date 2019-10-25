@@ -4,16 +4,22 @@ import 'package:thanks/styles/colors.dart';
 
 class ElaborateStoryPage extends StatefulWidget {
   final Function nextPage;
+  final TextEditingController textEditingController;
+  final Function(bool) elaborateSetter;
+  final Function elaborateGetter;
 
-  ElaborateStoryPage({@required this.nextPage});
+  ElaborateStoryPage({
+    @required this.nextPage,
+    @required this.textEditingController,
+    @required this.elaborateSetter,
+    @required this.elaborateGetter,
+  });
 
   @override
   State<ElaborateStoryPage> createState() => _ElaborateStoryPageState();
 }
 
 class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
-  bool elaborate;
-
   @override
   Widget build(BuildContext context) => Container(
         color: HexColor("#f9f9f9"),
@@ -35,19 +41,44 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                 ),
               ),
             ),
-            elaborate == null || elaborate == false
-                ? _askElaborate(context)
-                : _input(context),
+            Expanded(
+              child: widget.elaborateGetter() == null ||
+                      widget.elaborateGetter() == false
+                  ? _askElaborate(context)
+                  : _input(context),
+            ),
           ],
         ),
       );
 
   Widget _input(BuildContext context) => Column(
         children: <Widget>[
-          TextField(),
+          Expanded(
+            child: TextFormField(
+              controller: widget.textEditingController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              showCursor: true,
+              expands: true,
+              cursorColor: DefaultColorTheme.sub,
+              decoration: InputDecoration(
+                hintText: "이곳에 오늘의 이야기를 말해주세요.",
+                border: InputBorder.none,
+              ),
+              style: TextStyle(
+                fontSize: 16,
+                letterSpacing: 1.1,
+                fontFamily: "나눔바른펜",
+              ),
+            ),
+          ),
           FlatButton(
             child: Text("완료"),
-            onPressed: () => widget.nextPage(),
+            onPressed: () async {
+              await widget.nextPage();
+              // Close the keyboard
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
           ),
         ],
       );
@@ -87,7 +118,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      this.elaborate = true;
+                      widget.elaborateSetter(true);
                     });
                   },
                   shape: RoundedRectangleBorder(

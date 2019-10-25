@@ -8,7 +8,8 @@ enum Feelings {
 enum ItemElements {
   date, // This is not in file, but is its name.
   feeling,
-  body,
+  body, // or content
+  tag,
 }
 
 enum EditorAction {

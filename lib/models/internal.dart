@@ -2,7 +2,7 @@ import 'package:thanks/models/shared.dart';
 
 void updateLatestWriting(DateTime _dateTime) {
   final List<String> latestDate =
-  StaticSharedPreferences.prefs.getStringList("latestDate");
+      StaticSharedPreferences.prefs.getStringList("latestDate");
 
   if (latestDate == null ||
       latestDate.length != 3 ||

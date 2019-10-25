@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
+import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 
 class PlainEntryViewer extends StatefulWidget {
@@ -23,6 +24,8 @@ class PlainEntryViewer extends StatefulWidget {
 class _PlainEntryViewerState extends State<PlainEntryViewer> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
+
+  Map<String, dynamic> dataMap;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -49,52 +52,55 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
               ),
               onPressed: () async {
                 bool del = await showDialog(
-                  context: context,
-                  builder: (context) => ShowUp(
-                    curve: Curves.elasticOut,
-                    begin: Offset(0, 0.25),
-                    child: AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      content: Text("정말 이 추억을 지울거야?"),
-                      actions: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: FlatButton(
-                            shape: StadiumBorder(),
-                            color: Colors.redAccent,
-                            onPressed: () =>
-                                Navigator.of(context).pop(true),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                '지울래',
-                                style: TextStyle(color: Colors.white),
+                      context: context,
+                      builder: (context) => ShowUp(
+                        curve: Curves.elasticOut,
+                        begin: Offset(0, 0.25),
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          content: Text("정말 이 추억을 지울거야?"),
+                          actions: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: FlatButton(
+                                shape: StadiumBorder(),
+                                color: Colors.redAccent,
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '지울래',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        FlatButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '싫어',
-                              style: TextStyle(color: Colors.blue),
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '싫어',
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ) ?? false;
+                      ),
+                    ) ??
+                    false;
                 if (!del) return;
                 // Delete file located in internal storage
-                await removeEntryFromDate(string: widget.date);
+                await removeEntryFromDate(
+                    string: widget.date,
+                    tag: dataMap[ItemElements.tag.toString()]);
 
                 if (listEquals<String>(
                   StaticSharedPreferences.prefs.getStringList("latestDate"),
-                  this.widget.date.split('-'),
+                  widget.date.split('-'),
                 )) StaticSharedPreferences.prefs.remove("latestDate");
 
                 Navigator.of(context).pop();
@@ -124,7 +130,8 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                 default:
                   if (snapshot.hasError)
                     return ErrorWidget(snapshot.error);
-                  else
+                  else {
+                    dataMap = jsonDecode(snapshot.data);
                     return Center(
                       child: Padding(
                         padding: EdgeInsets.all(8),
@@ -135,6 +142,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                         ),
                       ),
                     );
+                  }
               }
             },
           ),

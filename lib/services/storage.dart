@@ -61,7 +61,7 @@ Future<Null> saveEntry({
   @required DateTime date,
 }) async {
   // Add this to statistic
- await  addStatisticData(feelings, date);
+ await  addStatisticData(feelings, date, tag: tag);
   final File file = File(
     "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
@@ -116,6 +116,7 @@ Future<String> loadPlainEntryFromDate({
 Future<Null> removeEntryFromDate({
   String string,
   DateTime date,
+  String tag,
 }) async {
   File file = File(
     "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(date)}.txt",
@@ -123,6 +124,7 @@ Future<Null> removeEntryFromDate({
   addStatisticData(
     jsonDecode(file.readAsStringSync())[ItemElements.feeling.toString()],
     date ?? DateFormat(fileNameFormat).parse(string),
+    tag: tag,
     remove: true,
   );
   file.deleteSync();
