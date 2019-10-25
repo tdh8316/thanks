@@ -6,7 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/components/calendar.dart';
 import 'package:thanks/generated/i18n.dart';
-import 'package:thanks/models/shared.dart';
+import 'package:thanks/models/internal.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
@@ -268,32 +268,13 @@ class _DiaryPageState extends State<DiaryPage> {
   }
 
   Future<Null> _save() async {
-    savePlainEntry(
+    await savePlainEntry(
       feelings: widget.feeling,
       content: editingController.text,
       date: _dateTime,
     );
 
-    final List<String> latestDate =
-        StaticSharedPreferences.prefs.getStringList("latestDate");
-
-    if (latestDate == null ||
-        latestDate.length != 3 ||
-        _dateTime.isAfter(
-          DateTime(
-            int.parse(latestDate[0]), // year
-            int.parse(latestDate[1]), // month
-            int.parse(latestDate[2]), // day
-          ),
-        ))
-      StaticSharedPreferences.prefs.setStringList(
-        "latestDate",
-        [
-          "${_dateTime.year}",
-          "${_dateTime.month}",
-          "${_dateTime.day}",
-        ],
-      );
+    updateLatestWriting(_dateTime);
 
     Navigator.of(context).pop();
   }

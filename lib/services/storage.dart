@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:thanks/models/structure.dart';
@@ -34,10 +35,13 @@ Future<Null> updateItems() async {
   return null;
 }
 
-Future<Null> savePlainEntry(
-    {String content, Feelings feelings, DateTime date}) async {
+Future<Null> savePlainEntry({
+  @required String content,
+  @required Feelings feelings,
+  @required DateTime date,
+}) async {
   // Add this to statistic
-  addStatisticData(feelings, date);
+ await addStatisticData(feelings, date);
   final File file = File(
     "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
@@ -45,6 +49,27 @@ Future<Null> savePlainEntry(
   final Map<String, String> raw = {
     ItemElements.feeling.toString(): "$feelings",
     ItemElements.body.toString(): content,
+  };
+
+  file.writeAsStringSync(jsonEncode(raw));
+}
+
+Future<Null> saveEntry({
+  @required String content,
+  @required String tag,
+  @required Feelings feelings,
+  @required DateTime date,
+}) async {
+  // Add this to statistic
+ await  addStatisticData(feelings, date);
+  final File file = File(
+    "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
+  );
+  //file.writeAsString(content);
+  final Map<String, String> raw = {
+    ItemElements.feeling.toString(): "$feelings",
+    ItemElements.body.toString(): content,
+    ItemElements.tag.toString(): tag,
   };
 
   file.writeAsStringSync(jsonEncode(raw));
