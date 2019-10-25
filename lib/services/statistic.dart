@@ -73,8 +73,13 @@ Future<Null> addStatisticData(
           jsonDecode(file?.readAsStringSync() ?? "") as Map<String, dynamic>;
       String _existingTag = decoded[ItemElements.tag.toString()];
       print("EXISTING TAG:REMOVING: $_existingTag");
+      if (statisticJson[_existingTag] == null) {
+        // If existing data does not contain tag, write one.
+        statisticJson[tag] = // -1 if remove is true.
+        (statisticJson[tag] ?? 0) + (remove ? -1 : 1);
+      }else{
       statisticJson[_existingTag] -= 1;
-      statisticJson[tag] = (statisticJson[tag] ?? 0) + 1;
+      statisticJson[tag] = (statisticJson[tag] ?? 0) + 1;}
     } else {
       // Calculate tag count
       statisticJson[tag] = // -1 if remove is true.

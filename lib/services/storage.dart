@@ -75,9 +75,9 @@ Future<Null> saveEntry({
   file.writeAsStringSync(jsonEncode(raw));
 }
 
-genFakeData() {
+genFakeData() async {
   for (int i = 1; i < 100; i++) {
-    savePlainEntry(
+    await savePlainEntry(
       content: "This is an  ${i}st example of the text widget.",
       feelings: Feelings.great,
       date: DateTime.now().subtract(Duration(days: i)),

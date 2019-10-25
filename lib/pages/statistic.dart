@@ -220,7 +220,7 @@ class _StatisticPageState extends State<StatisticPage> {
                         child: Row(
                           children: <Widget>[
                             Text(
-                              "${targetDate.year}. ${targetDate.month}월",
+                              "${targetDate.year}년, ${targetDate.month}월",
                               style: TextStyle(
                                 fontSize: 32,
                                 color: Colors.black,
@@ -263,15 +263,19 @@ class _StatisticPageState extends State<StatisticPage> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 64, right: 8),
-                        child: Text(
-                          numOfFiles(data).toString(),
-                          style: TextStyle(
-                            fontSize: 64,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 4,
+                      ShowUp(
+                        animatedOpacity: true,
+                        curve: Curves.easeOutCirc,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 64, right: 8),
+                          child: Text(
+                            numOfFiles(data).toString(),
+                            style: TextStyle(
+                              fontSize: 64,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 4,
+                            ),
                           ),
                         ),
                       ),
@@ -341,7 +345,7 @@ class _StatisticPageState extends State<StatisticPage> {
                                   ),
                                 ),
                           animatedOpacity: true,
-                          begin: Offset.zero,
+                          curve: Curves.easeOutCirc,
                         ),
                       ),
                       // SizedBox(height: 64),

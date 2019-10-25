@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/components/question.dart';
 import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/models/shared.dart';
@@ -84,12 +85,19 @@ class _ListViewPageState extends State<ListViewPage> {
                             );
                         } else {
                           Map data = loadPlainEntryFromIndex(index - 1);
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14),
-                            child: _buildItemWidget(
-                              data[ItemElements.date],
-                              data[ItemElements.feeling],
-                              data[ItemElements.body],
+                          return ShowUp(
+                            animatedOpacity: true,
+                            duration: Duration(milliseconds: 500),
+                            begin: Offset(.75, 0),
+                            end: Offset(0, 0),
+                            curve: Curves.easeOutCubic,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14),
+                              child: _buildItemWidget(
+                                data[ItemElements.date],
+                                data[ItemElements.feeling],
+                                data[ItemElements.body],
+                              ),
                             ),
                           );
                         }
