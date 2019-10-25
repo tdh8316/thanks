@@ -244,11 +244,12 @@ class _HomePageState extends State<HomePage> {
               ),
               Spacer(),
               FlatButton(
+                color:page == 2 ? Colors.deepOrange[100] : null ,
                 shape: StadiumBorder(),
                 onPressed: () => changePage(2),
                 child: Image.asset(
-                  "res/assets/edit-profile-100.png",
-                  color: page == 2 ? Colors.black : Colors.grey,
+                  "res/assets/volunteering-100.png",
+                  // color: page == 2 ? Colors.black : null,
                   scale: 3.5,
                 ),
               ),

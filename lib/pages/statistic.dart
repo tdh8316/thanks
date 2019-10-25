@@ -130,26 +130,35 @@ class _StatisticPageState extends State<StatisticPage> {
                 return Column(
                   children: <Widget>[
                     SizedBox(height: 32),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 32),
-                      child: SizedBox(
-                        height: 256,
-                        child: Image.asset("res/assets/humans/3.png"),
+                    ShowUp(
+                      animatedOpacity: true,
+                      curve: Curves.easeOutCirc,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: SizedBox(
+                          height: 256,
+                          child: Image.asset("res/assets/humans/3.png"),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 32,
-                        vertical: 32,
+                        vertical: 64,
                       ),
-                      child: Text(
-                        "아직 당신을 알아 가는 단계예요.\n"
-                        "일기를 작성하시면 이 공간을 준비할게요!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: "나눔바른펜",
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                      child: ShowUp(
+                        delay: Duration(milliseconds: 100),
+                        animatedOpacity: true,
+                        curve: Curves.easeOutSine,
+                        child: Text(
+                          "아직 당신을 알아 가는 단계예요.\n"
+                          "일기를 작성하시면 이 공간을 준비할게요!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "나눔바른펜",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),

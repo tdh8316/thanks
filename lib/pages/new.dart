@@ -87,28 +87,33 @@ class NewJournalPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * (3 / 4),
-                      child: Image.asset("res/assets/humans/${() {
-                        switch (feeling) {
-                          case Feelings.great:
-                            return 1;
-                          case Feelings.notGood:
-                            return 2;
-                          case Feelings.sad:
-                            return 3;
-                          case Feelings.angry:
-                            return 4;
-                          default:
-                            return 1;
-                        }
-                      }()}.png"),
+                    ShowUp(
+                      animatedOpacity: true,
+                      begin: Offset(0, -.25),
+                      curve: Curves.easeOutCubic,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * (3 / 4),
+                        child: Image.asset("res/assets/humans/${() {
+                          switch (feeling) {
+                            case Feelings.great:
+                              return 1;
+                            case Feelings.notGood:
+                              return 2;
+                            case Feelings.sad:
+                              return 3;
+                            case Feelings.angry:
+                              return 4;
+                            default:
+                              return 1;
+                          }
+                        }()}.png"),
+                      ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 32),
                     ShowUp(
                       animatedOpacity: true,
                       delay: Duration(milliseconds: 250),
-                      curve: Curves.elasticOut,
+                      curve: Curves.easeInOutCirc,
                       child: Text(
                         () {
                           switch (feeling) {
