@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                 snap: true,
                 actions: <Widget>[
                   // TODO: Implement AppBar actions
-                  IconButton(
+                  /*IconButton(
                     icon: Icon(Icons.search, color: Colors.black87, size: 24),
                     onPressed: () {
                       _scaffoldKey.currentState.showSnackBar(
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                  ),
+                  ),*/
                   IconButton(
                     icon: Icon(
                       Icons.add,
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
-                  IconButton(
+                  /*IconButton(
                     icon: Icon(
                       Icons.filter_list,
                       color: Colors.black87,
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                  ),
+                  ),*/
                 ],
                 elevation: 0,
               ),

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/animation/show_up.dart';
@@ -132,20 +131,62 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                     return ErrorWidget(snapshot.error);
                   else {
                     dataMap = jsonDecode(snapshot.data);
-                    return Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          JsonEncoder.withIndent('\t').convert(
-                            jsonDecode(snapshot.data),
-                          ),
-                        ),
-                      ),
-                    );
+                    return SingleChildScrollView(child: contentViewer(context));
                   }
               }
             },
           ),
         ),
       );
+
+  Widget contentViewer(BuildContext context) {
+    List<String> dateList = widget.date.split('-');
+    final String body = dataMap[ItemElements.body.toString()];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(32),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일. 이 날은... "
+              "${getFeelingTranslation(dataMap[ItemElements.feeling.toString()])}",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+        Divider(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 64),
+          child: dataMap.containsKey(ItemElements.tag.toString())
+              ? Text(
+                  "오늘의 감사, \"${dataMap[ItemElements.tag.toString()]}\"",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
+                )
+              : Container(),
+        ),
+        Divider(),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+            child: Text(
+              body.length > 0 ? body : "아무런 기록을 하지 않았습니다.",
+              style: TextStyle(
+                fontSize: 18,
+                letterSpacing: 1.14,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

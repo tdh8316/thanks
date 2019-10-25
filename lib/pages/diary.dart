@@ -7,6 +7,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/components/calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/internal.dart';
+import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
@@ -132,7 +133,7 @@ class _DiaryPageState extends State<DiaryPage> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "${DateFormat("yyyy-MM-dd").format(_dateTime)}, "
-                          "${_getFeelingTranslation(widget.feeling.toString())}",
+                          "${getFeelingTranslation(widget.feeling.toString())}",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -277,20 +278,5 @@ class _DiaryPageState extends State<DiaryPage> {
     updateLatestWriting(_dateTime);
 
     Navigator.of(context).pop();
-  }
-
-  String _getFeelingTranslation(String feeling) {
-    if (feeling.runtimeType != String)
-      return '';
-    else if (Feelings.great.toString() == feeling)
-      return "좋아! \uD83D\uDE0A";
-    else if (Feelings.notGood.toString() == feeling)
-      return "그저 그래 \uD83D\uDE10";
-    else if (Feelings.sad.toString() == feeling)
-      return "너무 슬프다 \uD83D\uDE25";
-    else if (Feelings.angry.toString() == feeling)
-      return "정말 화난다 \uD83D\uDE21";
-    else
-      return '\uD83E\uDD14';
   }
 }
