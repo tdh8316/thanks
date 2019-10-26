@@ -97,6 +97,7 @@ class _ListViewPageState extends State<ListViewPage> {
                                 data[ItemElements.date],
                                 data[ItemElements.feeling],
                                 data[ItemElements.body],
+                                data[ItemElements.tag],
                               ),
                             ),
                           );
@@ -123,7 +124,12 @@ class _ListViewPageState extends State<ListViewPage> {
         },
       );
 
-  Widget _buildItemWidget(String date, String feeling, String body) {
+  Widget _buildItemWidget(
+    String date,
+    String feeling,
+    String body,
+    String tag,
+  ) {
     List<String> dateList = date.split('-');
     return Column(
       children: <Widget>[
@@ -180,7 +186,7 @@ class _ListViewPageState extends State<ListViewPage> {
                           horizontal: 16,
                         ),
                         child: Text(
-                          body,
+                          tag == null ? body : "오늘의 감사 주제는 '$tag'이다.\n$body",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: TextStyle(

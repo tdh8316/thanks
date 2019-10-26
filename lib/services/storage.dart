@@ -41,7 +41,7 @@ Future<Null> savePlainEntry({
   @required DateTime date,
 }) async {
   // Add this to statistic
- await addStatisticData(feelings, date);
+  await addStatisticData(feelings, date);
   final File file = File(
     "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
@@ -61,7 +61,7 @@ Future<Null> saveEntry({
   @required DateTime date,
 }) async {
   // Add this to statistic
- await  addStatisticData(feelings, date, tag: tag);
+  await addStatisticData(feelings, date, tag: tag);
   final File file = File(
     "${await _localPath}/${DateFormat(fileNameFormat).format(date)}.txt",
   );
@@ -69,7 +69,7 @@ Future<Null> saveEntry({
   final Map<String, String> raw = {
     ItemElements.feeling.toString(): "$feelings",
     ItemElements.body.toString(): content,
-    ItemElements.tag.toString(): tag,
+    ItemElements.tag.toString(): tag.split('.').last,
   };
 
   file.writeAsStringSync(jsonEncode(raw));
@@ -102,6 +102,9 @@ Map<ItemElements, String> loadPlainEntryFromIndex(int i) {
     ItemElements.feeling: decoded[ItemElements.feeling.toString()] ?? "",
     ItemElements.body:
         decoded[ItemElements.body.toString()] ?? "Unknown format",
+    ItemElements.tag: decoded.containsKey(ItemElements.tag.toString())
+        ? decoded[ItemElements.tag.toString()]
+        : null,
   };
 }
 
