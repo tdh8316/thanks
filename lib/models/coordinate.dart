@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
@@ -7,10 +8,21 @@ import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 
 class YAxisFromFeeling {
-  static const double great = 1;
+  /*static const double great = 1;
   static const double notGood = .5;
   static const double sad = .25;
-  static const double angry = .25;
+  static const double angry = .25;*/
+  static final Random _random = Random.secure();
+
+  static int next(int min, int max) => min + _random.nextInt(max - min);
+
+  static double get great => next(75, 100) / 100;
+
+  static double get notGood => next(35, 50) / 100;
+
+  static double get sad => next(1, 25) / 100;
+
+  static double get angry => next(1, 25) / 100;
 
   static const double center = .5;
 }

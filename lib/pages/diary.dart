@@ -45,7 +45,7 @@ class _DiaryPageState extends State<DiaryPage> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () async {
-          if (panelController.isPanelOpen()) {
+          /*if (panelController.isPanelOpen()) {
             panelController.close();
             return false;
           } else {
@@ -60,7 +60,7 @@ class _DiaryPageState extends State<DiaryPage> {
                       content: Text("이 일기는 사라지는데 그래도 나갈래?"),
                       actions: <Widget>[
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
+                          width: MediaQuery.of(context).size.width / 4,
                           height: 64,
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
@@ -99,7 +99,57 @@ class _DiaryPageState extends State<DiaryPage> {
                   ),
                 ) ??
                 false;
-          }
+          }*/
+          return await showDialog(
+                context: context,
+                builder: (context) => ShowUp(
+                  curve: Curves.elasticOut,
+                  begin: Offset(0, 0.25),
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    content: Text("이 일기는 사라지는데 그래도 나갈래?"),
+                    actions: <Widget>[
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: 64,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          color: Colors.redAccent,
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '나갈래',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 5 * 2,
+                        height: 64,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '싫어',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ) ??
+              false;
         },
         child: Scaffold(
           appBar: AppBar(
@@ -126,7 +176,7 @@ class _DiaryPageState extends State<DiaryPage> {
               SizedBox(width: 8),
             ],
           ),
-          body: Container(
+          /*body: Container(
             color: Colors.white,
             child: SlidingUpPanel(
               controller: panelController,
@@ -227,6 +277,51 @@ class _DiaryPageState extends State<DiaryPage> {
                 topLeft: Radius.circular(24.0),
                 topRight: Radius.circular(24.0),
               ),
+            ),
+          ),*/
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 16,
+                  ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "${DateFormat("yyyy-MM-dd").format(_dateTime)}, "
+                      "${getFeelingTranslation(widget.feeling.toString())}",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+                Divider(),
+                Expanded(
+                  child: TextFormField(
+                    controller: editingController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    showCursor: true,
+                    expands: true,
+                    cursorColor: DefaultColorTheme.sub,
+                    // onTap: () => panelController.hide(),
+                    decoration: InputDecoration(
+                      hintText: "이곳에 오늘의 이야기를 말해주세요.",
+                      border: InputBorder.none,
+                    ),
+                    style: TextStyle(
+                      fontSize: 16,
+                      letterSpacing: 1.1,
+                      fontFamily: "나눔바른펜",
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

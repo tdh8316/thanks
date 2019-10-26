@@ -74,9 +74,9 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                                     Navigator.of(context).pop(true),
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '지울래',
-                                    style: TextStyle(color: Colors.white),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),

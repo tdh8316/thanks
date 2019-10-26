@@ -86,7 +86,7 @@ class _StoryTagPageState extends State<StoryTagPage> {
                     DateTime(_now.year, _now.month, _now.day),
                   )
                       ? "${_getFeelingTranslation(widget.feeling)} 이 날,\n어떤 일에 감사했나요?"
-                      : "${_getFeelingTranslation(widget.feeling)} 오늘 하루,\n어떤 것에 감사한가요?",
+                      : "${_getQuestion(widget.feeling)}",
                   softWrap: true,
                   style: TextStyle(
                     fontFamily: "나눔바른펜",
@@ -94,12 +94,16 @@ class _StoryTagPageState extends State<StoryTagPage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Divider(),
+              ),
               Container(
                 height: MediaQuery.of(context).size.height / 2,
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  crossAxisCount: 3,
+                  crossAxisCount: 4,
                   children: <Widget>[
                     _imageIcon(1),
                     _imageIcon(2),
@@ -108,6 +112,9 @@ class _StoryTagPageState extends State<StoryTagPage> {
                     _imageIcon(5),
                     _imageIcon(6),
                     _imageIcon(7),
+                    _imageIcon(8),
+                    _imageIcon(9),
+                    _imageIcon(10),
                     _imageIcon(-1),
                   ],
                 ),
@@ -177,7 +184,7 @@ class _StoryTagPageState extends State<StoryTagPage> {
                 "res/assets/tags/$name.png",
                 fit: BoxFit.contain,
               ),
-              Text(name > 0 ? tagList[name - 1] : "..."),
+              Text(name > 0 ? tagList[name - 1] : "기타"),
               Spacer(),
             ],
           ),
@@ -188,13 +195,28 @@ class _StoryTagPageState extends State<StoryTagPage> {
     if (feeling.runtimeType != String)
       return '';
     else if (Feelings.great.toString() == feeling)
-      return "기분이 좋은";
+      return "기분이 좋았던";
     else if (Feelings.notGood.toString() == feeling)
-      return "그저 그런";
+      return "그저 그랬던";
     else if (Feelings.sad.toString() == feeling)
-      return "슬픈";
+      return "슬펐던";
     else if (Feelings.angry.toString() == feeling)
       return "화났던";
+    else
+      return '\uD83E\uDD14';
+  }
+
+  String _getQuestion(String feeling) {
+    if (feeling.runtimeType != String)
+      return '';
+    else if (Feelings.great.toString() == feeling)
+      return "기분이 좋았던 오늘!\n어떤 것에 감사한가요?";
+    else if (Feelings.notGood.toString() == feeling)
+      return "그저 그런 하루였지만,\n그럼에도 감사한 것은 있었겠죠?";
+    else if (Feelings.sad.toString() == feeling)
+      return "괜찮을 거예요. 슬퍼하고만 있지 말아요. 감사한 일을 생각해 볼까요?";
+    else if (Feelings.angry.toString() == feeling)
+      return "화났던 오늘 하루, 그래도...\n감사한 일을 생각해보아요.";
     else
       return '\uD83E\uDD14';
   }

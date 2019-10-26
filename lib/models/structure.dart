@@ -19,11 +19,14 @@ enum EditorAction {
 }
 
 const List<String> tagList = <String>[
-  "친구",
+  "나",
   "소셜",
   "가족",
   "일",
-  "그 외",
+  "친구",
   "여행",
   "음식",
+  "날씨",
+  "휴식",
+  "쾌변"
 ];

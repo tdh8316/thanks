@@ -71,7 +71,7 @@ class _StatisticPageState extends State<StatisticPage> {
           ),
         ),
         maxY: 2,
-        minY: -1,
+        minY: -2,
         maxX: 31,
         lineBarsData: <LineChartBarData>[
           LineChartBarData(
@@ -79,7 +79,7 @@ class _StatisticPageState extends State<StatisticPage> {
                 ? [FlSpot(0, YAxisFromFeeling.center), ..._graphCoordinates]
                 : [FlSpot(0, 0)],
             isCurved: true,
-            curveSmoothness: 0.014,
+            curveSmoothness: 0.1,
             colors: <Color>[
               HexColor("#ff9a44"),
               HexColor("#fc6076"),
@@ -265,6 +265,7 @@ class _StatisticPageState extends State<StatisticPage> {
                       ),
                       ShowUp(
                         animatedOpacity: true,
+                        begin: Offset(1, 0),
                         curve: Curves.easeOutCirc,
                         child: Padding(
                           padding: EdgeInsets.only(left: 64, right: 8),
@@ -329,6 +330,7 @@ class _StatisticPageState extends State<StatisticPage> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 4,
                         child: ShowUp(
+                          delay: Duration(milliseconds: 250),
                           child: numOfFiles(data) > 0
                               ? FlChart(
                                   chart: LineChart(
@@ -354,7 +356,7 @@ class _StatisticPageState extends State<StatisticPage> {
                   ),
                 ),
               ),
-              /*Padding(
+              Padding(
                 padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height / 2,
                 ),
@@ -368,7 +370,7 @@ class _StatisticPageState extends State<StatisticPage> {
                     ),
                   ),
                 ),
-              ),*/
+              ),
             ],
           ),
         ],
@@ -376,7 +378,6 @@ class _StatisticPageState extends State<StatisticPage> {
     );
   }
 
-  // ignore: unused_element
   Widget _buildFeelingChart(BuildContext context) => Card(
         elevation: 32,
         shape: RoundedRectangleBorder(
@@ -384,23 +385,12 @@ class _StatisticPageState extends State<StatisticPage> {
         ),
         child: Column(
           children: <Widget>[
-            Row(
+            /*Row(
               children: <Widget>[
                 Spacer(),
                 SizedBox(
                   width: 150,
-                  child: FlChart(
-                    chart: PieChart(
-                      PieChartData(
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 0,
-                        centerSpaceRadius: 14,
-                        // sections: showingSections(),
-                      ),
-                    ),
-                  ),
+                  child:null,
                 ),
                 Spacer(),
                 Padding(
@@ -494,7 +484,8 @@ class _StatisticPageState extends State<StatisticPage> {
                 ),
                 Spacer(),
               ],
-            ),
+            ),*/
+
           ],
         ),
       );

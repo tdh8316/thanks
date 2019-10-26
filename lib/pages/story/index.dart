@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:thanks/components/animation/show_up.dart';
+import 'package:thanks/components/gen_maxim.dart';
 import 'package:thanks/models/internal.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/pages/story/elaborate.dart';
@@ -29,6 +33,7 @@ class _StoryBoardState extends State<StoryBoard> {
       TextEditingController();
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final int _maxim = Random.secure().nextInt(maxims.length);
 
   void nextPage() => pageController.nextPage(
         duration: Duration(milliseconds: 750),
@@ -55,39 +60,94 @@ class _StoryBoardState extends State<StoryBoard> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        key: scaffoldKey,
-        body: SafeArea(
-          child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: pageController,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              StoryTagPage(
-                targetDate: widget.dateTime,
-                setter: (String value) {
-                  setState(() {
-                    this.tag = "tag.$value";
-                  });
-                },
-                nextPage: this.nextPage,
-                feeling: widget.feeling.toString(),
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async =>
+            await showDialog(
+              context: context,
+              builder: (context) => ShowUp(
+                curve: Curves.elasticOut,
+                begin: Offset(0, 0.25),
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  content: Text("이 일기는 사라지는데 그래도 나갈래?"),
+                  actions: <Widget>[
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: 64,
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        color: Colors.redAccent,
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            '나갈래',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5 * 2,
+                      height: 64,
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            '싫어',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ElaborateStoryPage(
-                nextPage: this.nextPage,
-                textEditingController: elaborateTextEditingController,
-                elaborateSetter: (bool value) {
-                  this.elaborate = value;
-                },
-                elaborateGetter: () => this.elaborate,
-                dateTime: widget.dateTime,
-                feeling: widget.feeling.toString(),
-                tag: tag?.split('.')?.last,
-              ),
-              FinishStoryPage(
-                save: _save,
-              ),
-            ],
+            ) ??
+            false,
+        child: Scaffold(
+          key: scaffoldKey,
+          body: SafeArea(
+            child: PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: pageController,
+              scrollDirection: Axis.vertical,
+              children: <Widget>[
+                StoryTagPage(
+                  targetDate: widget.dateTime,
+                  setter: (String value) {
+                    setState(() {
+                      this.tag = "tag.$value";
+                    });
+                  },
+                  nextPage: this.nextPage,
+                  feeling: widget.feeling.toString(),
+                ),
+                ElaborateStoryPage(
+                  nextPage: this.nextPage,
+                  textEditingController: elaborateTextEditingController,
+                  elaborateSetter: (bool value) {
+                    this.elaborate = value;
+                  },
+                  elaborateGetter: () => this.elaborate,
+                  dateTime: widget.dateTime,
+                  feeling: widget.feeling.toString(),
+                  tag: tag?.split('.')?.last,
+                ),
+                FinishStoryPage(
+                  save: _save,
+                  pageController: pageController,
+                  maxim: _maxim,
+                ),
+              ],
+            ),
           ),
         ),
       );

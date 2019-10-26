@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
 import 'package:thanks/models/hex_color.dart';
+import 'package:thanks/pages/information.dart';
 import 'package:thanks/pages/listview.dart';
 import 'package:thanks/pages/prev_new.dart';
 import 'package:thanks/pages/statistic.dart';
@@ -15,11 +16,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> pages = [
     ListViewPage(),
     StatisticPage(),
-    Container(
-      child: Center(
-        child: Text("Nothing to build"),
-      ),
-    ),
+    InformationPage(),
   ];
 
   int page = 0;
