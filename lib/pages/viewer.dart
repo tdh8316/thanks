@@ -63,7 +63,8 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                           title: Text("삭제 확인"),
                           actions: <Widget>[
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,height: 64,
+                              width: MediaQuery.of(context).size.width / 5,
+                              height: 64,
                               child: FlatButton(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -81,7 +82,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 5*2,
+                              width: MediaQuery.of(context).size.width / 5 * 2,
                               height: 64,
                               child: FlatButton(
                                 shape: RoundedRectangleBorder(
@@ -179,7 +180,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
           padding: EdgeInsets.symmetric(horizontal: 48),
           child: dataMap.containsKey(ItemElements.tag.toString())
               ? Text(
-                  "오늘은 ${dataMap[ItemElements.tag.toString()]}로부터 고마움을 느꼈다."
+                  "오늘은 ${dataMap[ItemElements.tag.toString()].split('.').last}로부터 고마움을 느꼈다."
                   " 왜냐하면...",
                   style: TextStyle(
                     // fontWeight: FontWeight.w600,

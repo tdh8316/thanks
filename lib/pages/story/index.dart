@@ -67,7 +67,7 @@ class _StoryBoardState extends State<StoryBoard> {
                 targetDate: widget.dateTime,
                 setter: (String value) {
                   setState(() {
-                    this.tag = value;
+                    this.tag = "tag.$value";
                   });
                 },
                 nextPage: this.nextPage,
@@ -82,7 +82,7 @@ class _StoryBoardState extends State<StoryBoard> {
                 elaborateGetter: () => this.elaborate,
                 dateTime: widget.dateTime,
                 feeling: widget.feeling.toString(),
-                tag: tag,
+                tag: tag?.split('.')?.last,
               ),
               FinishStoryPage(
                 save: _save,
@@ -105,7 +105,7 @@ class _StoryBoardState extends State<StoryBoard> {
       return;
     }
     // Save contents to a separated file
-    saveEntry(
+    await saveEntry(
       content: elaborateTextEditingController.text,
       date: widget.dateTime,
       feelings: widget.feeling,

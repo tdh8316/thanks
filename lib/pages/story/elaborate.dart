@@ -60,7 +60,9 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: Divider(),
             ),
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 16,
+            ),
             Align(
               alignment: Alignment.centerLeft,
               child: ShowUp(
@@ -103,7 +105,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "        오늘은 ${_getFeelingTranslation(widget.feeling)}"
-                      "'${widget.tag}'에 감사한다.\n        왜냐하면...",
+                  "'${widget.tag}'에 감사한다.\n        왜냐하면...",
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -241,5 +243,4 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
     else
       return '\uD83E\uDD14';
   }
-
 }
