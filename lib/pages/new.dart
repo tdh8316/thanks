@@ -151,11 +151,14 @@ class NewJournalPage extends StatelessWidget {
                             ),
                             child: Text(
                               S.of(context).startTalking,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
-                          onPressed: () => Navigator.of(context).push(
+                          onPressed: () =>
+                              Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (BuildContext context) => StoryBoard(
                                 dateTime: diaryDate,

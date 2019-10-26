@@ -59,28 +59,39 @@ class _DiaryPageState extends State<DiaryPage> {
                           borderRadius: BorderRadius.circular(16)),
                       content: Text("이 일기는 사라지는데 그래도 나갈래?"),
                       actions: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 5,height: 64,
                           child: FlatButton(
-                            shape: StadiumBorder(),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                             color: Colors.redAccent,
-                            onPressed: () => Navigator.of(context).pop(true),
+                            onPressed: () =>
+                                Navigator.of(context).pop(true),
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                '그래',
+                                '나갈래',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
                         ),
-                        FlatButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '싫어',
-                              style: TextStyle(color: Colors.blue),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 5*2,
+                          height: 64,
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            onPressed: () =>
+                                Navigator.of(context).pop(false),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '싫어',
+                                style: TextStyle(color: Colors.blue),
+                              ),
                             ),
                           ),
                         ),

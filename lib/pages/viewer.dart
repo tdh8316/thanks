@@ -57,13 +57,17 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                         begin: Offset(0, 0.25),
                         child: AlertDialog(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                           content: Text("정말 이 추억을 지울거야?"),
+                          title: Text("삭제 확인"),
                           actions: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,height: 64,
                               child: FlatButton(
-                                shape: StadiumBorder(),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                                 color: Colors.redAccent,
                                 onPressed: () =>
                                     Navigator.of(context).pop(true),
@@ -76,13 +80,21 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                                 ),
                               ),
                             ),
-                            FlatButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  '싫어',
-                                  style: TextStyle(color: Colors.blue),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5*2,
+                              height: 64,
+                              child: FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '싫어',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
                                 ),
                               ),
                             ),
@@ -159,26 +171,29 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
             ),
           ),
         ),
-        Divider(),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 64),
+          padding: EdgeInsets.symmetric(horizontal: 32),
+          child: Divider(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 48),
           child: dataMap.containsKey(ItemElements.tag.toString())
               ? Text(
-                  "오늘의 감사, \"${dataMap[ItemElements.tag.toString()]}\"",
+                  "오늘은 ${dataMap[ItemElements.tag.toString()]}로부터 고마움을 느꼈다."
+                  " 왜냐하면...",
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    // fontWeight: FontWeight.w600,
+                    fontSize: 16,
                   ),
                 )
               : Container(),
         ),
-        Divider(),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
             child: Text(
-              body.length > 0 ? body : "아무런 기록을 하지 않았습니다.",
+              body.length > 0 ? body : "저장된 다른 내용이 없습니다.",
               style: TextStyle(
                 fontSize: 18,
                 letterSpacing: 1.14,

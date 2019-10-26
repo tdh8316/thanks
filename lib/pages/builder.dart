@@ -153,6 +153,20 @@ class _HomePageState extends State<HomePage> {
               RoundedFloatingAppBar(
                 floating: true,
                 snap: true,
+                leading: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "All that Thanks- 감사 일기",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
                 actions: <Widget>[
                   // TODO: Implement AppBar actions
                   /*IconButton(
@@ -244,7 +258,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Spacer(),
               FlatButton(
-                color:page == 2 ? Colors.deepOrange[100] : null ,
+                color: page == 2 ? Colors.deepOrange[100] : null,
                 shape: StadiumBorder(),
                 onPressed: () => changePage(2),
                 child: Image.asset(

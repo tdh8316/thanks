@@ -59,6 +59,7 @@ class _StoryBoardState extends State<StoryBoard> {
         key: scaffoldKey,
         body: SafeArea(
           child: PageView(
+            physics: NeverScrollableScrollPhysics(),
             controller: pageController,
             scrollDirection: Axis.vertical,
             children: <Widget>[
@@ -70,6 +71,7 @@ class _StoryBoardState extends State<StoryBoard> {
                   });
                 },
                 nextPage: this.nextPage,
+                feeling: widget.feeling.toString(),
               ),
               ElaborateStoryPage(
                 nextPage: this.nextPage,
@@ -78,6 +80,9 @@ class _StoryBoardState extends State<StoryBoard> {
                   this.elaborate = value;
                 },
                 elaborateGetter: () => this.elaborate,
+                dateTime: widget.dateTime,
+                feeling: widget.feeling.toString(),
+                tag: tag,
               ),
               FinishStoryPage(
                 save: _save,
@@ -88,7 +93,7 @@ class _StoryBoardState extends State<StoryBoard> {
       );
 
   Future<Null> _save() async {
-    if (tag == null)
+    if (tag == null) {
       scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("실패: 유효하지 않은 값을 저장하려고 했습니다."),
@@ -97,6 +102,8 @@ class _StoryBoardState extends State<StoryBoard> {
           duration: Duration(seconds: 3),
         ),
       );
+      return;
+    }
     // Save contents to a separated file
     saveEntry(
       content: elaborateTextEditingController.text,
@@ -106,5 +113,7 @@ class _StoryBoardState extends State<StoryBoard> {
     );
 
     updateLatestWriting(widget.dateTime);
+
+    Navigator.of(context).pop();
   }
 }
