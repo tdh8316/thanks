@@ -21,7 +21,7 @@ class _PrevNewPageState extends State<PrevNewPage> {
 
   @override
   void initState() {
-    targetDate = widget.initialDate ?? DateTime.now();
+    targetDate = widget.initialDate ?? DateTime.now().subtract(Duration(days: 1));
     super.initState();
   }
 
@@ -41,6 +41,7 @@ class _PrevNewPageState extends State<PrevNewPage> {
           elevation: 0,
         ),
         body: Container(
+          height: MediaQuery.of(context).size.height,
           color: Colors.white,
           child: SingleChildScrollView(
             child: Column(
