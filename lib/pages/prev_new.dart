@@ -21,7 +21,8 @@ class _PrevNewPageState extends State<PrevNewPage> {
 
   @override
   void initState() {
-    targetDate = widget.initialDate ?? DateTime.now().subtract(Duration(days: 1));
+    targetDate =
+        widget.initialDate ?? DateTime.now().subtract(Duration(days: 1));
     super.initState();
   }
 

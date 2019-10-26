@@ -60,14 +60,14 @@ class _DiaryPageState extends State<DiaryPage> {
                       content: Text("이 일기는 사라지는데 그래도 나갈래?"),
                       actions: <Widget>[
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,height: 64,
+                          width: MediaQuery.of(context).size.width / 5,
+                          height: 64,
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                             color: Colors.redAccent,
-                            onPressed: () =>
-                                Navigator.of(context).pop(true),
+                            onPressed: () => Navigator.of(context).pop(true),
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
@@ -78,14 +78,13 @@ class _DiaryPageState extends State<DiaryPage> {
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 5*2,
+                          width: MediaQuery.of(context).size.width / 5 * 2,
                           height: 64,
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            onPressed: () =>
-                                Navigator.of(context).pop(false),
+                            onPressed: () => Navigator.of(context).pop(false),
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(

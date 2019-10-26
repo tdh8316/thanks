@@ -25,5 +25,5 @@ const List<String> tagList = <String>[
   "일",
   "그 외",
   "여행",
-  "음식"
+  "음식",
 ];

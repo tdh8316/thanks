@@ -23,7 +23,10 @@ class Question extends StatelessWidget {
           children: <Widget>[
             ShowUp(
               child: InkWell(
-                onTap: () => navigatorAction != null ? Null : Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PrevNewPage())),
+                onTap: () => navigatorAction != null
+                    ? Null
+                    : Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => PrevNewPage())),
                 child: Text(
                   DateFormat(
                     S.of(context).titleDateFormat(
@@ -60,7 +63,9 @@ class Question extends StatelessWidget {
             ShowUp(
               animatedOpacity: true,
               child: Text(
-                navigatorAction == null? S.of(context).howWasYourDay : "이 날은 어땠어?",
+                navigatorAction == null
+                    ? S.of(context).howWasYourDay
+                    : "이 날은 어땠어?",
                 style: Theme.of(context).textTheme.headline.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
@@ -86,7 +91,7 @@ class Question extends StatelessWidget {
                   ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 100),
-                  duration: Duration(milliseconds: 250*2),
+                  duration: Duration(milliseconds: 250 * 2),
                   begin: Offset(0, .25),
                   curve: Curves.easeOutCirc,
                 ),
@@ -99,7 +104,7 @@ class Question extends StatelessWidget {
                   ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 200),
-                  duration: Duration(milliseconds: 350*2),
+                  duration: Duration(milliseconds: 350 * 2),
                   begin: Offset(0, .50),
                   curve: Curves.easeOutCirc,
                 ),
@@ -112,7 +117,7 @@ class Question extends StatelessWidget {
                   ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 300),
-                  duration: Duration(milliseconds: 450*2),
+                  duration: Duration(milliseconds: 450 * 2),
                   begin: Offset(0, .75),
                   curve: Curves.easeOutCirc,
                 ),
@@ -125,7 +130,7 @@ class Question extends StatelessWidget {
                   ),
                   animatedOpacity: true,
                   delay: Duration(milliseconds: 400),
-                  duration: Duration(milliseconds: 500*2),
+                  duration: Duration(milliseconds: 500 * 2),
                   begin: Offset(0, 1),
                   curve: Curves.easeOutCirc,
                 ),
