@@ -163,11 +163,11 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일. 이 날은... "
+              "${dateList[0]}년 ${dateList[1]}월 ${dateList[2]}일. "
               "${getFeelingTranslation(dataMap[ItemElements.feeling.toString()])}",
               style: TextStyle(
                 fontSize: 24,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -177,24 +177,48 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
           child: Divider(),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 48),
+          padding: EdgeInsets.symmetric(horizontal: 32),
           child: dataMap.containsKey(ItemElements.tag.toString())
-              ? Text(
-                  "오늘은 ${dataMap[ItemElements.tag.toString()].split('.').last}로부터 고마움을 느꼈다."
-                  " 왜냐하면...",
-                  style: TextStyle(
-                    // fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "오늘은",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(.5),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        "'${dataMap[ItemElements.tag.toString()].split('.').last}'에 감사했어",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "왜냐하면...",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(.5),
+                      ),
+                    ),
+                  ],
                 )
               : Container(),
         ),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
             child: Text(
-              body.length > 0 ? body : "저장된 다른 내용이 없습니다.",
+              body.length > 0 ? "  " + body : "저장된 다른 내용이 없습니다.",
               style: TextStyle(
                 fontSize: 18,
                 letterSpacing: 1.14,

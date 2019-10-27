@@ -190,7 +190,8 @@ class _ListViewPageState extends State<ListViewPage> {
                     horizontal: 16,
                   ),
                   child: Text(
-                    tag == null ? body : "${_randomTitle(tag)} $body",
+                    //tag == null ? body : "${_randomTitle(tag)} $body",
+                    body,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(

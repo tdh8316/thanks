@@ -39,12 +39,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.only(
-                  left: 32,
-                  right: 32,
-                  top: 64,
-                  bottom: 32,
-                ),
+                padding: EdgeInsets.all(32),
                 child: Text(
                   "좋습니다! 어떤 일이 있었는지\n알려주시겠어요?",
                   textAlign: TextAlign.left,
@@ -144,13 +139,26 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
               ),
             ),
           ),
-          FlatButton(
-            child: Text("완료"),
-            onPressed: () async {
-              await widget.nextPage();
-              // Close the keyboard
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FractionallySizedBox(
+              widthFactor: 0.5,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Padding(
+                  padding:  EdgeInsets.all(16),
+                  child: Text("완료"),
+                ),
+                color: Colors.grey.withOpacity(.25),
+                onPressed: () async {
+                  await widget.nextPage();
+                  // Close the keyboard
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+              ),
+            ),
           ),
         ],
       );
