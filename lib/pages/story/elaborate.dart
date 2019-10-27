@@ -30,6 +30,13 @@ class ElaborateStoryPage extends StatefulWidget {
 }
 
 class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
+
+  @override
+  void initState() {
+    widget.textEditingController.text = "오늘은 ${_getFeelingTranslation(widget.feeling)}"
+        "'${widget.tag}'에 감사한다. 왜냐하면 ";
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) => Container(
         color: HexColor("#f9f9f9"),
@@ -94,17 +101,6 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                 duration: Duration(milliseconds: 500),
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "        오늘은 ${_getFeelingTranslation(widget.feeling)}"
-                  "'${widget.tag}'에 감사한다.\n        왜냐하면...",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
             Expanded(
               child: widget.elaborateGetter() == null ||
                       widget.elaborateGetter() == false
@@ -123,12 +119,15 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
               child: TextFormField(
                 controller: widget.textEditingController,
                 keyboardType: TextInputType.multiline,
+                autofocus: true,
                 maxLines: null,
                 showCursor: true,
                 expands: true,
                 cursorColor: DefaultColorTheme.sub,
                 decoration: InputDecoration(
-                  hintText: "이곳에 오늘의 이야기를 말해주세요.",
+                  hintText: "오늘은 ${_getFeelingTranslation(widget.feeling)}"
+                      "'${widget.tag}'에 감사한다. 왜냐하면...",
+                  hintMaxLines: 4,
                   border: InputBorder.none,
                 ),
                 style: TextStyle(

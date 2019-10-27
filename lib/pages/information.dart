@@ -47,31 +47,60 @@ class _InformationPageState extends State<InformationPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Card(
-                  elevation: 16,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  color: DefaultColorTheme.main,
-                  child: FlatButton(
-                    onPressed: _launchGithub,
-                    child: Stack(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(32),
-                          child: Text(
-                            "Open Source!",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  child: Card(
+                    elevation: 16,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    color: DefaultColorTheme.main,
+                    child: FlatButton(
+                      onPressed: _launchGithub,
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 42,
+                                bottom: 18,
+                                left: 32,
+                                right: 32,
+                              ),
+                              child: Text(
+                                "View on Github",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white24,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 28,
+                                bottom: 32,
+                                left: 32,
+                                right: 32,
+                              ),
+                              child: Text(
+                                "Open Source!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -81,9 +110,10 @@ class _InformationPageState extends State<InformationPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
+                      padding: EdgeInsets.only(
+                        top: 8,
+                        bottom: 8,
+                        left: 32,
                       ),
                       child: Card(
                         elevation: 16,
@@ -125,8 +155,11 @@ class _InformationPageState extends State<InformationPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.only(
+                        top: 8,
+                        bottom: 8,
+                        right: 32,
+                      ),
                       child: Card(
                         elevation: 16,
                         shape: RoundedRectangleBorder(

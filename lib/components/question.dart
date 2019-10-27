@@ -25,8 +25,11 @@ class Question extends StatelessWidget {
               child: InkWell(
                 onTap: () => navigatorAction != null
                     ? Null
-                    : Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => PrevNewPage())),
+                    : Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => PrevNewPage(),
+                        ),
+                      ),
                 child: Text(
                   DateFormat(
                     S.of(context).titleDateFormat(
@@ -65,7 +68,7 @@ class Question extends StatelessWidget {
               child: Text(
                 navigatorAction == null
                     ? S.of(context).howWasYourDay
-                    : "이 날은 어땠어?",
+                    : "이 날은 기분이 어땠어?",
                 style: Theme.of(context).textTheme.headline.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,

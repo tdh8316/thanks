@@ -48,18 +48,6 @@ class _PrevNewPageState extends State<PrevNewPage> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 32),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 32,
-                    right: 32,
-                    top: 8,
-                    bottom: 8,
-                  ),
-                  child: Question(
-                    date: targetDate,
-                    navigatorAction: Navigator.of(context).pushReplacement,
-                  ),
-                ),
                 Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
@@ -102,6 +90,19 @@ class _PrevNewPageState extends State<PrevNewPage> {
                       ],
                     ),
                   ],
+                ),
+                SizedBox(height: 43),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 32,
+                    right: 32,
+                    top: 8,
+                    bottom: 8,
+                  ),
+                  child: Question(
+                    date: targetDate,
+                    navigatorAction: Navigator.of(context).pushReplacement,
+                  ),
                 ),
                 SizedBox(height: 64),
               ],

@@ -40,7 +40,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                             child: Text(
                               "개발",
                               style: TextStyle(
-                                fontSize: 32,
+                                fontSize: 28,
                                 color: Colors.black54,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -50,7 +50,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 64),
+                            padding: EdgeInsets.symmetric(horizontal: 128),
                             child: Text(
                               "탁동혁",
                               style: TextStyle(
@@ -72,7 +72,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                             child: Text(
                               "기획",
                               style: TextStyle(
-                                fontSize: 32,
+                                fontSize: 28,
                                 color: Colors.black54,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -82,7 +82,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 64),
+                            padding: EdgeInsets.symmetric(horizontal: 32),
                             child: Text(
                               "2019 강원고등학교 드림하이",
                               style: TextStyle(
@@ -142,7 +142,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                         child: Image.asset(
                                           "res/assets/humans/1.png",
                                         ),
-                                        width: 256,
+                                        width: 196,
                                       ),
                                     ],
                                   ),
@@ -176,9 +176,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 64),
+                        padding: EdgeInsets.symmetric(horizontal: 32),
                         child: Text(
-                          "이 애플리케이션에는 네이버에서 제공한\n나눔글꼴이 포함되어 있습니다.",
+                          "이 애플리케이션에는 네이버에서 제공한 나눔글꼴이 포함되어 있습니다.",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.black54,

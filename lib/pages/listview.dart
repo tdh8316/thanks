@@ -58,8 +58,37 @@ class _ListViewPageState extends State<ListViewPage> {
                                 top: 8,
                                 bottom: 8,
                               ),
-                              child: Question(
-                                date: _now,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Center(
+                                      child: FractionallySizedBox(
+                                        widthFactor: 1,
+                                        child: FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (BuildContext context) =>
+                                                    PrevNewPage(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            "다른 날의 일기 쓰기",
+                                            style: TextStyle(
+                                              color: DefaultColorTheme.main.withOpacity(
+                                                .75,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Question(
+                                    date: _now,
+                                  ),
+                                ],
                               ),
                             );
                           else
