@@ -48,7 +48,7 @@ class _InformationPageState extends State<InformationPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+                padding: EdgeInsets.symmetric(horizontal: 32),
                 child: Card(
                   elevation: 16,
                   shape: RoundedRectangleBorder(
@@ -81,8 +81,10 @@ class _InformationPageState extends State<InformationPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
                       child: Card(
                         elevation: 16,
                         shape: RoundedRectangleBorder(
@@ -124,7 +126,7 @@ class _InformationPageState extends State<InformationPage> {
                     width: MediaQuery.of(context).size.width / 2,
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Card(
                         elevation: 16,
                         shape: RoundedRectangleBorder(
@@ -160,8 +162,8 @@ class _InformationPageState extends State<InformationPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+              /*Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                 child: Card(
                   elevation: 16,
                   shape: RoundedRectangleBorder(
@@ -197,14 +199,14 @@ class _InformationPageState extends State<InformationPage> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
       );
 
   _launchGithub() async {
-    const url = 'https://github.com/tdh8316/thanks';
+    const url = 'https://github.com/tdh8316/thanks/blob/master/README.md';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
