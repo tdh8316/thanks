@@ -44,12 +44,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-    onWillPop: () async {
-      if (page == 0) return true;
-      else changePage(0);
-      return false;
-    },
-    child: Scaffold(
+        onWillPop: () async {
+          if (page == 0)
+            return true;
+          else
+            changePage(0);
+          return false;
+        },
+        child: Scaffold(
           key: _scaffoldKey,
           /*drawer: Drawer(
             child: ListView(
@@ -184,20 +186,23 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),*/
-                    IconButton(
-                      icon: Icon(
-                        Icons.add,
-                        color: Colors.black87,
-                        size: 24,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => PrevNewPage(),
-                          ),
-                        );
-                      },
-                    ),
+                    page == 0
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.black87,
+                              size: 24,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      PrevNewPage(),
+                                ),
+                              );
+                            },
+                          )
+                        : Container(),
                     /*IconButton(
                       icon: Icon(
                         Icons.filter_list,
@@ -275,7 +280,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-  );
+      );
 
   void changePage(int page) => setState(() {
         this.page = page;

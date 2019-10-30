@@ -35,14 +35,18 @@ class _StatisticPageState extends State<StatisticPage> {
       final String text = () {
             if (touchedSpot.spot.y == null)
               return '';
-            else if (touchedSpot.spot.y == YAxisFromFeeling.great)
+            /*
+            static double get great => next(75, 100) / 100;
+            static double get notGood => next(35, 50) / 100;
+            static double get sad => next(1, 25) / 100;
+            static double get angry => next(1, 25) / 100;
+            */
+            else if (touchedSpot.spot.y >= 0.75)
               return "좋아! \uD83D\uDE0A";
-            else if (touchedSpot.spot.y == YAxisFromFeeling.notGood)
+            else if (touchedSpot.spot.y >= 0.35)
               return "그저 그래 \uD83D\uDE10";
-            else if (touchedSpot.spot.y == YAxisFromFeeling.sad)
-              return "너무 슬프다 \uD83D\uDE25";
-            else if (touchedSpot.spot.y == YAxisFromFeeling.angry)
-              return "정말 화난다 \uD83D\uDE21";
+            else if (touchedSpot.spot.y >= 0.01)
+              return "\uD83D\uDE25/\uD83D\uDE21";
             else
               return '\uD83E\uDD14';
           }() +
@@ -165,7 +169,9 @@ class _StatisticPageState extends State<StatisticPage> {
                   ],
                 );
               }
-              return SafeArea(child: _buildStatisticWidget(context));
+              return SafeArea(
+                child: _buildStatisticWidget(context),
+              );
             default:
               if (snapshot.hasError)
                 return Container(
@@ -184,207 +190,206 @@ class _StatisticPageState extends State<StatisticPage> {
       );
 
   Widget _buildStatisticWidget(BuildContext context) {
+    Widget graphContainer = ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(32),
+        topRight: Radius.circular(32),
+        bottomLeft: Radius.elliptical(256, 64),
+        bottomRight: Radius.elliptical(256, 64),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              //HexColor("#fc6076"),
+              //DefaultColorTheme.main,
+              //HexColor("#ff9a44"),
+              Colors.transparent,
+              Colors.transparent,
+            ],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 32,
+                vertical: 16,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "${targetDate.year}년, ${targetDate.month}월",
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.025,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black54,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        targetDate = DateTime(
+                          targetDate.year,
+                          targetDate.month - 1,
+                        );
+                      });
+                    },
+                  ),
+                  SizedBox(width: 16),
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black54,
+                    ),
+                    onPressed: () {
+                      DateTime temp = DateTime(
+                        targetDate.year,
+                        targetDate.month + 1,
+                      );
+                      if (temp.isBefore(DateTime.now()))
+                        setState(() {
+                          targetDate = temp;
+                        });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            ShowUp(
+              animatedOpacity: true,
+              begin: Offset(1, 0),
+              curve: Curves.easeOutCirc,
+              child: Padding(
+                padding: EdgeInsets.only(left: 64, right: 8),
+                child: Text(
+                  numOfFiles(data).toString(),
+                  style: TextStyle(
+                    fontSize: 64,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 4,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 48),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "이번 달의 기록",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                    fontFamily: "나눔바른펜",
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 32),
+            Row(
+              children: <Widget>[
+                Spacer(),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    height: 8,
+                    width: 8,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          HexColor("#ff9a44"),
+                          HexColor("#fc6076"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "월간 기분 변화 추이",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 4,
+              child: ShowUp(
+                delay: Duration(milliseconds: 250),
+                child: numOfFiles(data) > 0
+                    ? FlChart(
+                        chart: LineChart(
+                          graphData,
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          "이 기간에 작성된 일기가 없어요.",
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: DefaultColorTheme.main,
+                          ),
+                        ),
+                      ),
+                animatedOpacity: true,
+                curve: Curves.easeOutCirc,
+              ),
+            ),
+            // SizedBox(height: 64),
+            Divider(),
+          ],
+        ),
+      ),
+    );
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Stack(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32),
-                  bottomLeft: Radius.elliptical(256, 64),
-                  bottomRight: Radius.elliptical(256, 64),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        //HexColor("#fc6076"),
-                        //DefaultColorTheme.main,
-                        //HexColor("#ff9a44"),
-                        Colors.transparent,
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 32,
-                          vertical: 16,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "${targetDate.year}년, ${targetDate.month}월",
-                              style: TextStyle(
-                                fontSize: 32,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.025,
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.black54,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  targetDate = DateTime(
-                                    targetDate.year,
-                                    targetDate.month - 1,
-                                  );
-                                });
-                              },
-                            ),
-                            SizedBox(width: 16),
-                            IconButton(
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.black54,
-                              ),
-                              onPressed: () {
-                                DateTime temp = DateTime(
-                                  targetDate.year,
-                                  targetDate.month + 1,
-                                );
-                                if (temp.isBefore(DateTime.now()))
-                                  setState(() {
-                                    targetDate = temp;
-                                  });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      ShowUp(
-                        animatedOpacity: true,
-                        begin: Offset(1, 0),
-                        curve: Curves.easeOutCirc,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 64, right: 8),
-                          child: Text(
-                            numOfFiles(data).toString(),
-                            style: TextStyle(
-                              fontSize: 64,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 4,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 48),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "이번 달의 기록",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black54,
-                              fontFamily: "나눔바른펜",
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 32),
-                      Row(
-                        children: <Widget>[
-                          Spacer(),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              height: 8,
-                              width: 8,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: <Color>[
-                                    HexColor("#ff9a44"),
-                                    HexColor("#fc6076"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              "월간 기분 변화 추이",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 4,
-                        child: ShowUp(
-                          delay: Duration(milliseconds: 250),
-                          child: numOfFiles(data) > 0
-                              ? FlChart(
-                                  chart: LineChart(
-                                    graphData,
-                                  ),
-                                )
-                              : Center(
-                                  child: Text(
-                                    "이 기간에 작성된 일기가 없어요.",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      color: DefaultColorTheme.main,
-                                    ),
-                                  ),
-                                ),
-                          animatedOpacity: true,
-                          curve: Curves.easeOutCirc,
-                        ),
-                      ),
-                      // SizedBox(height: 64),
-                      Divider(),
-                    ],
-                  ),
-                ),
+          graphContainer,
+          Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.875,
+              child: ShowUp(
+                child: _buildCard(context),
+                animatedOpacity: true,
+                curve: Curves.linearToEaseOut,
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 2,
-                ),
-                child: Center(
-                  child: FractionallySizedBox(
-                    widthFactor: 0.875,
-                    child: ShowUp(
-                      child: _buildFeelingChart(context),
-                      animatedOpacity: true,
-                      curve: Curves.linearToEaseOut,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFeelingChart(BuildContext context) => Card(
+  Widget _buildCard(BuildContext context) => Card(
+        color: Colors.grey[50],
         elevation: 32,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: <Widget>[
+            Container(
+              height: 256,
+              child: Center(
+                child: Text("뭔가 재미있는 일이 생길 것 같아요!"),
+              ),
+            ),
             /*Row(
               children: <Widget>[
                 Spacer(),
@@ -485,7 +490,6 @@ class _StatisticPageState extends State<StatisticPage> {
                 Spacer(),
               ],
             ),*/
-
           ],
         ),
       );

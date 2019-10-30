@@ -327,6 +327,7 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
       );
 
+  // ignore: unused_element
   Widget _buildPanel() {
     switch (panelAction) {
       case EditorAction.date:

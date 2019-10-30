@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/animation/show_up.dart';
@@ -68,15 +66,17 @@ class _ListViewPageState extends State<ListViewPage> {
                                           onPressed: () {
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                builder: (BuildContext context) =>
-                                                    PrevNewPage(),
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        PrevNewPage(),
                                               ),
                                             );
                                           },
                                           child: Text(
                                             "다른 날의 일기 쓰기",
                                             style: TextStyle(
-                                              color: DefaultColorTheme.main.withOpacity(
+                                              color: DefaultColorTheme.main
+                                                  .withOpacity(
                                                 .75,
                                               ),
                                             ),
@@ -108,7 +108,8 @@ class _ListViewPageState extends State<ListViewPage> {
                                     child: Text(
                                       "다른 날의 일기 쓰기",
                                       style: TextStyle(
-                                        color: DefaultColorTheme.main.withOpacity(
+                                        color:
+                                            DefaultColorTheme.main.withOpacity(
                                           .75,
                                         ),
                                       ),
@@ -213,22 +214,24 @@ class _ListViewPageState extends State<ListViewPage> {
                     ),
                   ],
                 ),
-                body.length == 0 ? Container() : Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 16,
-                  ),
-                  child: Text(
-                    //tag == null ? body : "${_randomTitle(tag)} $body",
-                    body,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 18,
-                      // fontFamily: "나눔손글씨 암스테르담",
-                    ),
-                  ),
-                ),
+                body.length == 0
+                    ? Container()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          //tag == null ? body : "${_randomTitle(tag)} $body",
+                          body,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                            fontSize: 18,
+                            // fontFamily: "나눔손글씨 암스테르담",
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
@@ -236,10 +239,4 @@ class _ListViewPageState extends State<ListViewPage> {
       ],
     );
   }
-
-  String _randomTitle(String tag) => <String>[
-        "오늘은 $tag으로부터 고마움을 느꼈다.",
-        "오늘의 감사 주제는 '$tag'이다.",
-        "$tag, 오늘은 이것이 고마웠다."
-      ][Random().nextInt(3)];
 }

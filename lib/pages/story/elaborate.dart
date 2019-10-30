@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
@@ -30,13 +32,14 @@ class ElaborateStoryPage extends StatefulWidget {
 }
 
 class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
-
   @override
   void initState() {
-    widget.textEditingController.text = "오늘은 ${_getFeelingTranslation(widget.feeling)}"
-        "'${widget.tag}'에 감사한다. 왜냐하면 ";
+    widget.textEditingController.text =
+        "오늘은 ${_getFeelingTranslation(widget.feeling)}"
+        "${_randomTitle(widget.tag)}";
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) => Container(
         color: HexColor("#f9f9f9"),
@@ -147,7 +150,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Padding(
-                  padding:  EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Text("완료"),
                 ),
                 color: Colors.grey.withOpacity(.25),
@@ -250,4 +253,12 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
     else
       return '\uD83E\uDD14';
   }
+
+  String _randomTitle(String tag) => <String>[
+        "$tag으로부터 고마움을 느꼈다.",
+        "감사 주제는 '$tag'이다.",
+        "$tag, 이것이 고마웠다.",
+        "$tag, 감사한 것이다.",
+        "$tag에 감사한다.",
+      ][Random().nextInt(5)];
 }

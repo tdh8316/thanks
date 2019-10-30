@@ -178,7 +178,8 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 32),
-          child: dataMap.containsKey(ItemElements.tag.toString())
+          child: false //dataMap.containsKey(ItemElements.tag.toString())
+              // ignore: dead_code
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[

@@ -211,7 +211,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                       child: Divider(),
                     ),
                     Padding(
-                      padding:  EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: Text(
                         "All that Thanks 는 2019년 강원고등학교 동아리, '드림하이'의 동아리활동 프로젝트로 개발된 애플리케이션입니다.",
                       ),
