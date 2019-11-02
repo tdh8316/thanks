@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thanks/components/floating_bar.dart';
 import 'package:thanks/models/hex_color.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    initUser();
+    // initUser();
   }
 
   // TODO: Establish user management system
@@ -173,18 +174,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   actions: <Widget>[
-                    // TODO: Implement AppBar actions
                     /*IconButton(
-                      icon: Icon(Icons.search, color: Colors.black87, size: 24),
-                      onPressed: () {
-                        _scaffoldKey.currentState.showSnackBar(
-                          SnackBar(
-                            content: Text("Not supported yet"),
-                            behavior: SnackBarBehavior.floating,
-                            duration: Duration(seconds: 1),
-                          ),
-                        );
-                      },
+                      onPressed: () => null,
+                      icon: Image.asset(
+                        "res/assets/notification.png",
+                        scale: 3.5,
+                      ),
                     ),*/
                     page == 0
                         ? IconButton(
@@ -203,22 +198,6 @@ class _HomePageState extends State<HomePage> {
                             },
                           )
                         : Container(),
-                    /*IconButton(
-                      icon: Icon(
-                        Icons.filter_list,
-                        color: Colors.black87,
-                        size: 24,
-                      ),
-                      onPressed: () {
-                        _scaffoldKey.currentState.showSnackBar(
-                          SnackBar(
-                            content: Text("Not supported yet"),
-                            behavior: SnackBarBehavior.floating,
-                            duration: Duration(seconds: 1),
-                          ),
-                        );
-                      },
-                    ),*/
                   ],
                   elevation: 0,
                 ),
@@ -285,4 +264,9 @@ class _HomePageState extends State<HomePage> {
   void changePage(int page) => setState(() {
         this.page = page;
       });
+
+/*Future<String> _loadNoticeFromGithub() async {
+    return (await http.get("https://raw.githubusercontent.com/tdh8316/thanks/master/NOTICE"))
+        .body;
+  }*/
 }

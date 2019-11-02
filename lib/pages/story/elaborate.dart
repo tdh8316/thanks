@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/hex_color.dart';
-import 'package:thanks/models/structure.dart';
+import 'package:thanks/models/internal.dart';
 import 'package:thanks/styles/colors.dart';
 
 class ElaborateStoryPage extends StatefulWidget {
@@ -34,9 +32,6 @@ class ElaborateStoryPage extends StatefulWidget {
 class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
   @override
   void initState() {
-    widget.textEditingController.text =
-        "오늘은 ${_getFeelingTranslation(widget.feeling)}"
-        "${_randomTitle(widget.tag)}";
     super.initState();
   }
 
@@ -128,7 +123,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                 expands: true,
                 cursorColor: DefaultColorTheme.sub,
                 decoration: InputDecoration(
-                  hintText: "오늘은 ${_getFeelingTranslation(widget.feeling)}"
+                  hintText: "오늘은 ${getFeelingTranslationE(widget.feeling)}"
                       "'${widget.tag}'에 감사한다. 왜냐하면...",
                   hintMaxLines: 4,
                   border: InputBorder.none,
@@ -238,27 +233,4 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
           ),
         ],
       );
-
-  String _getFeelingTranslation(String feeling) {
-    if (feeling.runtimeType != String)
-      return '';
-    else if (Feelings.great.toString() == feeling)
-      return "기분이 정말 좋았고, ";
-    else if (Feelings.notGood.toString() == feeling)
-      return "그저 그랬다. 그래도 ";
-    else if (Feelings.sad.toString() == feeling)
-      return "슬픈 하루였지만 ";
-    else if (Feelings.angry.toString() == feeling)
-      return "화나는 하루였다. 그렇지만 ";
-    else
-      return '\uD83E\uDD14';
-  }
-
-  String _randomTitle(String tag) => <String>[
-        "$tag으로부터 고마움을 느꼈다.",
-        "감사 주제는 '$tag'이다.",
-        "$tag, 이것이 고마웠다.",
-        "$tag, 감사한 것이다.",
-        "$tag에 감사한다.",
-      ][Random().nextInt(5)];
 }

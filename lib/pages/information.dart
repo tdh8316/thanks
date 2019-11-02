@@ -1,6 +1,5 @@
-import 'package:flushbar/flushbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/pages/developers.dart';
 import 'package:thanks/styles/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,18 +10,30 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: ScrollConfiguration(
-          behavior: NoBounceBehavior(),
-          child: Scrollbar(
+        child: PrimaryScrollController(
+          controller: scrollController,
+          child: CupertinoScrollbar(
+            controller: scrollController,
             child: SingleChildScrollView(
+              controller: scrollController,
+              physics: ClampingScrollPhysics(),
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(32),
+                      child: Container(
+                        child: Image.asset(
+                          "res/assets/taktur.png",
+                          scale: 2.5,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 32),
-                    Icon(Icons.check_box_outline_blank),
-                    SizedBox(height: 64),
                     Text(
                       "All that Thanks",
                       style: TextStyle(
@@ -127,20 +138,23 @@ class _InformationPageState extends State<InformationPage> {
                               ),
                               color: DefaultColorTheme.sub,
                               child: FlatButton(
-                                onPressed: () {
-                                  Flushbar(
-                                    flushbarPosition: FlushbarPosition.TOP,
-                                    message: "정식 출시를 기다려주세요!",
-                                    backgroundColor: Colors.red,
-                                    duration: Duration(seconds: 2),
-                                    borderRadius: 8,
-                                    margin: EdgeInsets.all(8),
-                                  )..show(context);
+                                onPressed: () async {
+                                  const url = 'https://play.google.com'
+                                      '/store/apps/details?id='
+                                      'io.github.tdh8316.thanks';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
                                 },
                                 child: Stack(
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.all(32),
+                                      padding: EdgeInsets.only(
+                                        top: 32,
+                                        bottom: 32,
+                                      ),
                                       child: Text(
                                         "별 5개 주기",
                                         textAlign: TextAlign.center,
@@ -200,6 +214,7 @@ class _InformationPageState extends State<InformationPage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 64),
                     /*Padding(
                       padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                       child: Card(

@@ -6,6 +6,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/models/coordinate.dart';
 import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/services/statistic.dart';
+import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
 
 class StatisticPage extends StatefulWidget {
@@ -130,7 +131,8 @@ class _StatisticPageState extends State<StatisticPage> {
                       _graphCoordinates == null ||
                       _graphCoordinates.length == 0) &&
                   (targetDate.year == DateTime.now().year &&
-                      targetDate.month == DateTime.now().month)) {
+                      targetDate.month == DateTime.now().month) &&
+                  fileList.length == 0) {
                 return Column(
                   children: <Widget>[
                     SizedBox(height: 32),
@@ -387,7 +389,7 @@ class _StatisticPageState extends State<StatisticPage> {
             Container(
               height: 256,
               child: Center(
-                child: Text("뭔가 재미있는 일이 생길 것 같아요!"),
+                child: Text("다음 업데이트를 기대해 주세요!"),
               ),
             ),
             /*Row(

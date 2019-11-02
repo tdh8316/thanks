@@ -215,7 +215,23 @@ class _ListViewPageState extends State<ListViewPage> {
                   ],
                 ),
                 body.length == 0
-                    ? Container()
+                    ? (tag == null
+                        ? Container()
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 16,
+                            ),
+                            child: Text(
+                              "오늘은 '$tag'에 감사했다.",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                              style: TextStyle(
+                                fontSize: 18,
+                                // fontFamily: "나눔손글씨 암스테르담",
+                              ),
+                            ),
+                          ))
                     : Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 12,

@@ -50,7 +50,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 128),
+                            padding: EdgeInsets.symmetric(horizontal: 64),
                             child: Text(
                               "탁동혁",
                               style: TextStyle(
@@ -97,7 +97,20 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 64),
                             child: Text(
-                              "- 조영대, 이승섭, 이건희, 정환",
+                              "- 정소영 선생님,",
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 64),
+                            child: Text(
+                              "조영대, 이승섭, 이건희, 정환",
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black54,

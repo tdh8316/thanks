@@ -106,24 +106,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                     false;
                 if (!del) return;
                 // Delete file located in internal storage
-                await removeEntryFromDate(
-                    string: widget.date,
-                    tag: dataMap[ItemElements.tag.toString()]);
-
-                if (listEquals<String>(
-                  StaticSharedPreferences.prefs.getStringList("latestDate"),
-                  widget.date.split('-'),
-                )) StaticSharedPreferences.prefs.remove("latestDate");
-
-                Navigator.of(context).pop();
-                Flushbar(
-                  flushbarPosition: FlushbarPosition.TOP,
-                  message: "${widget.date} 삭제됨.",
-                  backgroundColor: Colors.red,
-                  duration: Duration(seconds: 3),
-                  borderRadius: 8,
-                  margin: EdgeInsets.all(8),
-                )..show(context);
+                _remove();
               },
             ),
           ],
@@ -178,8 +161,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 32),
-          child: false //dataMap.containsKey(ItemElements.tag.toString())
-              // ignore: dead_code
+          child: dataMap.containsKey(ItemElements.tag.toString())
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -229,5 +211,31 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
         ),
       ],
     );
+  }
+
+  _remove() async {
+    await removeEntryFromDate(
+      string: widget.date,
+      tag: "tag.${dataMap[ItemElements.tag.toString()]}",
+    );
+
+    List<String> textDate = widget.date.split('-');
+    if (textDate.last.startsWith("0") && textDate.last.length == 2)
+      textDate.last = textDate.last.substring(1);
+
+    if (listEquals<String>(
+      StaticSharedPreferences.prefs.getStringList("latestDate"),
+      textDate,
+    )) StaticSharedPreferences.prefs.remove("latestDate");
+
+    Navigator.of(context).pop();
+    Flushbar(
+      flushbarPosition: FlushbarPosition.TOP,
+      message: "${widget.date} 삭제됨.",
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 3),
+      borderRadius: 8,
+      margin: EdgeInsets.all(8),
+    )..show(context);
   }
 }

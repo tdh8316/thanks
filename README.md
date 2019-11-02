@@ -6,8 +6,21 @@
 
 The app takes flight with Flutter.
 
-# Overview
-<img align="right" src="./docs/images/home.png" height="800">
-Intelligent Journal Application, which helps you to memory precious daily memories, such as the moments when receiving help.
+### Notification
+This project yet only supports Korean.
 
-이 애플리케이션은 2019년 강원고등학교 동아리 `드림하이` 의 프로젝트 중 하나로 개발되었습니다.
+# Overview
+이 애플리케이션은 2019년 강원고등학교 동아리 `드림하이` 의 프로젝트로 개발되었습니다.
+
+<img align="center" src="./docs/images/home.png" height="640">
+
+# License
+이 프로젝트의 소스 코드는 `/lib` 경로의 파일들만 공개되며, `BSD 3-Clause License` 라이선스에 따라 사용하실 수 있습니다.
+
+>Copyright 2019 `탁동혁`
+
+-------------------------------------------------------------------------------
+
+Licensed under the BSD 3-Clause License
+
+>Copyright 2019 `Donghyeok Tak`
