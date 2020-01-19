@@ -1,4 +1,4 @@
-# [![Flutter](https://flutter.dev/assets/flutter-lockup-4cb0ee072ab312e59784d9fbf4fb7ad42688a7fdaea1270ccf6bbf4f34b7e03f.svg)](https://flutter.dev/)
+# [<img src="https://flutter.dev/assets/flutter-lockup-c13da9c9303e26b8d5fc208d2a1fa20c1ef47eb021ecadf27046dea04c0cebf6.png" height="32">](https://flutter.dev/)
 
 [![Download](https://img.shields.io/badge/download-android-green?style=for-the-badge)](https://play.google.com/store/apps/details?id=io.github.tdh8316.thanks)
 
