@@ -108,7 +108,7 @@ class _DiaryPageState extends State<DiaryPage> {
                   child: AlertDialog(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
-                    content: Text("이 일기는 사라지는데 그래도 나갈래?"),
+                    content: Text("이 일기는 사라지는데 그래도 나가시겠어요?"),
                     actions: <Widget>[
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 4,

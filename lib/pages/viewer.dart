@@ -223,10 +223,16 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
     if (textDate.last.startsWith("0") && textDate.last.length == 2)
       textDate.last = textDate.last.substring(1);
 
+    if (textDate[1].startsWith("0")) textDate[1] = textDate[1].substring(1);
+    print(StaticSharedPreferences.prefs.getStringList("latestDate"));
+    print(textDate);
     if (listEquals<String>(
       StaticSharedPreferences.prefs.getStringList("latestDate"),
       textDate,
-    )) StaticSharedPreferences.prefs.remove("latestDate");
+    )) {
+      StaticSharedPreferences.prefs.remove("latestDate");
+      print("Remove latestDate");
+    }
 
     Navigator.of(context).pop();
     Flushbar(
