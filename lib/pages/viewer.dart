@@ -7,6 +7,7 @@ import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/shared.dart';
 import 'package:thanks/models/structure.dart';
+import 'package:thanks/pages/edit.dart';
 import 'package:thanks/services/storage.dart';
 
 class PlainEntryViewer extends StatefulWidget {
@@ -108,6 +109,26 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                 // Delete file located in internal storage
                 _remove();
               },
+            ),
+            FlatButton(
+              child: Text(
+                "수정",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ContentEditor(
+                    date: widget.date,
+                    body: dataMap[ItemElements.body.toString()],
+                    feeling: getFeelingTranslation(
+                        dataMap[ItemElements.feeling.toString()]),
+                    tag: dataMap[ItemElements.tag.toString()],
+                  ),
+                ),
+              ),
             ),
           ],
           elevation: 0,
