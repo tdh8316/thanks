@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:thanks/components/animation/show_up.dart';
+import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/models/structure.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
@@ -33,22 +35,94 @@ class _ContentEditorState extends State<ContentEditor> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(child: contentViewer(context)),
+  Widget build(BuildContext context) => WillPopScope(
+        child: Scaffold(
+          body: SafeArea(child: contentViewer(context)),
+        ),
+        onWillPop: () async {
+          return await showDialog(
+                context: context,
+                builder: (context) => ShowUp(
+                  curve: Curves.elasticOut,
+                  begin: Offset(0, 0.25),
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    content: Text("수정한 내용이 사라지는데 그래도 나가시겠어요?"),
+                    actions: <Widget>[
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: 64,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          color: Colors.redAccent,
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '나갈래',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 5 * 2,
+                        height: 64,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              '싫어',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ) ??
+              false;
+        },
       );
 
   Widget contentViewer(BuildContext context) {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 32,
+          height: 16,
         ),
-        Text(
-          "${widget.date}, ${widget.feeling}",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          children: <Widget>[
+            Spacer(),
+            Text(
+              "${widget.date}",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(width: 8),
+            Text(
+              "기분: ${widget.feeling}",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Spacer(),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 8, right: 8),
+          child: Divider(),
         ),
         Expanded(
           child: Padding(
@@ -62,7 +136,7 @@ class _ContentEditorState extends State<ContentEditor> {
               expands: true,
               cursorColor: DefaultColorTheme.sub,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 letterSpacing: 1.1,
                 fontFamily: "나눔바른펜",
               ),
@@ -72,21 +146,25 @@ class _ContentEditorState extends State<ContentEditor> {
         Align(
           alignment: Alignment.bottomRight,
           child: FractionallySizedBox(
-            widthFactor: 0.5,
-            child: FlatButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+            widthFactor: 0.4,
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: FlatButton(
+                shape: StadiumBorder(),
+                child: Padding(
+                  padding: EdgeInsets.all(14),
+                  child: Text(
+                    "완료",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                color: HexColor("#FFAF7D"),
+                onPressed: () async {
+                  await _save();
+                  // Close the keyboard
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
               ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Text("완료"),
-              ),
-              color: Colors.grey.withOpacity(.25),
-              onPressed: () async {
-                await _save();
-                // Close the keyboard
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
             ),
           ),
         ),

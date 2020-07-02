@@ -315,7 +315,7 @@ class _DiaryPageState extends State<DiaryPage> {
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       letterSpacing: 1.1,
                       fontFamily: "나눔바른펜",
                     ),

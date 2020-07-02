@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:thanks/components/animation/show_up.dart';
-import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/hex_color.dart';
 import 'package:thanks/models/internal.dart';
 import 'package:thanks/styles/colors.dart';
@@ -44,7 +41,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.all(32),
+                padding: EdgeInsets.only(left: 32, top: 24, right: 32),
                 child: Text(
                   "좋습니다! 어떤 일이 있었는지\n알려주시겠어요?",
                   textAlign: TextAlign.left,
@@ -59,45 +56,6 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: Divider(),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: ShowUp(
-                child: Text(
-                  DateFormat(
-                    "        yyyy년 M월 dd일 ${() {
-                      switch (DateFormat("EEEE").format(widget.dateTime)) {
-                        case "Monday":
-                          return S.of(context).Monday;
-                        case "Tuesday":
-                          return S.of(context).Tuesday;
-                        case "Wednesday":
-                          return S.of(context).Wednesday;
-                        case "Thursday":
-                          return S.of(context).Thursday;
-                        case "Friday":
-                          return S.of(context).Friday;
-                        case "Saturday":
-                          return S.of(context).Saturday;
-                        case "Sunday":
-                          return S.of(context).Sunday;
-                        default:
-                          return "Unknown Date";
-                      }
-                    }()}",
-                  ).format(widget.dateTime),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
-                animatedOpacity: true,
-                begin: Offset.zero,
-                duration: Duration(milliseconds: 500),
-              ),
             ),
             Expanded(
               child: widget.elaborateGetter() == null ||
@@ -129,7 +87,7 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
                   border: InputBorder.none,
                 ),
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   letterSpacing: 1.1,
                   fontFamily: "나눔바른펜",
                 ),
@@ -139,21 +97,25 @@ class _ElaborateStoryPageState extends State<ElaborateStoryPage> {
           Align(
             alignment: Alignment.bottomRight,
             child: FractionallySizedBox(
-              widthFactor: 0.5,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
+              widthFactor: 0.45,
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: FlatButton(
+                  shape: StadiumBorder(),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      "완료",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  color: HexColor("#FFAF7D"),
+                  onPressed: () async {
+                    await widget.nextPage();
+                    // Close the keyboard
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text("완료"),
-                ),
-                color: Colors.grey.withOpacity(.25),
-                onPressed: () async {
-                  await widget.nextPage();
-                  // Close the keyboard
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
               ),
             ),
           ),

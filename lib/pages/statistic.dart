@@ -363,6 +363,7 @@ class _StatisticPageState extends State<StatisticPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           graphContainer,
+          /*
           Center(
             child: FractionallySizedBox(
               widthFactor: 0.875,
@@ -373,6 +374,7 @@ class _StatisticPageState extends State<StatisticPage> {
               ),
             ),
           ),
+          */
         ],
       ),
     );
