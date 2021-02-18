@@ -20,6 +20,7 @@ int get itemLength => _files.length;
 
 // This mustn't be called except of FutureBuilder
 Future<Null> updateItems() async {
+  print("Update called!!!!");
   final List<FileSystemEntity> _entities = [
     ...Directory(await _localPath).listSync().where(
           (a) => a.path.endsWith(".txt"),
@@ -31,6 +32,8 @@ Future<Null> updateItems() async {
   }
   _files.sort();
   _files = _files.reversed.toList();
+
+  await Future.delayed(Duration(milliseconds: 100));
 
   return null;
 }
@@ -51,7 +54,9 @@ Future<Null> savePlainEntry({
     ItemElements.body.toString(): content,
   };
 
-  file.writeAsStringSync(jsonEncode(raw));
+  await file.writeAsString(jsonEncode(raw));
+  await updateItems();
+  await Future.delayed(Duration(milliseconds: 100));
 }
 
 Future<Null> saveEntry({
@@ -72,7 +77,9 @@ Future<Null> saveEntry({
     ItemElements.tag.toString(): tag.split('.').last,
   };
 
-  file.writeAsStringSync(jsonEncode(raw));
+  await file.writeAsString(jsonEncode(raw));
+  await updateItems();
+  await Future.delayed(Duration(milliseconds: 100));
 }
 
 genFakeData() async {
@@ -112,9 +119,9 @@ Future<String> loadPlainEntryFromDate({
   String string,
   DateTime dateTime,
 }) async =>
-    File(
+    await (File(
       "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(dateTime)}.txt",
-    ).readAsStringSync();
+    )).readAsString();
 
 Future<Null> removeEntryFromDate({
   String string,
@@ -124,11 +131,11 @@ Future<Null> removeEntryFromDate({
   File file = File(
     "${await _localPath}/${string ?? DateFormat(fileNameFormat).format(date)}.txt",
   );
-  addStatisticData(
+  await addStatisticData(
     jsonDecode(file.readAsStringSync())[ItemElements.feeling.toString()],
     date ?? DateFormat(fileNameFormat).parse(string),
     tag: tag,
     remove: true,
   );
-  file.deleteSync();
+  await file.delete();
 }

@@ -98,7 +98,9 @@ class _FinishStoryPageState extends State<FinishStoryPage>
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                onPressed: () => widget.save(),
+                onPressed: () async {
+                  await widget.save();
+                },
               ),
               SizedBox(height: 2),
               FlatButton(

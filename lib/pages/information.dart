@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:thanks/models/scroll_behavior.dart';
 import 'package:thanks/pages/developers.dart';
 import 'package:thanks/styles/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -197,7 +199,7 @@ class _InformationPageState extends State<InformationPage> {
                                     Padding(
                                       padding: EdgeInsets.all(32),
                                       child: Text(
-                                        "개발자",
+                                        "제작자",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 16,
@@ -214,7 +216,7 @@ class _InformationPageState extends State<InformationPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 64),
+                    SizedBox(height: 8),
                     /*Padding(
                       padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                       child: Card(
@@ -253,6 +255,69 @@ class _InformationPageState extends State<InformationPage> {
                         ),
                       ),
                     ),*/
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Card(
+                          elevation: 16,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          color: Colors.white,
+                          child: FlatButton(
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => ReadmePage(),
+                              ),
+                            ),
+                            child: Stack(
+                              children: <Widget>[
+                                Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 42,
+                                      bottom: 18,
+                                      left: 32,
+                                      right: 32,
+                                    ),
+                                    child: Text(
+                                      "감사합니다!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: DefaultColorTheme.main
+                                            .withOpacity(0.1),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 28,
+                                      bottom: 32,
+                                      left: 32,
+                                      right: 32,
+                                    ),
+                                    child: Text(
+                                      "개발자의 말...",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: DefaultColorTheme.main,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -269,4 +334,55 @@ class _InformationPageState extends State<InformationPage> {
       throw 'Could not launch $url';
     }
   }
+}
+
+class ReadmePage extends StatefulWidget {
+  @override
+  _ReadmePageState createState() => _ReadmePageState();
+}
+
+class _ReadmePageState extends State<ReadmePage> {
+  Future<String> getText() async {
+    return http
+        .read("https://raw.githubusercontent.com/tdh8316/thanks/master/readme");
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: ScrollConfiguration(
+          behavior: NoBounceBehavior(),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.white,
+            child: FutureBuilder(
+              future: getText(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData == false) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Error: ${snapshot.error}',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  );
+                } else {
+                  return SingleChildScrollView(
+                    child: SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32),
+                        child: Text(
+                          snapshot.data.toString(),
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+      );
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:thanks/components/animation/show_up.dart';
-import 'package:thanks/components/calendar.dart';
 import 'package:thanks/generated/i18n.dart';
 import 'package:thanks/models/internal.dart';
 import 'package:thanks/models/shared.dart';
@@ -34,10 +32,6 @@ class _DiaryPageState extends State<DiaryPage> {
 
   @override
   void initState() {
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) =>
-          visible ? panelController.hide() : panelController.show(),
-    );
     _dateTime = widget.dateTime;
     super.initState();
   }
@@ -327,53 +321,6 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
       );
 
-  // ignore: unused_element
-  Widget _buildPanel() {
-    switch (panelAction) {
-      case EditorAction.date:
-        final DateTime now = DateTime.now();
-        return FractionallySizedBox(
-          heightFactor: 1.125,
-          widthFactor: 1.05,
-          child: DatePickerWidget(
-            barrierDismissible: false,
-            maximumDate: DateTime.now(),
-            onApplyClick: (DateTime selectedDate) async {
-              if (DateTime(
-                selectedDate.year,
-                selectedDate.month,
-                selectedDate.day,
-              ).isAfter(DateTime(now.year, now.month, now.day)))
-                await showCupertinoDialog(
-                  context: context,
-                  builder: (BuildContext context) => CupertinoAlertDialog(
-                    content: Text("미래의 일기는 쓸 수 없어요!"),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text('확인'),
-                      ),
-                    ],
-                  ),
-                );
-              else {
-                setState(() {
-                  _dateTime = selectedDate;
-                });
-                panelController.close();
-              }
-            },
-          ),
-        );
-      case EditorAction.location:
-        return Center(child: Text("Location"));
-      case EditorAction.image:
-        return Center(child: Text("Image"));
-      default:
-        return Container();
-    }
-  }
-
   Future<Null> _save() async {
     await savePlainEntry(
       feelings: widget.feeling,
@@ -382,6 +329,8 @@ class _DiaryPageState extends State<DiaryPage> {
     );
 
     updateLatestWriting(_dateTime);
+
+    await Future.delayed(Duration(milliseconds: 100));
 
     Navigator.of(context).pop();
   }

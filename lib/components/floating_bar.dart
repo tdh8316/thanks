@@ -129,7 +129,6 @@ class _RoundedFloatingAppBarState extends State<RoundedFloatingAppBar>
   void _updateSnapConfiguration() {
     if (widget.snap && widget.floating) {
       _snapConfiguration = FloatingHeaderSnapConfiguration(
-        vsync: this,
         curve: Curves.easeOut,
         duration: const Duration(milliseconds: 200),
       );
@@ -196,7 +195,8 @@ class _FloatingAppBar extends StatefulWidget {
 
 // A wrapper for the widget created by _SliverAppBarDelegate that starts and
 /// stops the floating appbar's snap-into-view or snap-out-of-view animation.
-class _FloatingAppBarState extends State<_FloatingAppBar> {
+class _FloatingAppBarState extends State<_FloatingAppBar>
+    with SingleTickerProviderStateMixin {
   ScrollPosition _position;
 
   @override
@@ -217,8 +217,7 @@ class _FloatingAppBarState extends State<_FloatingAppBar> {
   }
 
   RenderSliverFloatingPersistentHeader _headerRenderer() {
-    return context.ancestorRenderObjectOfType(
-        const TypeMatcher<RenderSliverFloatingPersistentHeader>());
+    return context.findAncestorRenderObjectOfType();
   }
 
   void _isScrollingListener() {
@@ -226,11 +225,13 @@ class _FloatingAppBarState extends State<_FloatingAppBar> {
 
     // When a scroll stops, then maybe snap the appbar into view.
     // Similarly, when a scroll starts, then maybe stop the snap animation.
-    final RenderSliverFloatingPersistentHeader header = _headerRenderer();
-    if (_position.isScrollingNotifier.value)
+    final RenderSliverFloatingPersistentHeader header = _headerRenderer()
+      ..vsync = this;
+    if (_position.isScrollingNotifier.value) {
       header?.maybeStopSnapAnimation(_position.userScrollDirection);
-    else
+    } else {
       header?.maybeStartSnapAnimation(_position.userScrollDirection);
+    }
   }
 
   @override

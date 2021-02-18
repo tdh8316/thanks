@@ -192,6 +192,7 @@ class _ContentEditorState extends State<ContentEditor> {
         tag: widget.tag,
       );
     }
+    await Future.delayed(Duration(milliseconds: 100));
     Navigator.of(context).pop();
   }
 }

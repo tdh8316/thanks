@@ -1,10 +1,15 @@
 import 'dart:async';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:thanks/components/animation/show_up.dart';
 import 'package:thanks/models/coordinate.dart';
 import 'package:thanks/models/hex_color.dart';
+import 'package:thanks/services/export.dart';
 import 'package:thanks/services/statistic.dart';
 import 'package:thanks/services/storage.dart';
 import 'package:thanks/styles/colors.dart';
@@ -363,7 +368,6 @@ class _StatisticPageState extends State<StatisticPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           graphContainer,
-          /*
           Center(
             child: FractionallySizedBox(
               widthFactor: 0.875,
@@ -374,7 +378,6 @@ class _StatisticPageState extends State<StatisticPage> {
               ),
             ),
           ),
-          */
         ],
       ),
     );
@@ -389,112 +392,134 @@ class _StatisticPageState extends State<StatisticPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 256,
+              height: 128,
               child: Center(
-                child: Text("다음 업데이트를 기대해 주세요!"),
+                child: FlatButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ExportPage(),
+                    ),
+                  ),
+                  child: Text("일기 백업"),
+                ),
               ),
             ),
-            /*Row(
-              children: <Widget>[
-                Spacer(),
-                SizedBox(
-                  width: 150,
-                  child:null,
-                ),
-                Spacer(),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 28),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 8,
-                            width: 8,
-                            color: DefaultColorTheme.main.withOpacity(.95),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "좋아",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "나눔바른펜",
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 28),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 8,
-                            width: 8,
-                            color: DefaultColorTheme.main.withOpacity(.75),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "그저 그래",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "나눔바른펜",
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 28),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 8,
-                            width: 8,
-                            color: DefaultColorTheme.main.withOpacity(.5),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "슬퍼",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "나눔바른펜",
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 28),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 8,
-                            width: 8,
-                            color: DefaultColorTheme.main.withOpacity(.25),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "화나",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "나눔바른펜",
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 28),
-                    ],
-                  ),
-                ),
-                Spacer(),
-              ],
-            ),*/
           ],
         ),
       );
+}
+
+class ExportPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Center(
+                  child: Text(
+                    "이 기능은 사용자의 소중한 일기들을 보존하기 위한 임시방편으로 제작되었습니다.\n\n"
+                    "아직 내보낸 일기를 다시 불러올 수는 없습니다.",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: Text(
+                    "모든 일기를 텍스트로 변환하여 저장하려면\n'텍스트로 내보내기'를 선택해 주세요.",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  String content = await exportAll();
+                  try {
+                    await Share.share(content);
+                  } on MissingPluginException catch (_) {
+                    FlutterClipboard.copy(content);
+                    Flushbar(
+                      flushbarPosition: FlushbarPosition.TOP,
+                      message:
+                          "시스템 공유 플러그인을 찾을 수 없어 클립보드에 모든 일기를 복사했습니다. 원하는 곳에 붙여넣으세요.",
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 5),
+                      borderRadius: 8,
+                      margin: EdgeInsets.all(8),
+                    )..show(context);
+                  }
+                },
+                child: Text(
+                  "텍스트로 내보내기",
+                  style: TextStyle(color: DefaultColorTheme.main, fontSize: 24),
+                ),
+              ),
+              Text("경고: 텍스트로 내보낸 일기는 다시 불러올 수 없습니다."),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Center(
+                  child: Text(
+                    "일기를 날짜별로 파일에 저장하려면\n'파일로 내보내기'를 선택해 주세요.",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  String content = await exportAsFile();
+                  try {
+                    Share.shareFiles([content]);
+                  } on MissingPluginException catch (_) {
+                    Flushbar(
+                      flushbarPosition: FlushbarPosition.TOP,
+                      message: "오류: 시스템 공유 플러그인을 찾을 수 없습니다.",
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 5),
+                      borderRadius: 8,
+                      margin: EdgeInsets.all(8),
+                    )..show(context);
+                  }
+                },
+                child: Text(
+                  "파일로 내보내기",
+                  style: TextStyle(color: DefaultColorTheme.main, fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Center(
+                  child: Text(
+                    "파일로 내보낸 일기를 불러올 수 있습니다.\n추후 지원될 예정입니다.",
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  Flushbar(
+                    flushbarPosition: FlushbarPosition.TOP,
+                    message: "아직 사용할 수 없습니다.",
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                    borderRadius: 8,
+                    margin: EdgeInsets.all(8),
+                  )..show(context);
+                },
+                child: Text(
+                  "기존 일기 불러오기",
+                  style: TextStyle(color: DefaultColorTheme.main, fontSize: 24),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

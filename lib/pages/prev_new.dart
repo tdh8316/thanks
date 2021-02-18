@@ -181,7 +181,7 @@ class _PrevNewPageState extends State<PrevNewPage> {
                       children: <Widget>[
                         Text(
                           "${DateFormat("MMMM d").format(targetDate)}",
-                          style: Theme.of(context).textTheme.headline.copyWith(
+                          style: Theme.of(context).textTheme.headline5.copyWith(
                                 fontSize: 32,
                                 // color: DefaultStyle.backgroundedTextColor.withOpacity(.6),
                                 fontWeight: FontWeight.w700,

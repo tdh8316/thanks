@@ -71,7 +71,7 @@ class S implements WidgetsLocalizations {
 
   String get whatDoICallYou => "What do I call you?";
 
-  String titleDateFormat(String dayName) => "${dayName}, MMM dd, yyyy";
+  String titleDateFormat(String dayName) => "$dayName, MMM dd, yyyy";
 }
 
 class $ko_KR extends S {
@@ -156,7 +156,7 @@ class $ko_KR extends S {
   String get feelingAngryMessage => "화내지 마. 내가 다 들어줄게.";
 
   @override
-  String titleDateFormat(String dayName) => "yyyy. M. d. ${dayName}";
+  String titleDateFormat(String dayName) => "yyyy. M. d. $dayName";
 }
 
 class $en extends S {

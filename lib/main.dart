@@ -42,6 +42,8 @@ class MyApp extends StatelessWidget {
   }
 
   static Future<MyApp> getInstance() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
     // Set system overlay style
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

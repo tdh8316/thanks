@@ -1,4 +1,4 @@
-# [<img src="https://flutter.dev/assets/flutter-lockup-c13da9c9303e26b8d5fc208d2a1fa20c1ef47eb021ecadf27046dea04c0cebf6.png" height="32">](https://flutter.dev/)
+# [<img src="https://flutter.dev/assets/flutter-lockup-1caf6476beed76adec3c477586da54de6b552b2f42108ec5bc68dc63bae2df75.png" height="32">](https://flutter.dev/)
 
 [![Download](https://img.shields.io/badge/download-android-green?style=for-the-badge)](https://play.google.com/store/apps/details?id=io.github.tdh8316.thanks)
 
@@ -17,10 +17,10 @@ This project yet only supports Korean.
 # License
 이 프로젝트의 소스 코드는 `/lib` 경로의 파일들만 공개되며, `BSD 3-Clause License` 라이선스에 따라 사용하실 수 있습니다.
 
->Copyright 2019 `탁동혁`
+>Copyright 2021 `탁동혁`
 
 -------------------------------------------------------------------------------
 
 Licensed under the BSD 3-Clause License
 
->Copyright 2019 `Donghyeok Tak`
+>Copyright 2021 `Donghyeok Tak`

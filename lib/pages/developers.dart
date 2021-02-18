@@ -213,7 +213,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           style: FlutterLogoStyle.horizontal,
                           size: 128,
                         ),
-                        Text("This app takes filght with flutter."),
+                        Text("This app takes flight with flutter."),
                       ],
                     ),
                     Padding(

@@ -174,6 +174,8 @@ class _StoryBoardState extends State<StoryBoard> {
 
     updateLatestWriting(widget.dateTime);
 
+    await Future.delayed(Duration(milliseconds: 100));
+
     Navigator.of(context).pop();
   }
 }

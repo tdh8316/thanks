@@ -69,7 +69,7 @@ class Question extends StatelessWidget {
                 navigatorAction == null
                     ? S.of(context).howWasYourDay
                     : "이 날은 기분이 어땠어?",
-                style: Theme.of(context).textTheme.headline.copyWith(
+                style: Theme.of(context).textTheme.headline5.copyWith(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.1,

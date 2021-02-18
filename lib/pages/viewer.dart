@@ -118,17 +118,19 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                   fontSize: 16,
                 ),
               ),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ContentEditor(
-                    date: widget.date,
-                    body: dataMap[ItemElements.body.toString()],
-                    feeling: getFeelingTranslation(
-                        dataMap[ItemElements.feeling.toString()]),
-                    tag: dataMap[ItemElements.tag.toString()],
-                  ),
-                ),
-              ),
+              onPressed: () => Navigator.of(context)
+                  .push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ContentEditor(
+                        date: widget.date,
+                        body: dataMap[ItemElements.body.toString()],
+                        feeling: getFeelingTranslation(
+                            dataMap[ItemElements.feeling.toString()]),
+                        tag: dataMap[ItemElements.tag.toString()],
+                      ),
+                    ),
+                  )
+                  .then((value) => setState(() {})),
             ),
           ],
           elevation: 0,
@@ -200,7 +202,7 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
                         vertical: 8,
                       ),
                       child: Text(
-                        "'${dataMap[ItemElements.tag.toString()].split('.').last}'에 감사했어",
+                        "'${dataMap[ItemElements.tag.toString()].split('.').last}'에 감사했다",
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
@@ -254,6 +256,8 @@ class _PlainEntryViewerState extends State<PlainEntryViewer> {
       StaticSharedPreferences.prefs.remove("latestDate");
       print("Remove latestDate");
     }
+
+    await Future.delayed(Duration(milliseconds: 100));
 
     Navigator.of(context).pop();
     Flushbar(
